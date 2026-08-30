@@ -42,11 +42,15 @@ WeReadBar 住在你的菜单栏里，展示：
 
 1. **[下载最新 DMG](../../releases/latest)**
 2. 打开 DMG，把 **WeReadBar** 拖到 **/Applications**
-3. 在 /Applications 里**右键** `WeReadBar.app` → **打开** → 确认
+3. **首次启动 — macOS Gatekeeper 拦截**（只第一次）：
+   - 打开 **系统设置 → 隐私与安全性**
+   - 滚到最下面，看到「WeReadBar 已被阻止打开，因为无法验证其为开发者所写」
+   - 点右边的 **「仍要打开」**，再确认一次
+   - 之后双击 / 右键就直接打开，再也不问
 4. 提示时粘贴 **WeRead API bearer token**（在 [weread.qq.com/r/weread-skills](https://weread.qq.com/r/weread-skills) 获取）
 5. 点菜单栏的书本图标 🎉
 
-> **为什么要右键打开？** 这个 app 没有 Apple Developer ID 签名，macOS Gatekeeper 第一次会拦下来让你确认一次。之后就正常打开了。
+> **为什么有这一步？** 这个 app 没有 Apple Developer ID 签名（¥99/年的账号费），所以 macOS Gatekeeper 不认识它。点「仍要打开」是 macOS 给非商店 app 留的标准通道。一次之后 macOS 就记住你了。
 
 ---
 
