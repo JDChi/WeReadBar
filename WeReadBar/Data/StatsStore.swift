@@ -34,10 +34,11 @@ final class StatsStore: ObservableObject {
 
     // MARK: - Lifecycle
 
-    /// Runs on instantiation (i.e., when the App body first evaluates).
-    /// Loads any stored token and triggers a background refresh.
+    /// No-op init. Bootstrap is invoked explicitly by
+    /// `AppDelegate.applicationDidFinishLaunching` so the data pipeline
+    /// starts exactly once on launch.
     init() {
-        bootstrap()
+        // Intentionally empty — see bootstrap().
     }
 
     func bootstrap() {
