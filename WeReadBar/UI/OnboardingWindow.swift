@@ -9,6 +9,7 @@ struct OnboardingWindow: View {
     @State private var input: String = ""
     @State private var submitting: Bool = false
     @State private var inlineError: String?
+    @State private var isVisible: Bool = false
     @FocusState private var inputFocused: Bool
 
     var body: some View {
@@ -25,11 +26,33 @@ struct OnboardingWindow: View {
                 .foregroundStyle(.secondary)
                 .fixedSize(horizontal: false, vertical: true)
 
-            SecureField("wrk-xxxxxxxx", text: $input)
+            // Toggle between SecureField (default, hidden) and TextField (plain).
+            // The eye button on the right flips `isVisible`.
+            HStack(spacing: 6) {
+                Group {
+                    if isVisible {
+                        TextField("wrk-xxxxxxxx", text: $input)
+                    } else {
+                        SecureField("wrk-xxxxxxxx", text: $input)
+                    }
+                }
                 .textFieldStyle(.roundedBorder)
                 .focused($inputFocused)
                 .onChange(of: input) { _, _ in inlineError = nil }
                 .onSubmit { Task { await submit() } }
+
+                Button {
+                    isVisible.toggle()
+                    // Re-focus the field after toggling so the user can keep typing.
+                    inputFocused = true
+                } label: {
+                    Image(systemName: isVisible ? "eye.slash" : "eye")
+                        .frame(width: 22, height: 22)
+                }
+                .buttonStyle(.borderless)
+                .help(isVisible ? "Hide token" : "Show token")
+                .accessibilityLabel(isVisible ? "Hide token" : "Show token")
+            }
 
             if let inlineError {
                 Text(inlineError)
