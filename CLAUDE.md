@@ -2,7 +2,7 @@
 
 For full project guidance — architecture, key gotchas, file layout, smoke tests — see [AGENTS.md](./AGENTS.md). This file is just the Claude Code-specific pointer plus a few reminders.
 
-**Current scale**: 53-week heatmap (371 cells), 13-month data fetch, 600pt popover width, cell=9pt / spacing=1pt.
+**Current scale**: year-long GitHub-style heatmap, ~13-month data fetch, 600pt popover. Numeric constants live in `UI/HeatmapView.swift` and `Data/StatsStore.swift`; treat them as load-bearing for layout.
 
 ## Quick reminders for Claude
 

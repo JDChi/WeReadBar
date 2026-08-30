@@ -11,7 +11,7 @@ final class StatsStore: ObservableObject {
 
     // MARK: - Published state (UI-facing)
 
-    /// Last 182 calendar days, oldest first. Length = 26 weeks × 7 days.
+    /// Calendar days used by the heatmap, oldest first.
     @Published private(set) var days: [ReadingDay] = []
     @Published private(set) var todaySeconds: Int = 0
     @Published private(set) var streak: Int = 0

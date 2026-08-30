@@ -13,7 +13,7 @@ struct ReadingDay: Identifiable, Hashable {
     var id: Date { date }
 }
 
-/// Empty placeholder used to pad the heatmap to a fixed 26×7 = 182 grid.
+/// Empty placeholder used to pad the heatmap grid.
 extension ReadingDay {
     static let empty = ReadingDay(date: .distantPast, seconds: 0)
 }
