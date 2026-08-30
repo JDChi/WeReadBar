@@ -1,152 +1,118 @@
+<div align="center">
+
 # WeReadBar
 
-macOS menu-bar app that shows your WeRead (微信读书) reading stats — a GitHub-style contribution heatmap, today's minutes, current streak, shelf count, and the book you're currently reading.
+**A tiny macOS menubar app that shows your 微信读书 (WeRead) reading stats at a glance.**
 
-> Personal utility. Built on the official [`Tencent/WeChatReading`](https://github.com/Tencent/WeChatReading) agent skill for data access.
+[📥 **Download**](../../releases/latest) · [⭐ Star](../../stargazers) · [🐛 Report a bug](../../issues)
 
-## Download
+</div>
 
-Grab the latest DMG from the [Releases page](../../releases/latest).
+---
 
-### First-time install
+## What is it?
 
-1. Download `WeReadBar-x.y.z.dmg` from the latest release
-2. Open it, drag `WeReadBar` to `/Applications`
-3. **Right-click** `WeReadBar.app` in `/Applications` → **Open**
-4. Click **Open** in the confirmation dialog
+WeReadBar lives in your menubar and shows:
 
-After that macOS remembers your choice and the app opens normally.
-Re-do this only if you delete the app and reinstall.
+- **A year-long heatmap** of when you read — like GitHub's contribution graph, but for books
+- **Today's minutes**, **current streak**, **shelf total** — three numbers, one glance
+- **Weekly total** for the current Mon–Sun week
+- **Currently reading** book when nothing else is happening
 
-If a future macOS update tightens Gatekeeper, the maintainer will
-re-sign and ship a new release — just download again.
+Click the book icon to see the popover. Right-click for menu (Refresh / Go to Reading / Change API key / Quit). That's the whole app.
 
-## What it looks like
+Built because opening weweread.qq.com in a browser just to check your streak is too many steps.
 
-Click the book icon in the menu bar → a 600×pt popover appears with:
+![Screenshot placeholder](docs/screenshot-popover.png)
 
-- **Heatmap**: GitHub-style year-long contribution graph (4-bucket blue scale, brand color `#1b88ee`, 9pt cells). Month labels above, Mon/Wed/Fri gutter on the left.
-- **Today**: minutes read today.
-- **Streak**: consecutive days with ≥ 60 s of reading.
-- **Shelf**: total items in your shelf (`books + albums + mp`).
-- **This week**: total reading time in the current Mon–Sun calendar week.
-- Right-click the icon for **Refresh / Clear API key / Quit**.
+---
 
-## Requirements
+## Features
 
-- macOS 14 (Sonoma) or later
-- Xcode 16+ command-line tools (Swift 5.9+)
-- A WeRead API bearer token (`wrk-xxxxxxxx`). Get one at https://weread.qq.com/r/weread-skills
+- 📊 **Year-long heatmap** — every day of the last 53 weeks, color-coded by minutes read
+- 🔥 **Streak counter** — current consecutive-day streak
+- 📚 **Shelf total** — books + albums + 公众号 in your WeRead shelf
+- ⏱ **Today's minutes** — how much you've read so far today
+- 📅 **This week** — running Mon–Sun total
+- 🌍 **三语支持 / Multilingual** — English, 简体中文, 繁體中文 (follows your system language)
+- 🔐 **Keychain-stored** — your API token stays in macOS Keychain, never leaves your machine
+- 🚫 **No Dock icon, no menu bar menu** — truly invisible until you need it
 
-## Build
+---
 
+## Install
+
+Requires **macOS 14 (Sonoma)** or later and a WeRead account.
+
+1. **[Download the latest DMG](../../releases/latest)**
+2. Open the DMG, drag **WeReadBar** to **/Applications**
+3. **Right-click** `WeReadBar.app` in `/Applications` → **Open** → confirm
+4. Paste your **WeRead API bearer token** when prompted (get one at [weread.qq.com/r/weread-skills](https://weread.qq.com/r/weread-skills))
+5. Click the book icon in your menubar 🎉
+
+> **Why the right-click step?** The app is signed without an Apple Developer ID, so macOS Gatekeeper asks you to confirm once. After that it opens normally.
+
+---
+
+## Privacy
+
+- **Network**: WeReadBar only talks to `i.weread.qq.com` (WeRead's official API gateway). No analytics, no telemetry, no third-party services.
+- **Credentials**: Your API token is stored in the macOS Keychain (entry `com.local.wereadbar.apikey`). It's never read by anything except this app.
+- **Disk cache**: None. Every refresh re-fetches from WeRead.
+- **Source**: Fully open. Read it, audit it, fork it.
+
+---
+
+## FAQ
+
+<details>
+<summary><b>Why does the API token matter?</b></summary>
+
+WeReadBar talks to WeRead's data gateway the same way the official 微信读书 Claude Skill does — you provide a bearer token (the same format `wrk-xxxxxxxx`) and the app reads your shelf, reading time, and current book. Without a token, the app can't fetch your data.
+
+Get one at [weread.qq.com/r/weread-skills](https://weread.qq.com/r/weread-skills).
+</details>
+
+<details>
+<summary><b>Does this drain my battery or slow my Mac?</b></summary>
+
+No. The app sits idle in your menubar consuming <1% CPU and ~50 MB RAM. It refreshes every 30 minutes only while the popover is open, and stops polling the moment you close it.
+</details>
+
+<details>
+<summary><b>Can I uninstall it cleanly?</b></summary>
+
+Yes. Drag `WeReadBar.app` from `/Applications` to the Trash. To wipe the stored token too:
 ```bash
-# One-time: install xcodegen if you don't have it
-brew install xcodegen
-
-# Generate the Xcode project from project.yml
-cd ~/develop/weread-dashboard
-xcodegen generate
-
-# Build (unsigned / ad-hoc, sandbox off)
-xcodebuild \
-  -project WeReadBar.xcodeproj \
-  -scheme WeReadBar \
-  -configuration Debug \
-  -destination 'platform=macOS' \
-  CODE_SIGN_IDENTITY=- \
-  CODE_SIGNING_REQUIRED=NO \
-  CODE_SIGNING_ALLOWED=NO \
-  build
-
-# Or just open the project in Xcode and hit ⌘R
-open WeReadBar.xcodeproj
+security delete-generic-password -s "com.local.wereadbar.apikey"
 ```
+</details>
 
-The built `.app` lives under `~/Library/Developer/Xcode/DerivedData/WeReadBar-*/Build/Products/Debug/`.
+<details>
+<summary><b>How does the heatmap data get built?</b></summary>
 
-## Run
+The WeRead API only returns per-day data in narrow windows, not a full year. WeReadBar stitches 13 monthly fetches together (~1 second total) to fill the year-long grid. On macOS this all happens in the background — the app shows a skeleton while it loads, then cross-fades into the real heatmap.
+</details>
 
-```bash
-open ~/Library/Developer/Xcode/DerivedData/WeReadBar-*/Build/Products/Debug/WeReadBar.app
-```
+<details>
+<summary><b>Why is the icon a closed book?</b></summary>
 
-The book icon (`book.closed.fill`) appears in your menu bar. **No Dock icon** — the app runs as a `LSUIElement` accessory.
+It just felt right. SF Symbol `book.closed.fill`, auto-tinted to match your menubar's light/dark mode.
+</details>
 
-First launch will pop a sheet asking for your WeRead bearer token. It's stored in the macOS Keychain and only ever read by this app.
+---
 
-## Data flow
+## Credits
 
-- All WeRead data comes from the official gateway at `https://i.weread.qq.com/api/agent/gateway` (Bearer auth).
-- The heatmap uses 7 consecutive `/readdata/detail?mode=monthly&baseTime=<month-start>` calls stitched together — the API does not return per-day data for a full year.
-- Streak walks backwards from today; a day counts iff the user read ≥ 60 s (matches server-side `readDays`).
+- **Data**: [微信读书 (WeRead)](https://weread.qq.com/) — Tencent's reading app
+- **API gateway**: [Tencent/WeChatReading](https://github.com/Tencent/WeChatReading) — the official Claude Skill this app is built on top of
+- **Built with**: Swift + SwiftUI, native AppKit menubar integration
+- **License**: MIT
 
-## Debug
+---
 
-Force the monthly-stitching fallback (skip the annual fast-path) for testing:
+<div align="center">
 
-```bash
-WEREADBAR_FORCE_MONTHLY=1 open /path/to/WeReadBar.app
-```
+If you find WeReadBar useful, a ⭐ on GitHub helps others discover it.
 
-## Project layout
-
-```
-~/develop/weread-dashboard/
-├── project.yml                          xcodegen config
-├── WeReadBar.xcodeproj/                 generated by xcodegen
-├── WeReadBar/
-│   ├── App/
-│   │   ├── WeReadBarApp.swift           @main; MenuBarExtra scene
-│   │   └── AppDelegate.swift            NSApplicationDelegate
-│   ├── UI/
-│   │   ├── PopoverView.swift            popover root
-│   │   ├── HeatmapView.swift            GitHub-style grid
-│   │   ├── StatTile.swift               title+value card
-│   │   ├── SummaryLine.swift            week summary / current book
-│   │   ├── OnboardingSheet.swift        API-key entry
-│   │   └── ErrorBanner.swift            red error row
-│   ├── Data/
-│   │   ├── ReadingDay.swift             model: date + seconds
-│   │   ├── BookSummary.swift            model: book summary
-│   │   ├── ShelfResponse.swift          /shelf/sync decoder
-│   │   ├── ReadDataResponse.swift       /readdata/detail decoder
-│   │   ├── WeReadClient.swift           actor; URLSession transport
-│   │   └── StatsStore.swift             @MainActor; pipeline + UI state
-│   ├── Security/
-│   │   └── Keychain.swift               SecItem wrapper
-│   └── Resources/
-│       └── Info.plist                   LSUIElement, bundle id, etc.
-└── README.md                             this file
-```
-
-## v1 limitations
-
-- Local-only. No code signing, no notarization, no App Store submission.
-- No Sandbox / entitlements. Run ad-hoc.
-- Single WeRead account (Keychain `account = "default"`).
-- No on-disk cache — every refresh re-hits the gateway.
-- No auto-update, no notifications, no global hotkey.
-- English UI only.
-
-## Clean up
-
-```bash
-# Remove the .app from your system (it was a one-off build, no /Applications install)
-killall WeReadBar 2>/dev/null
-rm -rf ~/Library/Developer/Xcode/DerivedData/WeReadBar-*
-
-# Wipe the stored token (or right-click the menu-bar icon → Clear API key…)
-security delete-generic-password -s "com.local.wereadbar.apikey" 2>/dev/null
-```
-
-## Tech
-
-- Swift 5.9 + SwiftUI
-- macOS 14 deployment target
-- `MenuBarExtra(.window)` (no AppKit `NSStatusItem` plumbing needed)
-- `.regularMaterial` for native vibrancy
-- `actor` + `async/await` for the WeRead client
-- `ObservableObject` for UI state
-- Keychain Services (no env-var shortcuts) for the bearer token
-- ~900 lines of Swift total
+</div>
