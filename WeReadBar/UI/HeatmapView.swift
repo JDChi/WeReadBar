@@ -24,7 +24,31 @@ struct HeatmapView: View {
     private let gutterWidth: CGFloat = 26
     private let monthLabelHeight: CGFloat = 14
 
+    /// True iff we have at least one real (non-placeholder) day to render.
+    /// Used to switch between skeleton and real-heatmap modes.
+    private var hasData: Bool {
+        days.contains { $0.date != .distantPast }
+    }
+
     var body: some View {
+        Group {
+            if hasData {
+                realHeatmap
+            } else {
+                SkeletonHeatmap(
+                    cellSize: cellSize,
+                    spacing: spacing,
+                    columns: columns,
+                    rows: rows,
+                    gutterWidth: gutterWidth,
+                    monthLabelHeight: monthLabelHeight
+                )
+            }
+        }
+        .frame(height: monthLabelHeight + cellSize * CGFloat(rows) + spacing * CGFloat(rows - 1))
+    }
+
+    private var realHeatmap: some View {
         // Pad to exactly 371; missing entries render as empty placeholders.
         let padded: [ReadingDay] = {
             if days.count >= gridSize {
@@ -33,7 +57,7 @@ struct HeatmapView: View {
             return days + Array(repeating: .empty, count: gridSize - days.count)
         }()
 
-        VStack(alignment: .leading, spacing: 2) {
+        return VStack(alignment: .leading, spacing: 2) {
             monthLabelsRow(weeks: weeks(padded))
             HStack(alignment: .top, spacing: spacing) {
                 weekdayLabels
@@ -50,7 +74,6 @@ struct HeatmapView: View {
                 }
             }
         }
-        .frame(height: monthLabelHeight + cellSize * CGFloat(rows) + spacing * CGFloat(rows - 1))
     }
 
     /// Groups the 371 flat entries into 53 weeks (each = 7 days, oldest first).
