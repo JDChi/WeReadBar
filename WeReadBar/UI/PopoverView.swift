@@ -9,6 +9,14 @@ struct PopoverView: View {
     private let timer = Timer.publish(every: 1800, on: .main, in: .common).autoconnect()
     @State private var pollTimerOn = false
 
+    /// Icon-slot spinner shows when we're either actively refreshing OR
+    /// haven't successfully loaded data yet (first launch, cleared key,
+    /// or a failed refresh leaving days empty). Keeps the Refresh button
+    /// visually consistent with the skeleton heatmap state.
+    private var buttonShowsSpinner: Bool {
+        store.isLoading || !store.hasData
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             if let err = store.lastError {
@@ -36,8 +44,10 @@ struct PopoverView: View {
             SummaryLine(store: store)
 
             HStack {
-                // Single source of loading state: the Refresh button itself
-                // swaps its icon for a spinner while a refresh is in flight.
+                // Spinner shows whenever we don't yet have data to display —
+                // covers both "refresh in flight" (isLoading=true) and
+                // "no usable data yet" (hasData=false, e.g. first launch
+                // before bootstrap or after the user clears the API key).
                 Button {
                     Task { await store.refresh() }
                 } label: {
@@ -47,11 +57,11 @@ struct PopoverView: View {
                         // occupy the same ZStack position; only opacity changes.
                         ZStack {
                             Image(systemName: "arrow.clockwise")
-                                .opacity(store.isLoading ? 0 : 1)
+                                .opacity(buttonShowsSpinner ? 0 : 1)
                             ProgressView()
                                 .controlSize(.small)
                                 .scaleEffect(0.7)
-                                .opacity(store.isLoading ? 1 : 0)
+                                .opacity(buttonShowsSpinner ? 1 : 0)
                         }
                         .frame(width: 13, height: 13)
                         Text("Refresh")
@@ -59,6 +69,9 @@ struct PopoverView: View {
                     .font(.caption)
                 }
                 .controlSize(.small)
+                // Only disable while a refresh is actually in flight; if data
+                // is just missing (no key, last refresh failed) keep it
+                // clickable so the user can retry manually.
                 .disabled(store.isLoading)
 
                 Spacer()

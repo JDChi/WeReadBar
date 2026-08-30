@@ -22,6 +22,13 @@ final class StatsStore: ObservableObject {
     @Published private(set) var lastError: String? = nil
     @Published var needsAPIKey: Bool = false
 
+    /// True iff `days` has at least one real (non-placeholder) entry.
+    /// Independent of `isLoading`: a refresh that hasn't completed yet, or
+    /// one that returned no usable data, both leave `hasData == false`.
+    var hasData: Bool {
+        days.contains { $0.date != .distantPast }
+    }
+
     // MARK: - Dependencies
 
     private var client: WeReadClient?
