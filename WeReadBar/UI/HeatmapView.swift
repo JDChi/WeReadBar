@@ -72,10 +72,11 @@ struct HeatmapView: View {
         return result
     }
 
-    /// Top row: month name shown only at the leading edge of the first column
-    /// of each new month. Empty columns are not rendered (no placeholders).
-    /// Labels are positioned with absolute `offset()` so they sit precisely at
-    /// the start of their column regardless of label text width.
+    /// Top row: month name shown only at the column whose week contains the
+    /// 1st of a month, then filtered by a minimum spacing to prevent overlap.
+    /// Algorithm mirrors GitHub's contribution graph:
+    ///   1. Find each week that contains day-1 of some month.
+    ///   2. Greedily keep labels that are at least `minSpacingWeeks` apart.
     private func monthLabelsRow(weeks: [[ReadingDay]]) -> some View {
         let entries = collectMonthLabels(weeks: weeks)
         let totalWidth = monthLabelsRowWidth()
@@ -94,13 +95,34 @@ struct HeatmapView: View {
         return gutterWidth + spacing + CGFloat(columns) * cellSize + CGFloat(columns - 1) * spacing
     }
 
-    /// Pre-computed (weekIdx, label) pairs for non-empty labels.
+    /// Minimum number of weeks between adjacent month labels to avoid visual overlap.
+    /// 3 weeks × 10pt = 30pt of breathing room, comfortably wider than any 3-letter month name.
+    private static let minSpacingWeeks = 3
+
+    /// Pre-computed (weekIdx, label) pairs after applying GitHub's algorithm.
     private func collectMonthLabels(weeks: [[ReadingDay]]) -> [MonthLabelEntry] {
-        var result: [MonthLabelEntry] = []
+        let cal = Calendar.current
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM"
+
+        // Step 1: candidate = first week that contains day-1 of a given month.
+        var candidates: [(weekIdx: Int, label: String)] = []
         for weekIdx in 0..<columns {
-            let label = monthLabel(for: weeks, weekIdx: weekIdx)
-            if !label.isEmpty {
+            for day in weeks[weekIdx] where day.date != .distantPast {
+                if cal.component(.day, from: day.date) == 1 {
+                    candidates.append((weekIdx, formatter.string(from: day.date)))
+                    break  // one label per week max
+                }
+            }
+        }
+
+        // Step 2: greedy minimum-spacing filter.
+        var result: [MonthLabelEntry] = []
+        var lastWeekIdx = -Self.minSpacingWeeks
+        for (weekIdx, label) in candidates {
+            if weekIdx - lastWeekIdx >= Self.minSpacingWeeks {
                 result.append(MonthLabelEntry(weekIdx: weekIdx, label: label))
+                lastWeekIdx = weekIdx
             }
         }
         return result
@@ -114,25 +136,6 @@ struct HeatmapView: View {
             .foregroundStyle(.tertiary)
             .fixedSize()
             .offset(x: xOffset)
-    }
-
-    /// Returns the month abbreviation when this week is the first one in a new
-    /// month; otherwise empty string. Uses the week's first non-empty day.
-    private func monthLabel(for weeks: [[ReadingDay]], weekIdx: Int) -> String {
-        guard let firstDay = weeks[weekIdx].first(where: { $0.date != .distantPast }) else {
-            return ""
-        }
-        // Compare against the previous week's first non-empty day.
-        if weekIdx > 0,
-           let prevDay = weeks[weekIdx - 1].first(where: { $0.date != .distantPast }) {
-            let cal = Calendar.current
-            let prevMonth = cal.component(.month, from: prevDay.date)
-            let thisMonth = cal.component(.month, from: firstDay.date)
-            if prevMonth == thisMonth { return "" }
-        }
-        let f = DateFormatter()
-        f.dateFormat = "MMM"
-        return f.string(from: firstDay.date)
     }
 
     /// Mon / Wed / Fri gutter.
