@@ -332,7 +332,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Paste the bearer token from i.weread.qq.com. It’s stored in the macOS Keychain and only ever read by this app."
+            "value" : "Paste the bearer token from i.weread.qq.com. It’s stored in macOS preferences and only ever read by this app."
           }
         },
         "zh-Hans" : {

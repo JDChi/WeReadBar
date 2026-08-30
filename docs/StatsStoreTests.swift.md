@@ -2,14 +2,14 @@ import XCTest
 @testable import WeReadBar
 
 /// Tests for `StatsStore`'s pure helpers. These run without a network
-/// or Keychain — they exercise the local data transformations that
+/// or  they exercise the local data transformations that
 /// underpin the heatmap and stat tiles.
 @MainActor
 final class StatsStoreTests: XCTestCase {
 
     // MARK: - Helpers
 
-    /// Build a StatsStore that has never called `bootstrap()` (no Keychain
+    /// Build a StatsStore that has never called `bootstrap()` (no token
     /// access). The class only needs the calendar and a fresh days array.
     private func makeStore() -> StatsStore {
         StatsStore()

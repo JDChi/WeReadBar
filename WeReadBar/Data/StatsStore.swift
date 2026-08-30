@@ -49,16 +49,6 @@ final class StatsStore: ObservableObject {
     init() {}
 
     func bootstrap() {
-        // One-time migration: if there's a token in the legacy Keychain
-        // location but nothing in UserDefaults yet, copy it over so
-        // existing installs don't have to re-paste after this upgrade.
-        // After this runs once, the Keychain entry is removed.
-        if TokenStore.load() == nil, let legacy = Keychain.load() {
-            wrLog.info("bootstrap: migrating token from Keychain → UserDefaults")
-            TokenStore.save(legacy)
-            Keychain.clear()
-        }
-
         if let token = TokenStore.load() {
             wrLog.info("bootstrap: UserDefaults has token (len=\(token.count))")
             client = WeReadClient(apiKey: token)
@@ -112,9 +102,9 @@ final class StatsStore: ObservableObject {
         await task.value
     }
 
-    /// Wipes Keychain + local state. For the right-click "Clear API key" action.
+    /// Wipes the stored token + local state. For the right-click "Change API key" menu item.
     func clearAPIKey() {
-        Keychain.clear()
+        TokenStore.clear()
         client = nil
         needsAPIKey = true
         days = []

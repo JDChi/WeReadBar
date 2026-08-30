@@ -76,7 +76,7 @@ struct OnboardingWindow: View {
         // previous session). Then auto-focus the field.
         .task {
             if input.isEmpty {
-                input = Keychain.load() ?? ""
+                input = TokenStore.load() ?? ""
             }
             try? await Task.sleep(nanoseconds: 150_000_000)
             inputFocused = true

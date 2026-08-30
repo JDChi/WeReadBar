@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		16E357AD3E12486EC206BFB7 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F31DE7497B3512E3F7F860A /* Keychain.swift */; };
 		24BAF2B629D65572BC3AAD30 /* StatTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C686A4E9C240E1ECCE39DA /* StatTile.swift */; };
 		36B227D1503B8963BB20B107 /* ReadingDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AF0D56B5DDEE431FFF3669 /* ReadingDay.swift */; };
 		4ED261612F7DCF5ED089FAA3 /* MenuBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B813B213BCF2FA03A9A0829 /* MenuBarController.swift */; };
@@ -42,7 +41,6 @@
 		696898968E4C8BAA3BD95C88 /* HeatmapLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeatmapLayout.swift; sourceTree = "<group>"; };
 		76FB302925FC1DFE0787BE61 /* PopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverView.swift; sourceTree = "<group>"; };
 		7B813B213BCF2FA03A9A0829 /* MenuBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarController.swift; sourceTree = "<group>"; };
-		7F31DE7497B3512E3F7F860A /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		9A28F4321384A614EBC48A76 /* OnboardingWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingWindow.swift; sourceTree = "<group>"; };
 		9B87C41A8168619121C5CBFA /* ReadDataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadDataResponse.swift; sourceTree = "<group>"; };
 		9FEEC9F87035452CF7F0FF00 /* OnboardingWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingWindowController.swift; sourceTree = "<group>"; };
@@ -108,7 +106,6 @@
 		903BF5AA9BCAEC250DC3D881 /* Security */ = {
 			isa = PBXGroup;
 			children = (
-				7F31DE7497B3512E3F7F860A /* Keychain.swift */,
 				BD113A91D086C23D091D3646 /* TokenStore.swift */,
 			);
 			path = Security;
@@ -221,7 +218,6 @@
 				C1317A1EDF22894B0920D999 /* ErrorBanner.swift in Sources */,
 				F21758FB350C63E75EEF10E9 /* HeatmapLayout.swift in Sources */,
 				910D0B8F21D3E870638F8895 /* HeatmapView.swift in Sources */,
-				16E357AD3E12486EC206BFB7 /* Keychain.swift in Sources */,
 				4ED261612F7DCF5ED089FAA3 /* MenuBarController.swift in Sources */,
 				BE3D3A990AD9BF26EE79203D /* OnboardingWindow.swift in Sources */,
 				588A35B7F08A5F826BB305A2 /* OnboardingWindowController.swift in Sources */,

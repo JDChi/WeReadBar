@@ -46,7 +46,7 @@ WeReadBar/
     ShelfResponse.swift             # /shelf/sync decoder
     ReadDataResponse.swift          # /readdata/detail decoder
   Security/
-    Keychain.swift                  # SecItem wrapper for the bearer token
+    TokenStore.swift                # UserDefaults wrapper for the bearer token
   Resources/
     Info.plist                      # LSUIElement=YES, bundle id, etc.
 README.md                           # human-facing usage docs
@@ -58,7 +58,7 @@ README.md                           # human-facing usage docs
 - **State**: `Data/StatsStore.swift` is the `@MainActor ObservableObject` source of truth. Owns the `WeReadClient` and orchestrates the heatmap pipeline. All `@Published` properties are `private(set)` — views observe but don't mutate directly.
 - **Network**: `Data/WeReadClient.swift` is an `actor` wrapping `URLSession`. Single endpoint (`https://i.weread.qq.com/api/agent/gateway`), all params flat in the JSON body.
 - **Onboarding**: `App/OnboardingWindowController.swift` owns a real `NSWindow` (NOT a SwiftUI `Window` scene — that one has a "can't reopen after user closes it" bug). See *Key gotchas* #7.
-- **Keychain**: `Security/Keychain.swift` stores the bearer token. Never read from env vars or `.zshrc` — this is an accessory app with no shell environment.
+- **Token storage**: `Security/TokenStore.swift` persists the bearer token in macOS preferences (UserDefaults key `WeReadBar.apiToken`, plist at `~/Library/Preferences/com.local.wereadbar.plist`). Never read from env vars or `.zshrc` — this is an accessory app with no shell environment.
 
 ## Data pipeline (StatsStore.performRefresh)
 
@@ -122,7 +122,7 @@ sleep 6 && killall WeReadBar
 ```
 
 The log output should show:
-- `bootstrap: Keychain has token (len=28)` (or `no token` if first run)
+- `bootstrap: UserDefaults has token (len=28)` (or `no token found` if first run)
 - `performRefresh: shelf isOK=true, books=788, mp=true`
 - `performRefresh: annual isOK=true, dailyReadTimes=-1, readTimes=12`
 - 7× `stitch monthly baseTime=<ts>: got <N> keys` with contiguous baseTimes

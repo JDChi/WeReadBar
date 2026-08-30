@@ -11,7 +11,7 @@ For full project guidance — architecture, key gotchas, file layout, smoke test
 - **Headless compile check**: `xcodebuild -project WeReadBar.xcodeproj -scheme WeReadBar -configuration Debug -destination 'platform=macOS' CODE_SIGN_IDENTITY=- CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO build`
 - **After editing `project.yml`**: re-run `xcodegen generate`.
 - **API contract** (read [`AGENTS.md` §Key gotchas](./AGENTS.md#key-gotchas--do-not-fix-these) before changing the data layer): single gateway endpoint, Bearer auth, **all params flat in the JSON body**, every request must include `skill_version: "1.0.4"`.
-- **Bearer token storage**: macOS preferences (UserDefaults key `WeReadBar.apiToken`, plist at `~/Library/Preferences/com.local.wereadbar.plist`). Was previously Keychain — switched because ad-hoc signed apps trigger a Keychain password prompt on every read. Migration runs once on bootstrap: if Keychain has a token and UserDefaults doesn't, copy over and delete from Keychain. Never read from env vars — accessory apps have no shell environment.
+- **Bearer token storage**: macOS preferences (UserDefaults key `WeReadBar.apiToken`, plist at `~/Library/Preferences/com.local.wereadbar.plist`). Never read from env vars — accessory apps have no shell environment.
 
 ## When stuck
 

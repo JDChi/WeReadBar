@@ -35,7 +35,7 @@ Built because opening weweread.qq.com in a browser just to check your streak is 
 - ⏱ **Today's minutes** — how much you've read so far today
 - 📅 **This week** — running Mon–Sun total
 - 🌍 **三语支持 / Multilingual** — English, 简体中文, 繁體中文 (follows your system language)
-- 🔐 **Saved locally** — your API token lives in macOS preferences, no Keychain prompts
+- 🔐 **Saved locally** — your API token lives in macOS preferences
 - 🚫 **No Dock icon, no menu bar menu** — truly invisible until you need it
 
 ---
