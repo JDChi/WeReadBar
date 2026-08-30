@@ -84,7 +84,7 @@ WEREADBAR_FORCE_MONTHLY=1 open /path/to/WeReadBar.app
 │   │   └── AppDelegate.swift            NSApplicationDelegate
 │   ├── UI/
 │   │   ├── PopoverView.swift            popover root
-│   │   ├── HeatmapView.swift            26×7 grid
+│   │   ├── HeatmapView.swift            GitHub-style grid
 │   │   ├── StatTile.swift               title+value card
 │   │   ├── SummaryLine.swift            week summary / current book
 │   │   ├── OnboardingSheet.swift        API-key entry
