@@ -31,9 +31,12 @@ struct HeatmapView: View {
     }
 
     var body: some View {
+        // Cross-fade between skeleton and real heatmap when `hasData` flips.
+        // Wrapping in `Group` is required for `.transition(_:)` to fire — direct
+        // `if`/`else` branches inside `body` swap without animation.
         Group {
             if hasData {
-                realHeatmap
+                realHeatmap.transition(.opacity)
             } else {
                 SkeletonHeatmap(
                     cellSize: cellSize,
@@ -43,9 +46,11 @@ struct HeatmapView: View {
                     gutterWidth: gutterWidth,
                     monthLabelHeight: monthLabelHeight
                 )
+                .transition(.opacity)
             }
         }
         .frame(height: monthLabelHeight + cellSize * CGFloat(rows) + spacing * CGFloat(rows - 1))
+        .animation(.easeInOut(duration: 0.18), value: hasData)
     }
 
     private var realHeatmap: some View {
