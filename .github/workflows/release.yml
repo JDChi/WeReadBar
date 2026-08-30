@@ -33,10 +33,11 @@ jobs:
       - name: Upload DMG to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: WeReadBar-*.dmg
+          # DMGs are produced under dist/ by scripts/build-dmg.sh — the
+          # script's gitignored output directory. Glob includes the
+          # subdir so the artifact is found at the expected path.
+          files: dist/WeReadBar-*.dmg
           fail_on_unmatched_files: true
           generate_release_notes: true
-          # Mark the uploaded DMG as the "latest" so it shows up first
-          # on the Releases page for casual visitors.
           prerelease: false
           draft: false
