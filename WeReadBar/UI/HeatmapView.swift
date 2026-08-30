@@ -3,13 +3,13 @@ import SwiftUI
 /// GitHub-style heatmap: 53 columns (weeks) × 7 rows (days) = 371 cells.
 /// `days` should be length 371, oldest first.
 ///
-/// Layout math for a 380pt popover (content area 356pt):
-///   weekday gutter (22pt) + 53 cells × 5pt + 52 gaps × 1pt
-///   = 22 + 265 + 52 = 339pt   (17pt breathing room)
+/// Layout math for a 480pt popover (content area 456pt):
+///   weekday gutter (22pt) + 53 cells × 7pt + 52 gaps × 1pt
+///   = 22 + 371 + 52 = 445pt   (11pt breathing room)
 struct HeatmapView: View {
     let days: [ReadingDay]
 
-    private let cellSize: CGFloat = 5
+    private let cellSize: CGFloat = 7
     private let spacing: CGFloat = 1
     private let columns = 53
     private let rows = 7
@@ -105,7 +105,7 @@ struct HeatmapView: View {
         VStack(alignment: .trailing, spacing: spacing) {
             ForEach(0..<rows, id: \.self) { row in
                 Text(weekdayLabel(for: row))
-                    .font(.system(size: 7))
+                    .font(.system(size: 8))
                     .foregroundStyle(.tertiary)
                     .frame(width: gutterWidth, height: cellSize, alignment: .trailing)
             }

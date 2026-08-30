@@ -6,9 +6,9 @@ macOS menu-bar app that shows your WeRead (微信读书) reading stats — a 53-
 
 ## What it looks like
 
-Click the book icon in the menu bar → a 380×pt popover appears with:
+Click the book icon in the menu bar → a 480×pt popover appears with:
 
-- **Heatmap**: 53 weeks × 7 days of reading intensity (4-bucket blue scale, brand color `#1b88ee`). Month labels above, Mon/Wed/Fri gutter on the left.
+- **Heatmap**: 53 weeks × 7 days of reading intensity (4-bucket blue scale, brand color `#1b88ee`, 7pt cells). Month labels above, Mon/Wed/Fri gutter on the left.
 - **Today**: minutes read today.
 - **Streak**: consecutive days with ≥ 60 s of reading.
 - **Shelf**: total items in your shelf (`books + albums + mp`).

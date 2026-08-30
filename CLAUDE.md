@@ -2,7 +2,7 @@
 
 For full project guidance — architecture, key gotchas, file layout, smoke tests — see [AGENTS.md](./AGENTS.md). This file is just the Claude Code-specific pointer plus a few reminders.
 
-**Current scale**: 53-week heatmap (371 cells), 13-month data fetch, 380pt popover width, cell=5pt / spacing=1pt.
+**Current scale**: 53-week heatmap (371 cells), 13-month data fetch, 480pt popover width, cell=7pt / spacing=1pt.
 
 ## Quick reminders for Claude
 

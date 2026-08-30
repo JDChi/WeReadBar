@@ -16,7 +16,7 @@ struct PopoverView: View {
             }
 
             HeatmapView(days: store.days)
-                .frame(height: 58)
+                .frame(height: 72)
                 .overlay {
                     if store.isLoading && store.days.isEmpty {
                         ProgressView().controlSize(.small)
@@ -63,7 +63,7 @@ struct PopoverView: View {
             }
         }
         .padding(12)
-        .frame(width: 380)
+        .frame(width: 480)
         .background(.regularMaterial)
         .onReceive(timer) { _ in
             if pollTimerOn { Task { await store.refresh() } }
