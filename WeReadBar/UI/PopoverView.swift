@@ -42,13 +42,18 @@ struct PopoverView: View {
                     Task { await store.refresh() }
                 } label: {
                     HStack(spacing: 4) {
-                        if store.isLoading {
+                        // Reserve a fixed-width icon slot so the layout doesn't
+                        // jiggle when the arrow swaps for a spinner. Both views
+                        // occupy the same ZStack position; only opacity changes.
+                        ZStack {
+                            Image(systemName: "arrow.clockwise")
+                                .opacity(store.isLoading ? 0 : 1)
                             ProgressView()
                                 .controlSize(.small)
                                 .scaleEffect(0.7)
-                        } else {
-                            Image(systemName: "arrow.clockwise")
+                                .opacity(store.isLoading ? 1 : 0)
                         }
+                        .frame(width: 13, height: 13)
                         Text("Refresh")
                     }
                     .font(.caption)
