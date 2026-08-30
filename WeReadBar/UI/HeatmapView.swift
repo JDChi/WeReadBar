@@ -65,20 +65,26 @@ struct HeatmapView: View {
         return result
     }
 
-    /// Top row: month name shown only in the first column of each new month.
+    /// Top row: month name shown only at the leading edge of the first column
+    /// of each new month. Empty columns render as `Color.clear` so they don't
+    /// leave visible artifacts.
     private func monthLabelsRow(weeks: [[ReadingDay]]) -> some View {
         HStack(spacing: spacing) {
             // Spacer matching the weekday-gutter width.
             Color.clear.frame(width: gutterWidth, height: monthLabelHeight)
             ForEach(0..<columns, id: \.self) { weekIdx in
-                Text(monthLabel(for: weeks, weekIdx: weekIdx))
-                    .font(.system(size: 9))
-                    .foregroundStyle(.tertiary)
-                    .frame(width: cellSize, height: monthLabelHeight, alignment: .leading)
-                    .fixedSize()
-                    .offset(x: spacing * CGFloat(weekIdx))  // account for inter-cell gap
+                let label = monthLabel(for: weeks, weekIdx: weekIdx)
+                if label.isEmpty {
+                    Color.clear.frame(width: cellSize, height: monthLabelHeight)
+                } else {
+                    Text(label)
+                        .font(.system(size: 9))
+                        .foregroundStyle(.tertiary)
+                        .fixedSize()
+                }
             }
         }
+        .frame(height: monthLabelHeight)
     }
 
     /// Returns the month abbreviation when this week is the first one in a new
