@@ -23,7 +23,7 @@ Click the book icon to see the popover. Right-click for menu (Refresh / Go to Re
 
 Built because opening weweread.qq.com in a browser just to check your streak is too many steps.
 
-![Screenshot placeholder](docs/screenshot-popover.png)
+![WeReadBar popover preview](docs/screenshot-popover.svg)
 
 ---
 

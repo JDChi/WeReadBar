@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 460" width="720" height="460">
+  <!-- Mac window chrome -->
+  <defs>
+    <linearGradient id="vibrancy" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#f6f6f6" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#dcdcdc" stop-opacity="0.95"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="6" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+  <rect width="720" height="460" fill="url(#vibrancy)" rx="14" filter="url(#shadow)"/>
+
+  <!-- Heatmap row: month labels -->
+  <text x="60" y="22" font-family="-apple-system, SF Pro Display" font-size="9" fill="#a0a0a0">Sep</text>
+  <text x="220" y="22" font-family="-apple-system, SF Pro Display" font-size="9" fill="#a0a0a0">Dec</text>
+  <text x="400" y="22" font-family="-apple-system, SF Pro Display" font-size="9" fill="#a0a0a0">Mar</text>
+  <text x="540" y="22" font-family="-apple-system, SF Pro Display" font-size="9" fill="#a0a0a0">Jun</text>
+
+  <!-- Heatmap grid: 53 cols × 7 rows, just enough to look like a heatmap -->
+  <g fill="#1b88ee" opacity="0.35">
+    <!-- a scattering of "active" cells, generated to look like real data -->
+    <rect x="48" y="32" width="9" height="9" rx="2"/>
+    <rect x="60" y="32" width="9" height="9" rx="2"/>
+    <rect x="84" y="32" width="9" height="9" rx="2"/>
+    <rect x="108" y="32" width="9" height="9" rx="2" opacity="0.65"/>
+    <rect x="120" y="32" width="9" height="9" rx="2"/>
+    <rect x="144" y="32" width="9" height="9" rx="2"/>
+    <rect x="168" y="32" width="9" height="9" rx="2"/>
+    <rect x="252" y="32" width="9" height="9" rx="2"/>
+    <rect x="276" y="32" width="9" height="9" rx="2"/>
+    <rect x="288" y="32" width="9" height="9" rx="2" opacity="0.95"/>
+    <rect x="312" y="44" width="9" height="9" rx="2"/>
+    <rect x="324" y="44" width="9" height="9" rx="2"/>
+    <rect x="348" y="44" width="9" height="9" rx="2"/>
+    <rect x="444" y="32" width="9" height="9" rx="2"/>
+    <rect x="468" y="32" width="9" height="9" rx="2" opacity="0.65"/>
+    <rect x="492" y="44" width="9" height="9" rx="2"/>
+    <rect x="552" y="32" width="9" height="9" rx="2"/>
+    <rect x="588" y="32" width="9" height="9" rx="2"/>
+    <rect x="624" y="44" width="9" height="9" rx="2"/>
+    <rect x="660" y="44" width="9" height="9" rx="2"/>
+    <rect x="672" y="44" width="9" height="9" rx="2" opacity="0.95"/>
+  </g>
+  <g fill="#dcd0d0">
+    <!-- background "empty" cells (faint) -->
+    <!-- we draw only the active ones above; the rest is empty space -->
+  </g>
+
+  <!-- Weekday gutter -->
+  <text x="42" y="42" font-family="-apple-system, SF Pro Display" font-size="7" fill="#a0a0a0" text-anchor="end">Mon</text>
+  <text x="42" y="54" font-family="-apple-system, SF Pro Display" font-size="7" fill="#a0a0a0" text-anchor="end">Wed</text>
+  <text x="42" y="66" font-family="-apple-system, SF Pro Display" font-size="7" fill="#a0a0a0" text-anchor="end">Fri</text>
+
+  <!-- Stat tiles row -->
+  <rect x="20" y="110" width="220" height="60" rx="10" fill="#000" fill-opacity="0.05"/>
+  <text x="34" y="132" font-family="-apple-system, SF Pro Display" font-size="11" fill="#888">Today</text>
+  <text x="34" y="158" font-family="-apple-system, SF Pro Display" font-size="20" font-weight="600" fill="#222">23m</text>
+
+  <rect x="250" y="110" width="220" height="60" rx="10" fill="#000" fill-opacity="0.05"/>
+  <text x="264" y="132" font-family="-apple-system, SF Pro Display" font-size="11" fill="#888">Streak</text>
+  <text x="264" y="158" font-family="-apple-system, SF Pro Display" font-size="20" font-weight="600" fill="#222">12 d</text>
+
+  <rect x="480" y="110" width="220" height="60" rx="10" fill="#000" fill-opacity="0.05"/>
+  <text x="494" y="132" font-family="-apple-system, SF Pro Display" font-size="11" fill="#888">Shelf</text>
+  <text x="494" y="158" font-family="-apple-system, SF Pro Display" font-size="20" font-weight="600" fill="#222">789</text>
+
+  <!-- Summary line -->
+  <text x="20" y="196" font-family="-apple-system, SF Pro Display" font-size="11" fill="#888">This week: 4h 12m</text>
+
+  <!-- Bottom: Go to Reading + Refresh -->
+  <g font-family="-apple-system, SF Pro Display" font-size="11" fill="#444">
+    <rect x="18" y="222" width="110" height="22" rx="5" fill="#000" fill-opacity="0.04"/>
+    <text x="32" y="237">📖 Go to Reading</text>
+
+    <rect x="595" y="222" width="100" height="22" rx="5" fill="#000" fill-opacity="0.04"/>
+    <text x="610" y="237">⟳ Refresh</text>
+  </g>
+
+  <!-- Caption -->
+  <text x="360" y="295" font-family="-apple-system, SF Pro Display" font-size="12" fill="#888" text-anchor="middle">
+    Click the book icon in your menubar → popover opens
+  </text>
+</svg>
