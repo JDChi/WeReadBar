@@ -10,9 +10,11 @@
 		16E357AD3E12486EC206BFB7 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F31DE7497B3512E3F7F860A /* Keychain.swift */; };
 		24BAF2B629D65572BC3AAD30 /* StatTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C686A4E9C240E1ECCE39DA /* StatTile.swift */; };
 		36B227D1503B8963BB20B107 /* ReadingDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AF0D56B5DDEE431FFF3669 /* ReadingDay.swift */; };
+		4ED261612F7DCF5ED089FAA3 /* MenuBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B813B213BCF2FA03A9A0829 /* MenuBarController.swift */; };
 		588A35B7F08A5F826BB305A2 /* OnboardingWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEEC9F87035452CF7F0FF00 /* OnboardingWindowController.swift */; };
 		5ED97DF3DF787EF17ED1B230 /* WeReadClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121BF8E654503E705B548666 /* WeReadClient.swift */; };
 		5F6FB19B8E5B783FB96D3DCF /* BookSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B410983B50DC0192F46EA8 /* BookSummary.swift */; };
+		640E1D9F827B971BAFE6B0E3 /* PopoverPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99F1D2A1E1B112A143598D3 /* PopoverPresenter.swift */; };
 		657A15A25895ECA3EA5F407D /* ReadDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B87C41A8168619121C5CBFA /* ReadDataResponse.swift */; };
 		65853F2B67847D5DE5905911 /* ShelfResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFD685227CD76FEA8C6A381 /* ShelfResponse.swift */; };
 		681FC05B66E2A6A2C21BD94E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1C31784A5BCE4159646AEB /* AppDelegate.swift */; };
@@ -36,10 +38,12 @@
 		66BB7A58855D7C0345CDD21A /* WeReadBarApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeReadBarApp.swift; sourceTree = "<group>"; };
 		696898968E4C8BAA3BD95C88 /* HeatmapLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeatmapLayout.swift; sourceTree = "<group>"; };
 		76FB302925FC1DFE0787BE61 /* PopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverView.swift; sourceTree = "<group>"; };
+		7B813B213BCF2FA03A9A0829 /* MenuBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarController.swift; sourceTree = "<group>"; };
 		7F31DE7497B3512E3F7F860A /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		9A28F4321384A614EBC48A76 /* OnboardingWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingWindow.swift; sourceTree = "<group>"; };
 		9B87C41A8168619121C5CBFA /* ReadDataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadDataResponse.swift; sourceTree = "<group>"; };
 		9FEEC9F87035452CF7F0FF00 /* OnboardingWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingWindowController.swift; sourceTree = "<group>"; };
+		A99F1D2A1E1B112A143598D3 /* PopoverPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverPresenter.swift; sourceTree = "<group>"; };
 		AD50F36288FB84F9CA18412E /* HeatmapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeatmapView.swift; sourceTree = "<group>"; };
 		D5817D91D67CE6981217785C /* StatsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsStore.swift; sourceTree = "<group>"; };
 		D806B24AE6A41359083160B3 /* ErrorBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorBanner.swift; sourceTree = "<group>"; };
@@ -54,7 +58,9 @@
 			isa = PBXGroup;
 			children = (
 				ED1C31784A5BCE4159646AEB /* AppDelegate.swift */,
+				7B813B213BCF2FA03A9A0829 /* MenuBarController.swift */,
 				9FEEC9F87035452CF7F0FF00 /* OnboardingWindowController.swift */,
+				A99F1D2A1E1B112A143598D3 /* PopoverPresenter.swift */,
 				66BB7A58855D7C0345CDD21A /* WeReadBarApp.swift */,
 			);
 			path = App;
@@ -188,8 +194,10 @@
 				F21758FB350C63E75EEF10E9 /* HeatmapLayout.swift in Sources */,
 				910D0B8F21D3E870638F8895 /* HeatmapView.swift in Sources */,
 				16E357AD3E12486EC206BFB7 /* Keychain.swift in Sources */,
+				4ED261612F7DCF5ED089FAA3 /* MenuBarController.swift in Sources */,
 				BE3D3A990AD9BF26EE79203D /* OnboardingWindow.swift in Sources */,
 				588A35B7F08A5F826BB305A2 /* OnboardingWindowController.swift in Sources */,
+				640E1D9F827B971BAFE6B0E3 /* PopoverPresenter.swift in Sources */,
 				FBD1987E3C6946C0D08B65EF /* PopoverView.swift in Sources */,
 				657A15A25895ECA3EA5F407D /* ReadDataResponse.swift in Sources */,
 				36B227D1503B8963BB20B107 /* ReadingDay.swift in Sources */,

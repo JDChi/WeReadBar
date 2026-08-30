@@ -13,7 +13,14 @@ enum Keychain {
         let base: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: service,
-            kSecAttrAccount as String: account
+            kSecAttrAccount as String: account,
+            // Available after the user has unlocked the device at least
+            // once since boot. Pairs naturally with a menu-bar app that
+            // boots at login (the keychain is then immediately readable).
+            kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlock,
+            // Don't sync to iCloud keychain. We never want the bearer
+            // token leaving this machine.
+            kSecAttrSynchronizable as String: false
         ]
         // Overwrite semantics: delete any prior entry first.
         SecItemDelete(base as CFDictionary)
