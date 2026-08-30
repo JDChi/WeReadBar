@@ -7,22 +7,11 @@ private struct MonthLabelEntry: Identifiable {
     var id: Int { weekIdx }
 }
 
-/// GitHub-style heatmap: 53 columns (weeks) × 7 rows (days) = 371 cells.
+/// GitHub-style heatmap. All geometric constants live in `HeatmapLayout`
+/// so the layout stays in lock-step with `SkeletonHeatmap`.
 /// `days` should be length 371, oldest first.
-///
-/// Layout math for a 600pt popover (content area 576pt):
-///   weekday gutter (26pt) + 53 cells × 9pt + 52 gaps × 1pt
-///   = 26 + 477 + 52 = 555pt   (21pt breathing room)
 struct HeatmapView: View {
     let days: [ReadingDay]
-
-    private let cellSize: CGFloat = 9
-    private let spacing: CGFloat = 1
-    private let columns = 53
-    private let rows = 7
-    private let gridSize = 53 * 7  // 371
-    private let gutterWidth: CGFloat = 26
-    private let monthLabelHeight: CGFloat = 14
 
     /// True iff we have at least one real (non-placeholder) day to render.
     /// Used to switch between skeleton and real-heatmap modes.
@@ -38,43 +27,43 @@ struct HeatmapView: View {
             if hasData {
                 realHeatmap.transition(.opacity)
             } else {
-                SkeletonHeatmap(
-                    cellSize: cellSize,
-                    spacing: spacing,
-                    columns: columns,
-                    rows: rows,
-                    gutterWidth: gutterWidth,
-                    monthLabelHeight: monthLabelHeight
-                )
-                .transition(.opacity)
+                SkeletonHeatmap()
+                    .transition(.opacity)
             }
         }
-        .frame(height: monthLabelHeight + cellSize * CGFloat(rows) + spacing * CGFloat(rows - 1))
+        .frame(
+            height: HeatmapLayout.monthLabelHeight
+                + HeatmapLayout.cellSize * CGFloat(HeatmapLayout.rows)
+                + HeatmapLayout.spacing * CGFloat(HeatmapLayout.rows - 1)
+        )
         .animation(.easeInOut(duration: 0.18), value: hasData)
     }
 
     private var realHeatmap: some View {
         // Pad to exactly 371; missing entries render as empty placeholders.
         let padded: [ReadingDay] = {
-            if days.count >= gridSize {
-                return Array(days.prefix(gridSize))
+            if days.count >= HeatmapLayout.gridSize {
+                return Array(days.prefix(HeatmapLayout.gridSize))
             }
-            return days + Array(repeating: .empty, count: gridSize - days.count)
+            return days + Array(repeating: .empty, count: HeatmapLayout.gridSize - days.count)
         }()
 
         return VStack(alignment: .leading, spacing: 2) {
             monthLabelsRow(weeks: weeks(padded))
-            HStack(alignment: .top, spacing: spacing) {
-                weekdayLabels
+            HStack(alignment: .top, spacing: HeatmapLayout.spacing) {
+                WeekdayGutter()
                 LazyVGrid(
-                    columns: Array(repeating: GridItem(.fixed(cellSize), spacing: spacing), count: columns),
+                    columns: Array(
+                        repeating: GridItem(.fixed(HeatmapLayout.cellSize), spacing: HeatmapLayout.spacing),
+                        count: HeatmapLayout.columns
+                    ),
                     alignment: .leading,
-                    spacing: spacing
+                    spacing: HeatmapLayout.spacing
                 ) {
-                    ForEach(0..<gridSize, id: \.self) { idx in
+                    ForEach(0..<HeatmapLayout.gridSize, id: \.self) { idx in
                         RoundedRectangle(cornerRadius: 1.5, style: .continuous)
                             .fill(color(for: padded[idx]))
-                            .frame(width: cellSize, height: cellSize)
+                            .frame(width: HeatmapLayout.cellSize, height: HeatmapLayout.cellSize)
                     }
                 }
             }
@@ -84,14 +73,14 @@ struct HeatmapView: View {
     /// Groups the 371 flat entries into 53 weeks (each = 7 days, oldest first).
     private func weeks(_ padded: [ReadingDay]) -> [[ReadingDay]] {
         var result: [[ReadingDay]] = []
-        result.reserveCapacity(columns)
-        for w in 0..<columns {
-            let start = w * rows
-            let end = min(start + rows, padded.count)
+        result.reserveCapacity(HeatmapLayout.columns)
+        for w in 0..<HeatmapLayout.columns {
+            let start = w * HeatmapLayout.rows
+            let end = min(start + HeatmapLayout.rows, padded.count)
             if start < padded.count {
                 let slice = Array(padded[start..<end])
-                if slice.count < rows {
-                    result.append(slice + Array(repeating: .empty, count: rows - slice.count))
+                if slice.count < HeatmapLayout.rows {
+                    result.append(slice + Array(repeating: .empty, count: HeatmapLayout.rows - slice.count))
                 } else {
                     result.append(slice)
                 }
@@ -100,27 +89,29 @@ struct HeatmapView: View {
         return result
     }
 
-    /// Top row: month name shown only at the column whose week contains the
-    /// 1st of a month, then filtered by a minimum spacing to prevent overlap.
-    /// Algorithm mirrors GitHub's contribution graph:
-    ///   1. Find each week that contains day-1 of some month.
-    ///   2. Greedily keep labels that are at least `minSpacingWeeks` apart.
+    /// Top row: month name shown only at the leading edge of the first column
+    /// of each new month. Empty columns are not rendered (no placeholders).
+    /// Labels are positioned with absolute `offset()` so they sit precisely at
+    /// the start of their column regardless of label text width.
     private func monthLabelsRow(weeks: [[ReadingDay]]) -> some View {
         let entries = collectMonthLabels(weeks: weeks)
         let totalWidth = monthLabelsRowWidth()
 
         return ZStack(alignment: .topLeading) {
-            Color.clear.frame(height: monthLabelHeight)
+            Color.clear.frame(height: HeatmapLayout.monthLabelHeight)
             ForEach(entries, id: \.weekIdx) { entry in
                 monthLabelView(text: entry.label, weekIdx: entry.weekIdx)
             }
         }
-        .frame(width: totalWidth, height: monthLabelHeight)
+        .frame(width: totalWidth, height: HeatmapLayout.monthLabelHeight)
     }
 
     /// Total width the month-label row should occupy (= heatmap row width).
     private func monthLabelsRowWidth() -> CGFloat {
-        return gutterWidth + spacing + CGFloat(columns) * cellSize + CGFloat(columns - 1) * spacing
+        return HeatmapLayout.gutterWidth
+            + HeatmapLayout.spacing
+            + CGFloat(HeatmapLayout.columns) * HeatmapLayout.cellSize
+            + CGFloat(HeatmapLayout.columns - 1) * HeatmapLayout.spacing
     }
 
     /// Minimum number of weeks between adjacent month labels to avoid visual overlap.
@@ -135,7 +126,7 @@ struct HeatmapView: View {
 
         // Step 1: candidate = first week that contains day-1 of a given month.
         var candidates: [(weekIdx: Int, label: String)] = []
-        for weekIdx in 0..<columns {
+        for weekIdx in 0..<HeatmapLayout.columns {
             for day in weeks[weekIdx] where day.date != .distantPast {
                 if cal.component(.day, from: day.date) == 1 {
                     candidates.append((weekIdx, formatter.string(from: day.date)))
@@ -158,33 +149,14 @@ struct HeatmapView: View {
 
     /// A single month-label view, positioned at its column's leading edge.
     private func monthLabelView(text: String, weekIdx: Int) -> some View {
-        let xOffset = gutterWidth + spacing + CGFloat(weekIdx) * (cellSize + spacing)
+        let xOffset = HeatmapLayout.gutterWidth
+            + HeatmapLayout.spacing
+            + CGFloat(weekIdx) * (HeatmapLayout.cellSize + HeatmapLayout.spacing)
         return Text(text)
             .font(.system(size: 9))
             .foregroundStyle(.tertiary)
             .fixedSize()
             .offset(x: xOffset)
-    }
-
-    /// Mon / Wed / Fri gutter.
-    private var weekdayLabels: some View {
-        VStack(alignment: .trailing, spacing: spacing) {
-            ForEach(0..<rows, id: \.self) { row in
-                Text(weekdayLabel(for: row))
-                    .font(.system(size: 9))
-                    .foregroundStyle(.tertiary)
-                    .frame(width: gutterWidth, height: cellSize, alignment: .trailing)
-            }
-        }
-    }
-
-    private func weekdayLabel(for row: Int) -> String {
-        switch row {
-        case 0: return "Mon"
-        case 2: return "Wed"
-        case 4: return "Fri"
-        default: return ""
-        }
     }
 
     private func color(for day: ReadingDay) -> Color {

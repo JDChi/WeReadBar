@@ -41,12 +41,12 @@ final class StatsStore: ObservableObject {
 
     // MARK: - Lifecycle
 
-    /// No-op init. Bootstrap is invoked explicitly by
+    /// Bootstrap is invoked explicitly by
     /// `AppDelegate.applicationDidFinishLaunching` so the data pipeline
-    /// starts exactly once on launch.
-    init() {
-        // Intentionally empty — see bootstrap().
-    }
+    /// starts exactly once on launch. No-op init keeps the @MainActor
+    /// default-initialiser compatible with the `@StateObject` callers
+    /// elsewhere (defensive — currently only AppDelegate owns the store).
+    init() {}
 
     func bootstrap() {
         if let token = Keychain.load() {
