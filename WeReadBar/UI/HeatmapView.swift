@@ -162,15 +162,16 @@ struct HeatmapView: View {
 
     private func color(for day: ReadingDay) -> Color {
         guard day.date != .distantPast else { return .clear }
-        // Four intensity buckets. The 1–15 minute bucket was originally
-        // 0.35 opacity, which read as "almost grey" on the vibrancy
-        // background — but a day with 1+ min counts toward the streak,
-        // so the cell should look visibly blue. Bumped to 0.55.
+        // Four intensity buckets. Earlier iterations used 0.35 / 0.55 / 0.80
+        // / 0.95, but on the .regularMaterial background anything below
+        // ~0.7 read as "almost grey" rather than "blue". Bumped so the
+        // lowest active bucket (1–15 min) is unambiguously blue, while
+        // keeping the 0-min (no data) bucket as a clearly grey placeholder.
         let m = day.minutes
         switch m {
-        case 0:        return Color.gray.opacity(0.12)
-        case 1...15:   return Self.brand.opacity(0.55)
-        case 16...45:  return Self.brand.opacity(0.80)
+        case 0:        return Color.gray.opacity(0.20)
+        case 1...15:   return Self.brand.opacity(0.75)
+        case 16...45:  return Self.brand.opacity(0.90)
         default:       return Self.brand.opacity(0.95)
         }
     }
