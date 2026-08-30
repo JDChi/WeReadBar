@@ -11,9 +11,8 @@ enum Theme {
 
     // MARK: - Layout
 
-    /// Width of the popover. Sized to fit:
-    ///   28pt gutter + 53 cells × 12pt + 52 × 1pt gaps = 716pt of content,
-    ///   plus 24pt padding × 2 = 764pt minimum. Rounded up to 780pt.
+    /// Width of the popover. Sized to fit the 722pt heatmap content area
+    /// plus 14pt padding on each side, with space left for the material edge.
     static let popoverWidth: CGFloat = 780
     static let popoverPadding: CGFloat = 14
     static let popoverRowSpacing: CGFloat = 12

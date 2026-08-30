@@ -3,10 +3,11 @@ import SwiftUI
 /// Heatmap geometry — cell size, spacing, column count, weekday gutter,
 /// month-label band. Used by both `HeatmapView` and `SkeletonHeatmap`.
 ///
-/// Popover-wide layout math (content area = Theme.popoverWidth - 24pt
+/// Popover-wide layout math (content area = Theme.popoverWidth - 14pt
 /// padding × 2):
-///   gutterWidth + columns × cellSize + (columns - 1) × spacing
-///   = 28 + 53 × 12 + 52 × 1 = 716pt   (target ≤ 696pt)
+///   gutterWidth + weekdayToGridSpacing + columns × cellSize
+///   + (columns - 1) × spacing
+///   = 28 + 6 + 53 × 12 + 52 × 1 = 722pt   (target ≤ 752pt)
 enum HeatmapLayout {
     static let cellSize: CGFloat = 12
     static let spacing: CGFloat = 1
@@ -14,7 +15,27 @@ enum HeatmapLayout {
     static let rows: Int = 7
     static let gridSize: Int = columns * rows  // 371
     static let gutterWidth: CGFloat = 28
+    static let weekdayToGridSpacing: CGFloat = 6
+    static let sectionSpacing: CGFloat = 2
+    static let headerHeight: CGFloat = 16
     static let monthLabelHeight: CGFloat = 18
+
+    static var gridWidth: CGFloat {
+        CGFloat(columns) * cellSize + CGFloat(columns - 1) * spacing
+    }
+
+    static var contentWidth: CGFloat {
+        gutterWidth + weekdayToGridSpacing + gridWidth
+    }
+
+    static var totalHeight: CGFloat {
+        headerHeight
+            + sectionSpacing
+            + monthLabelHeight
+            + sectionSpacing
+            + cellSize * CGFloat(rows)
+            + spacing * CGFloat(rows - 1)
+    }
 }
 
 /// Shared Mon / Wed / Fri gutter used by both the real and skeleton heatmaps.
@@ -37,14 +58,13 @@ struct WeekdayGutter: View {
     }
 
     private func label(for row: Int) -> String {
-        // shortWeekdaySymbols is locale-aware: en → "Mon", zh-Hans → "周一",
-        // zh-Hant → "週一". Calendar indexes Sunday = 0, so row 0/2/4 map to
-        // Monday / Wednesday / Friday in our grid layout.
+        // `shortWeekdaySymbols` is Sunday-first; the heatmap uses Monday-first
+        // week columns, independent of the user's firstWeekday preference.
         let symbols = Calendar.current.shortWeekdaySymbols
         switch row {
-        case 0: return symbols[0]
-        case 2: return symbols[2]
-        case 4: return symbols[4]
+        case 0: return symbols[1]   // Mon / 周一 / 週一
+        case 2: return symbols[3]   // Wed / 周三 / 週三
+        case 4: return symbols[5]   // Fri / 周五 / 週五
         default: return ""
         }
     }

@@ -1,9 +1,12 @@
 import SwiftUI
+import os
 
 /// Root view of the popover. Owns the poll timer; opens the onboarding
 /// window (a separate NSWindow) when the API key is missing.
 struct PopoverView: View {
     @EnvironmentObject var store: StatsStore
+
+    private let diagLog = Logger(subsystem: "com.local.wereadbar", category: "popover-diag")
 
     /// 30-minute polling while popover is visible.
     private let timer = Timer.publish(every: 1800, on: .main, in: .common).autoconnect()
@@ -23,7 +26,7 @@ struct PopoverView: View {
             }
 
             HeatmapView(days: store.days)
-                .frame(height: 120)
+                .frame(height: HeatmapLayout.totalHeight)
 
             HStack(spacing: 10) {
                 StatTile(
@@ -90,8 +93,12 @@ struct PopoverView: View {
         }
         .onAppear {
             pollTimerOn = true
+            // Diagnostic runs both BEFORE and AFTER refresh so we can
+            // see whether data is loaded correctly when the heatmap renders.
+            logLast14Days(label: "BEFORE_REFRESH")
             Task {
                 await store.refresh()
+                logLast14Days(label: "AFTER_REFRESH")
                 if store.needsAPIKey {
                     OnboardingWindowController.shared.show(store: store)
                 }
@@ -112,5 +119,24 @@ struct PopoverView: View {
             NSLocalizedString("format.minutes", comment: ""),
             m
         )
+    }
+
+    /// Dump the last 14 days of `store.days` for diagnostics. Called
+    /// both before and after `refresh()` so we can see what data the
+    /// heatmap is actually rendering.
+    private func logLast14Days(label: String) {
+        let cal = Calendar(identifier: .gregorian)
+        var c = cal
+        c.timeZone = TimeZone(identifier: "Asia/Shanghai")!
+        let today = c.startOfDay(for: Date())
+        diagLog.notice("diag[\(label, privacy: .public)]: days.count=\(store.days.count, privacy: .public) streak=\(store.streak, privacy: .public) todaySec=\(store.todaySeconds, privacy: .public)")
+        for offset in (0..<14).reversed() {
+            if let d = c.date(byAdding: .day, value: -offset, to: today),
+               let day = store.days.first(where: { c.isDate($0.date, inSameDayAs: d) }) {
+                let weekday = c.component(.weekday, from: d)
+                let weekdayName = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][weekday-1]
+                diagLog.notice("diag[\(label, privacy: .public)]: \(d, privacy: .public) \(weekdayName, privacy: .public) seconds=\(day.seconds, privacy: .public)")
+            }
+        }
     }
 }

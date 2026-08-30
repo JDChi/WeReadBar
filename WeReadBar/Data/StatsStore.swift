@@ -36,6 +36,7 @@ final class StatsStore: ObservableObject {
     private let calendar: Calendar = {
         var c = Calendar(identifier: .gregorian)
         c.timeZone = TimeZone(identifier: "Asia/Shanghai")!
+        c.firstWeekday = 2 // Monday
         return c
     }()
 
@@ -221,16 +222,26 @@ final class StatsStore: ObservableObject {
         return calendar.date(from: comps) ?? date
     }
 
-    /// Builds a [ReadingDay] of length 371 (53 weeks × 7 days), oldest first.
-    /// Empty days (no reading) are returned as ReadingDay(seconds: 0).
+    /// Builds 53 Monday–Sunday week columns (371 days), oldest first.
+    /// The final column is the current calendar week, so its future dates are
+    /// retained as zero-second cells. This keeps every row aligned with the
+    /// weekday gutter regardless of which day refresh happens.
     /// `internal` (not private) so WeReadBarTests can call it directly via
     /// `@testable import WeReadBar`.
     func buildDays(from dict: [String: Int]) -> [ReadingDay] {
         let today = calendar.startOfDay(for: Date())
+        guard let currentWeekStart = calendar.dateInterval(of: .weekOfYear, for: today)?.start,
+              let gridStart = calendar.date(
+                  byAdding: .weekOfYear,
+                  value: -(HeatmapLayout.columns - 1),
+                  to: currentWeekStart
+              ) else {
+            return []
+        }
         var out: [ReadingDay] = []
         out.reserveCapacity(371)
-        for offset in (0..<371).reversed() {
-            guard let d = calendar.date(byAdding: .day, value: -offset, to: today) else {
+        for offset in 0..<HeatmapLayout.gridSize {
+            guard let d = calendar.date(byAdding: .day, value: offset, to: gridStart) else {
                 continue
             }
             let key = String(Int(d.timeIntervalSince1970))

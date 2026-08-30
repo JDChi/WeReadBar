@@ -66,14 +66,22 @@ final class StatsStoreTests: XCTestCase {
     func test_buildDays_ordersOldestFirst() {
         let store = makeStore()
         let result = store.buildDays(from: [:])
-        // Result[0] is oldest (offset 182), result[370] is today (offset 0).
+        // The heatmap always starts at Monday and ends at Sunday, even when
+        // the final cells are future dates in the current week.
         let cal = Calendar(identifier: .gregorian)
         var c = cal
         c.timeZone = TimeZone(identifier: "Asia/Shanghai")!
+        c.firstWeekday = 2
         let today = c.startOfDay(for: Date())
-        let expectedOldest = c.date(byAdding: .day, value: -(HeatmapLayout.gridSize - 1), to: today)!
+        let currentWeekStart = c.dateInterval(of: .weekOfYear, for: today)!.start
+        let expectedOldest = c.date(
+            byAdding: .weekOfYear,
+            value: -(HeatmapLayout.columns - 1),
+            to: currentWeekStart
+        )!
+        let expectedLast = c.date(byAdding: .day, value: HeatmapLayout.rows - 1, to: currentWeekStart)!
         XCTAssertEqual(result.first?.date, expectedOldest, "oldest day at index 0")
-        XCTAssertEqual(result.last?.date, today, "today at last index")
+        XCTAssertEqual(result.last?.date, expectedLast, "last day is Sunday of the current week")
     }
 
     // MARK: - secondsForToday

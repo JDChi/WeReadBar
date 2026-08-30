@@ -7,11 +7,101 @@ private struct MonthLabelEntry: Identifiable {
     var id: Int { weekIdx }
 }
 
+/// Maps a user's own reading-duration distribution into four visual steps.
+/// A fixed 1–15 minute bucket made most of this account's active days look
+/// identical, even when their reading times differed materially.
+private struct HeatmapColorScale {
+    let first: Int
+    let second: Int
+    let third: Int
+
+    init(days: [ReadingDay]) {
+        let activeSeconds = days
+            .map(\.seconds)
+            .filter { $0 >= 60 }
+            .sorted()
+
+        // With enough reading days, quartiles make the heatmap informative
+        // for this account rather than hiding most activity in its lowest
+        // fixed-duration bucket. Sparse histories keep predictable cutoffs.
+        guard activeSeconds.count >= 8 else {
+            first = 5 * 60
+            second = 15 * 60
+            third = 30 * 60
+            return
+        }
+
+        first = activeSeconds[(activeSeconds.count - 1) / 4]
+        second = activeSeconds[(activeSeconds.count - 1) / 2]
+        third = activeSeconds[(activeSeconds.count - 1) * 3 / 4]
+    }
+}
+
+enum HeatmapPalette {
+    /// The neutral cell intentionally keeps the app's original soft gray.
+    static let noReading = Color.gray.opacity(0.20)
+
+    /// GitHub-style intensity direction adapted to the WeRead blue brand:
+    /// dark mode becomes brighter with activity; light mode becomes deeper.
+    static func activityColors(for colorScheme: ColorScheme) -> [Color] {
+        switch colorScheme {
+        case .dark:
+            return [
+                Color(red: 0x0B / 255.0, green: 0x5C / 255.0, blue: 0xAB / 255.0), // #0B5CAB
+                Color(red: 0x14 / 255.0, green: 0x7D / 255.0, blue: 0xDB / 255.0), // #147DDB
+                Color(red: 0x1B / 255.0, green: 0x88 / 255.0, blue: 0xEE / 255.0), // #1B88EE
+                Color(red: 0x67 / 255.0, green: 0xB7 / 255.0, blue: 0xFF / 255.0)  // #67B7FF
+            ]
+        default:
+            return [
+                Color(red: 0xC8 / 255.0, green: 0xE2 / 255.0, blue: 0xFF / 255.0), // #C8E2FF
+                Color(red: 0x83 / 255.0, green: 0xBC / 255.0, blue: 0xF8 / 255.0), // #83BCF8
+                Color(red: 0x1B / 255.0, green: 0x88 / 255.0, blue: 0xEE / 255.0), // #1B88EE
+                Color(red: 0x0B / 255.0, green: 0x5C / 255.0, blue: 0xAB / 255.0)  // #0B5CAB
+            ]
+        }
+    }
+}
+
+/// Shared title and intensity legend for the loaded and loading heatmap.
+struct HeatmapHeader: View {
+    @Environment(\.colorScheme) private var colorScheme
+
+    var body: some View {
+        let colors = HeatmapPalette.activityColors(for: colorScheme)
+        HStack(spacing: 6) {
+            Text(String(localized: "heatmap.title"))
+                .font(.system(size: 11, weight: .semibold))
+                .foregroundStyle(.secondary)
+
+            Spacer(minLength: 8)
+
+            Text(String(localized: "heatmap.less"))
+                .font(Theme.monthLabelFont)
+                .foregroundStyle(.tertiary)
+
+            HStack(spacing: 3) {
+                ForEach(colors.indices, id: \.self) { index in
+                    RoundedRectangle(cornerRadius: 1.5, style: .continuous)
+                        .fill(colors[index])
+                        .frame(width: HeatmapLayout.cellSize, height: HeatmapLayout.cellSize)
+                }
+            }
+
+            Text(String(localized: "heatmap.more"))
+                .font(Theme.monthLabelFont)
+                .foregroundStyle(.tertiary)
+        }
+        .frame(width: HeatmapLayout.contentWidth, height: HeatmapLayout.headerHeight)
+    }
+}
+
 /// GitHub-style heatmap. All geometric constants live in `HeatmapLayout`
 /// so the layout stays in lock-step with `SkeletonHeatmap`.
 /// `days` should be length 371, oldest first.
 struct HeatmapView: View {
     let days: [ReadingDay]
+    @Environment(\.colorScheme) private var colorScheme
 
     /// True iff we have at least one real (non-placeholder) day to render.
     /// Used to switch between skeleton and real-heatmap modes.
@@ -31,11 +121,7 @@ struct HeatmapView: View {
                     .transition(.opacity)
             }
         }
-        .frame(
-            height: HeatmapLayout.monthLabelHeight
-                + HeatmapLayout.cellSize * CGFloat(HeatmapLayout.rows)
-                + HeatmapLayout.spacing * CGFloat(HeatmapLayout.rows - 1)
-        )
+        .frame(height: HeatmapLayout.totalHeight)
         .animation(.easeInOut(duration: 0.18), value: hasData)
     }
 
@@ -48,26 +134,31 @@ struct HeatmapView: View {
             return days + Array(repeating: .empty, count: HeatmapLayout.gridSize - days.count)
         }()
 
-        return VStack(alignment: .leading, spacing: 2) {
-            monthLabelsRow(weeks: weeks(padded))
-            HStack(alignment: .top, spacing: HeatmapLayout.spacing) {
+        return VStack(alignment: .leading, spacing: HeatmapLayout.sectionSpacing) {
+            let weekColumns = weeks(padded)
+            let colorScale = HeatmapColorScale(days: padded)
+            HeatmapHeader()
+            monthLabelsRow(weeks: weekColumns)
+            HStack(alignment: .top, spacing: HeatmapLayout.weekdayToGridSpacing) {
                 WeekdayGutter()
-                LazyVGrid(
-                    columns: Array(
-                        repeating: GridItem(.fixed(HeatmapLayout.cellSize), spacing: HeatmapLayout.spacing),
-                        count: HeatmapLayout.columns
-                    ),
-                    alignment: .leading,
-                    spacing: HeatmapLayout.spacing
-                ) {
-                    ForEach(0..<HeatmapLayout.gridSize, id: \.self) { idx in
-                        RoundedRectangle(cornerRadius: 1.5, style: .continuous)
-                            .fill(color(for: padded[idx]))
-                            .frame(width: HeatmapLayout.cellSize, height: HeatmapLayout.cellSize)
+                HStack(alignment: .top, spacing: HeatmapLayout.spacing) {
+                    // A column is one calendar week, ordered Monday → Sunday.
+                    // `LazyVGrid` fills row-first, which made adjacent dates
+                    // land 53 cells apart. Rendering explicit week columns
+                    // preserves the chronological 7-day grouping above.
+                    ForEach(Array(weekColumns.enumerated()), id: \.offset) { _, week in
+                        VStack(spacing: HeatmapLayout.spacing) {
+                            ForEach(Array(week.enumerated()), id: \.offset) { _, day in
+                                RoundedRectangle(cornerRadius: 1.5, style: .continuous)
+                                    .fill(color(for: day, scale: colorScale))
+                                    .frame(width: HeatmapLayout.cellSize, height: HeatmapLayout.cellSize)
+                            }
+                        }
                     }
                 }
             }
         }
+        .frame(width: HeatmapLayout.contentWidth, alignment: .leading)
     }
 
     /// Groups the 371 flat entries into 53 weeks (each = 7 days, oldest first).
@@ -108,10 +199,7 @@ struct HeatmapView: View {
 
     /// Total width the month-label row should occupy (= heatmap row width).
     private func monthLabelsRowWidth() -> CGFloat {
-        return HeatmapLayout.gutterWidth
-            + HeatmapLayout.spacing
-            + CGFloat(HeatmapLayout.columns) * HeatmapLayout.cellSize
-            + CGFloat(HeatmapLayout.columns - 1) * HeatmapLayout.spacing
+        HeatmapLayout.contentWidth
     }
 
     /// Minimum number of weeks between adjacent month labels to avoid visual overlap.
@@ -151,7 +239,7 @@ struct HeatmapView: View {
     /// A single month-label view, positioned at its column's leading edge.
     private func monthLabelView(text: String, weekIdx: Int) -> some View {
         let xOffset = HeatmapLayout.gutterWidth
-            + HeatmapLayout.spacing
+            + HeatmapLayout.weekdayToGridSpacing
             + CGFloat(weekIdx) * (HeatmapLayout.cellSize + HeatmapLayout.spacing)
         return Text(text)
             .font(Theme.monthLabelFont)
@@ -160,27 +248,18 @@ struct HeatmapView: View {
             .offset(x: xOffset)
     }
 
-    private func color(for day: ReadingDay) -> Color {
+    private func color(for day: ReadingDay, scale: HeatmapColorScale) -> Color {
         guard day.date != .distantPast else { return .clear }
-        // Four intensity buckets. Earlier iterations used 0.35 / 0.55 / 0.80
-        // / 0.95, but on the .regularMaterial background anything below
-        // ~0.7 read as "almost grey" rather than "blue". Bumped so the
-        // lowest active bucket (1–15 min) is unambiguously blue, while
-        // keeping the 0-min (no data) bucket as a clearly grey placeholder.
-        let m = day.minutes
-        switch m {
-        case 0:        return Color.gray.opacity(0.20)
-        case 1...15:   return Self.brand.opacity(0.75)
-        case 16...45:  return Self.brand.opacity(0.90)
-        default:       return Self.brand.opacity(0.95)
+        // GitHub-style four-level contribution intensity, expressed with
+        // WeRead blue rather than GitHub green. The relative level comes from
+        // this account's reading-time quartiles.
+        let colors = HeatmapPalette.activityColors(for: colorScheme)
+        switch day.seconds {
+        case ..<60:           return HeatmapPalette.noReading
+        case ...scale.first:  return colors[0]
+        case ...scale.second: return colors[1]
+        case ...scale.third:  return colors[2]
+        default:              return colors[3]
         }
     }
-
-    /// WeRead brand blue: #1b88ee (RGB 27 / 136 / 238).
-    /// Primary theme color extracted from weread.qq.com's --WR_BC0 CSS variable.
-    private static let brand = Color(
-        red: 0x1b / 255.0,
-        green: 0x88 / 255.0,
-        blue: 0xee / 255.0
-    )
 }
