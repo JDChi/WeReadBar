@@ -1,0 +1,392 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		16E357AD3E12486EC206BFB7 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F31DE7497B3512E3F7F860A /* Keychain.swift */; };
+		24BAF2B629D65572BC3AAD30 /* StatTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C686A4E9C240E1ECCE39DA /* StatTile.swift */; };
+		36B227D1503B8963BB20B107 /* ReadingDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AF0D56B5DDEE431FFF3669 /* ReadingDay.swift */; };
+		588A35B7F08A5F826BB305A2 /* OnboardingWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEEC9F87035452CF7F0FF00 /* OnboardingWindowController.swift */; };
+		5ED97DF3DF787EF17ED1B230 /* WeReadClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121BF8E654503E705B548666 /* WeReadClient.swift */; };
+		5F6FB19B8E5B783FB96D3DCF /* BookSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B410983B50DC0192F46EA8 /* BookSummary.swift */; };
+		657A15A25895ECA3EA5F407D /* ReadDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B87C41A8168619121C5CBFA /* ReadDataResponse.swift */; };
+		65853F2B67847D5DE5905911 /* ShelfResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFD685227CD76FEA8C6A381 /* ShelfResponse.swift */; };
+		910D0B8F21D3E870638F8895 /* HeatmapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD50F36288FB84F9CA18412E /* HeatmapView.swift */; };
+		972B86BADA8A93F546130F52 /* StatsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5817D91D67CE6981217785C /* StatsStore.swift */; };
+		9DFF2FA3589B28AC9BE91137 /* SummaryLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4248E95E60F2FE9047B4E352 /* SummaryLine.swift */; };
+		BD2D02D1537971C6524214BF /* WeReadBarApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66BB7A58855D7C0345CDD21A /* WeReadBarApp.swift */; };
+		BE3D3A990AD9BF26EE79203D /* OnboardingWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A28F4321384A614EBC48A76 /* OnboardingWindow.swift */; };
+		C1317A1EDF22894B0920D999 /* ErrorBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D806B24AE6A41359083160B3 /* ErrorBanner.swift */; };
+		FBD1987E3C6946C0D08B65EF /* PopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FB302925FC1DFE0787BE61 /* PopoverView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		121BF8E654503E705B548666 /* WeReadClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeReadClient.swift; sourceTree = "<group>"; };
+		12AF0D56B5DDEE431FFF3669 /* ReadingDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingDay.swift; sourceTree = "<group>"; };
+		40B410983B50DC0192F46EA8 /* BookSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSummary.swift; sourceTree = "<group>"; };
+		41AC9A727C69D683C7C75FBD /* WeReadBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeReadBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4248E95E60F2FE9047B4E352 /* SummaryLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryLine.swift; sourceTree = "<group>"; };
+		66BB7A58855D7C0345CDD21A /* WeReadBarApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeReadBarApp.swift; sourceTree = "<group>"; };
+		76FB302925FC1DFE0787BE61 /* PopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverView.swift; sourceTree = "<group>"; };
+		7F31DE7497B3512E3F7F860A /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
+		9A28F4321384A614EBC48A76 /* OnboardingWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingWindow.swift; sourceTree = "<group>"; };
+		9B87C41A8168619121C5CBFA /* ReadDataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadDataResponse.swift; sourceTree = "<group>"; };
+		9FEEC9F87035452CF7F0FF00 /* OnboardingWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingWindowController.swift; sourceTree = "<group>"; };
+		AD50F36288FB84F9CA18412E /* HeatmapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeatmapView.swift; sourceTree = "<group>"; };
+		D5817D91D67CE6981217785C /* StatsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsStore.swift; sourceTree = "<group>"; };
+		D806B24AE6A41359083160B3 /* ErrorBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorBanner.swift; sourceTree = "<group>"; };
+		DEFD685227CD76FEA8C6A381 /* ShelfResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelfResponse.swift; sourceTree = "<group>"; };
+		F7C686A4E9C240E1ECCE39DA /* StatTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatTile.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		09D417F6DD45BACE01922ACC /* App */ = {
+			isa = PBXGroup;
+			children = (
+				9FEEC9F87035452CF7F0FF00 /* OnboardingWindowController.swift */,
+				66BB7A58855D7C0345CDD21A /* WeReadBarApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		0C0F672D5F6D748614C9892D /* WeReadBar */ = {
+			isa = PBXGroup;
+			children = (
+				09D417F6DD45BACE01922ACC /* App */,
+				AD8C6A60253003D9EBBFC3AF /* Data */,
+				903BF5AA9BCAEC250DC3D881 /* Security */,
+				0D6B6B8F4703CD084D24D4D7 /* UI */,
+			);
+			path = WeReadBar;
+			sourceTree = "<group>";
+		};
+		0D6B6B8F4703CD084D24D4D7 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				D806B24AE6A41359083160B3 /* ErrorBanner.swift */,
+				AD50F36288FB84F9CA18412E /* HeatmapView.swift */,
+				9A28F4321384A614EBC48A76 /* OnboardingWindow.swift */,
+				76FB302925FC1DFE0787BE61 /* PopoverView.swift */,
+				F7C686A4E9C240E1ECCE39DA /* StatTile.swift */,
+				4248E95E60F2FE9047B4E352 /* SummaryLine.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		4BAE2A7110682D5BE09590F8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				41AC9A727C69D683C7C75FBD /* WeReadBar.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		903BF5AA9BCAEC250DC3D881 /* Security */ = {
+			isa = PBXGroup;
+			children = (
+				7F31DE7497B3512E3F7F860A /* Keychain.swift */,
+			);
+			path = Security;
+			sourceTree = "<group>";
+		};
+		A634DE1AC4BE7AC6B0F7D1FA = {
+			isa = PBXGroup;
+			children = (
+				0C0F672D5F6D748614C9892D /* WeReadBar */,
+				4BAE2A7110682D5BE09590F8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AD8C6A60253003D9EBBFC3AF /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				40B410983B50DC0192F46EA8 /* BookSummary.swift */,
+				9B87C41A8168619121C5CBFA /* ReadDataResponse.swift */,
+				12AF0D56B5DDEE431FFF3669 /* ReadingDay.swift */,
+				DEFD685227CD76FEA8C6A381 /* ShelfResponse.swift */,
+				D5817D91D67CE6981217785C /* StatsStore.swift */,
+				121BF8E654503E705B548666 /* WeReadClient.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EBA80235A4BDA97B18313590 /* WeReadBar */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B403A591C880200D05735122 /* Build configuration list for PBXNativeTarget "WeReadBar" */;
+			buildPhases = (
+				5648E9F51732961DA2FE8D5C /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WeReadBar;
+			packageProductDependencies = (
+			);
+			productName = WeReadBar;
+			productReference = 41AC9A727C69D683C7C75FBD /* WeReadBar.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7B314ED0787ECDAB599874D3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					EBA80235A4BDA97B18313590 = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 778A68E6C23927EC1F0E5C37 /* Build configuration list for PBXProject "WeReadBar" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = A634DE1AC4BE7AC6B0F7D1FA;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 4BAE2A7110682D5BE09590F8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EBA80235A4BDA97B18313590 /* WeReadBar */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5648E9F51732961DA2FE8D5C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5F6FB19B8E5B783FB96D3DCF /* BookSummary.swift in Sources */,
+				C1317A1EDF22894B0920D999 /* ErrorBanner.swift in Sources */,
+				910D0B8F21D3E870638F8895 /* HeatmapView.swift in Sources */,
+				16E357AD3E12486EC206BFB7 /* Keychain.swift in Sources */,
+				BE3D3A990AD9BF26EE79203D /* OnboardingWindow.swift in Sources */,
+				588A35B7F08A5F826BB305A2 /* OnboardingWindowController.swift in Sources */,
+				FBD1987E3C6946C0D08B65EF /* PopoverView.swift in Sources */,
+				657A15A25895ECA3EA5F407D /* ReadDataResponse.swift in Sources */,
+				36B227D1503B8963BB20B107 /* ReadingDay.swift in Sources */,
+				65853F2B67847D5DE5905911 /* ShelfResponse.swift in Sources */,
+				24BAF2B629D65572BC3AAD30 /* StatTile.swift in Sources */,
+				972B86BADA8A93F546130F52 /* StatsStore.swift in Sources */,
+				9DFF2FA3589B28AC9BE91137 /* SummaryLine.swift in Sources */,
+				BD2D02D1537971C6524214BF /* WeReadBarApp.swift in Sources */,
+				5ED97DF3DF787EF17ED1B230 /* WeReadClient.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		4548ED03A9739BFBC24DA084 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = WeReadBar/Resources/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.local.wereadbar;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		9823D5A11040B60C2948928A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = WeReadBar/Resources/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.local.wereadbar;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		C692BC25B4BCB6B5183B0F33 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = WeReadBar/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		FE7A49577F406FC522485044 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = WeReadBar/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		778A68E6C23927EC1F0E5C37 /* Build configuration list for PBXProject "WeReadBar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4548ED03A9739BFBC24DA084 /* Debug */,
+				9823D5A11040B60C2948928A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		B403A591C880200D05735122 /* Build configuration list for PBXNativeTarget "WeReadBar" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C692BC25B4BCB6B5183B0F33 /* Debug */,
+				FE7A49577F406FC522485044 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7B314ED0787ECDAB599874D3 /* Project object */;
+}
