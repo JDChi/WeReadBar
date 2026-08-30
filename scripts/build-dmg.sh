@@ -25,7 +25,8 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 VERSION="${1:-dev}"
-DMG="WeReadBar-${VERSION}.dmg"
+DIST_DIR="dist"
+DMG="${DIST_DIR}/WeReadBar-${VERSION}.dmg"
 
 echo "==> WeReadBar build-dmg  (version: ${VERSION})"
 
@@ -87,8 +88,10 @@ cp -R "$APP_PATH" "$STAGING/"
 ln -s /Applications "$STAGING/Applications"
 
 # -----------------------------------------------------------------------------
-# 5. Create the DMG.
+# 5. Create the DMG. Output goes into `dist/` (gitignored) so the
+#    project root doesn't accumulate artifacts on every build.
 # -----------------------------------------------------------------------------
+mkdir -p "$DIST_DIR"
 echo "==> hdiutil create $DMG"
 rm -f "$DMG"
 hdiutil create \
@@ -104,4 +107,4 @@ ls -lh "$DMG"
 echo ""
 echo "Next:"
 echo "  open $DMG                       # preview the dmg"
-echo "  open WeReadBar-{version}.dmg    # install (drag to /Applications)"
+echo "  open $DMG                       # install (drag to /Applications)"
