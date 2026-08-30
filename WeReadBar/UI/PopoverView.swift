@@ -78,6 +78,16 @@ struct PopoverView: View {
                 .disabled(store.isLoading)
 
                 Spacer()
+
+                // "Go to Reading" opens WeRead's homepage in the user's
+                // default browser (or the WeRead app if installed).
+                Button {
+                    NSWorkspace.shared.open(WeReadURL.homepage)
+                } label: {
+                    Label(String(localized: "goToRead"), systemImage: "book")
+                        .font(.caption)
+                }
+                .controlSize(.small)
             }
         }
         .padding(12)

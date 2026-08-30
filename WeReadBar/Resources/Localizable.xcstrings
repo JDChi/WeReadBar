@@ -234,6 +234,29 @@
         }
       }
     },
+    "goToRead" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Go to Reading"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "去阅读"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "去閱讀"
+          }
+        }
+      }
+    },
     "menu.changeAPIKey" : {
       "extractionState" : "manual",
       "localizations" : {

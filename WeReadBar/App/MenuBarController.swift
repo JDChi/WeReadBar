@@ -57,6 +57,12 @@ final class MenuBarController: NSObject {
 
         rightClickMenu.addItem(.separator())
 
+        let goToRead = NSMenuItem(title: String(localized: "goToRead"),
+                                  action: #selector(menuGoToRead),
+                                  keyEquivalent: "")
+        goToRead.target = self
+        rightClickMenu.addItem(goToRead)
+
         let changeKey = NSMenuItem(title: String(localized: "menu.changeAPIKey"),
                                    action: #selector(menuChangeAPIKey),
                                    keyEquivalent: "")
@@ -97,6 +103,10 @@ final class MenuBarController: NSObject {
         popoverPresenter?.refreshFromMenu()
     }
 
+    @objc private func menuGoToRead() {
+        NSWorkspace.shared.open(WeReadURL.homepage)
+    }
+
     @objc private func menuChangeAPIKey() {
         popoverPresenter?.requestAPIKeyChange()
     }
@@ -104,4 +114,12 @@ final class MenuBarController: NSObject {
     @objc private func menuQuit() {
         NSApp.terminate(nil)
     }
+}
+
+/// Centralized WeRead URLs. Kept here (not in Data/WeReadClient) because
+/// these are about opening the web/app, not the API.
+enum WeReadURL {
+    /// Web homepage. Falls back gracefully if the user has the WeRead
+    /// macOS app — the OS will offer to open it natively.
+    static let homepage = URL(string: "https://weread.qq.com/")!
 }
