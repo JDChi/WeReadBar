@@ -1,12 +1,15 @@
 import AppKit
 import SwiftUI
 
-/// AppDelegate is the entry point (`@main`). It owns the NSStatusItem,
-/// right-click NSMenu, and NSPopover directly via AppKit — SwiftUI's
-/// `MenuBarExtra` is intentionally bypassed so that right-click menus
-/// work reliably across macOS versions (`.contextMenu` on a MenuBarExtra
-/// icon is flaky and inconsistent).
-@main
+/// AppDelegate owns the NSStatusItem, right-click NSMenu, and NSPopover
+/// directly via AppKit — SwiftUI's `MenuBarExtra` is intentionally
+/// bypassed so that right-click menus work reliably across macOS versions
+/// (`.contextMenu` on a MenuBarExtra icon is flaky and inconsistent).
+///
+/// Attached to the SwiftUI App via `@NSApplicationDelegateAdaptor`; the
+/// SwiftUI App's `@main` synthesizes the real `main()` that starts the
+/// NSApplication event loop (an `@main`-on-AppDelegate would only
+/// instantiate this class without ever calling `NSApp.run()`).
 @MainActor
 class AppDelegate: NSObject, NSApplicationDelegate {
 
