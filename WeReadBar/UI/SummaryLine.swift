@@ -1,7 +1,7 @@
 import SwiftUI
 
-/// One-line summary under the stat tiles. Shows weekly total; falls back to
-/// the "currently reading" book title if weekly total is zero.
+/// One-line summary under the stat tiles. Shows weekly total; falls back
+/// to the currently-reading book title when the week is empty.
 struct SummaryLine: View {
     @ObservedObject var store: StatsStore
 
@@ -12,22 +12,22 @@ struct SummaryLine: View {
                     NSLocalizedString("summary.thisWeek", comment: ""),
                     formatHM(store.weekTotalSeconds)
                 ))
-                .font(.caption)
+                .font(Theme.summaryLineFont)
                 .foregroundStyle(.secondary)
             } else if let book = store.currentlyReading {
                 HStack(spacing: 4) {
                     Image(systemName: "book")
-                        .font(.caption2)
+                        .font(.caption)
                         .foregroundStyle(.tertiary)
                     Text(book.title)
-                        .font(.caption)
+                        .font(Theme.summaryLineFont)
                         .foregroundStyle(.secondary)
                         .lineLimit(1)
                         .truncationMode(.tail)
                 }
             } else {
                 Text(" ")
-                    .font(.caption)
+                    .font(Theme.summaryLineFont)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)

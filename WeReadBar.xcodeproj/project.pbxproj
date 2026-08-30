@@ -27,6 +27,7 @@
 		C1317A1EDF22894B0920D999 /* ErrorBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D806B24AE6A41359083160B3 /* ErrorBanner.swift */; };
 		D50DB7FAE20D09C5FF9F2A5D /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 28E3A8FE587410A8CC4ED085 /* Localizable.xcstrings */; };
 		F21758FB350C63E75EEF10E9 /* HeatmapLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696898968E4C8BAA3BD95C88 /* HeatmapLayout.swift */; };
+		F46DEA73AA856D67B8667C01 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94EAFE043FCF32E3CBEFC19 /* Theme.swift */; };
 		FBD1987E3C6946C0D08B65EF /* PopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FB302925FC1DFE0787BE61 /* PopoverView.swift */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +51,7 @@
 		D5817D91D67CE6981217785C /* StatsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsStore.swift; sourceTree = "<group>"; };
 		D806B24AE6A41359083160B3 /* ErrorBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorBanner.swift; sourceTree = "<group>"; };
 		DEFD685227CD76FEA8C6A381 /* ShelfResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelfResponse.swift; sourceTree = "<group>"; };
+		E94EAFE043FCF32E3CBEFC19 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		EC2F99CC9E253B8FF301EC5F /* SkeletonHeatmap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonHeatmap.swift; sourceTree = "<group>"; };
 		ED1C31784A5BCE4159646AEB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F7C686A4E9C240E1ECCE39DA /* StatTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatTile.swift; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 				EC2F99CC9E253B8FF301EC5F /* SkeletonHeatmap.swift */,
 				F7C686A4E9C240E1ECCE39DA /* StatTile.swift */,
 				4248E95E60F2FE9047B4E352 /* SummaryLine.swift */,
+				E94EAFE043FCF32E3CBEFC19 /* Theme.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -230,6 +233,7 @@
 				24BAF2B629D65572BC3AAD30 /* StatTile.swift in Sources */,
 				972B86BADA8A93F546130F52 /* StatsStore.swift in Sources */,
 				9DFF2FA3589B28AC9BE91137 /* SummaryLine.swift in Sources */,
+				F46DEA73AA856D67B8667C01 /* Theme.swift in Sources */,
 				737BF8516D3A2D72BC861276 /* TokenStore.swift in Sources */,
 				BD2D02D1537971C6524214BF /* WeReadBarApp.swift in Sources */,
 				5ED97DF3DF787EF17ED1B230 /* WeReadClient.swift in Sources */,

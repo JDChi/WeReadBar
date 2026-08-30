@@ -154,7 +154,7 @@ struct HeatmapView: View {
             + HeatmapLayout.spacing
             + CGFloat(weekIdx) * (HeatmapLayout.cellSize + HeatmapLayout.spacing)
         return Text(text)
-            .font(.system(size: 9))
+            .font(Theme.monthLabelFont)
             .foregroundStyle(.tertiary)
             .fixedSize()
             .offset(x: xOffset)

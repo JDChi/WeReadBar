@@ -7,18 +7,18 @@ struct ErrorBanner: View {
     var body: some View {
         HStack(spacing: 6) {
             Image(systemName: "exclamationmark.triangle.fill")
-                .font(.caption2)
-            Text(message)
                 .font(.caption)
+            Text(message)
+                .font(Theme.errorBannerFont)
                 .lineLimit(2)
                 .truncationMode(.tail)
         }
         .foregroundStyle(.red)
-        .padding(8)
+        .padding(10)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(
             Color.red.opacity(0.10),
-            in: RoundedRectangle(cornerRadius: 6)
+            in: RoundedRectangle(cornerRadius: 8)
         )
     }
 }
