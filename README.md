@@ -4,6 +4,23 @@ macOS menu-bar app that shows your WeRead (微信读书) reading stats — a Git
 
 > Personal utility. Built on the official [`Tencent/WeChatReading`](https://github.com/Tencent/WeChatReading) agent skill for data access.
 
+## Download
+
+Grab the latest DMG from the [Releases page](../../releases/latest).
+
+### First-time install
+
+1. Download `WeReadBar-x.y.z.dmg` from the latest release
+2. Open it, drag `WeReadBar` to `/Applications`
+3. **Right-click** `WeReadBar.app` in `/Applications` → **Open**
+4. Click **Open** in the confirmation dialog
+
+After that macOS remembers your choice and the app opens normally.
+Re-do this only if you delete the app and reinstall.
+
+If a future macOS update tightens Gatekeeper, the maintainer will
+re-sign and ship a new release — just download again.
+
 ## What it looks like
 
 Click the book icon in the menu bar → a 600×pt popover appears with:

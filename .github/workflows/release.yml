@@ -1,0 +1,42 @@
+name: Release DMG
+
+# Trigger only on tag pushes matching `v*` (e.g., v0.1.0).
+# Regular commits to main do NOT trigger this — releases are explicit.
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write   # required to create the GitHub Release
+
+jobs:
+  release:
+    name: Build DMG and publish Release
+    runs-on: macos-15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install xcodegen
+        run: brew install xcodegen
+
+      - name: Build DMG
+        env:
+          # github.ref_name looks like 'v0.1.0' for tags; strip the leading 'v'
+          # so the bundle's MARKETING_VERSION is '0.1.0' (CFBundleVersion
+          # spec forbids the 'v' prefix).
+          VERSION: ${{ github.ref_name }}
+        run: ./scripts/build-dmg.sh "${VERSION#v}"
+
+      - name: Upload DMG to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: WeReadBar-*.dmg
+          fail_on_unmatched_files: true
+          generate_release_notes: true
+          # Mark the uploaded DMG as the "latest" so it shows up first
+          # on the Releases page for casual visitors.
+          prerelease: false
+          draft: false

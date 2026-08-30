@@ -39,6 +39,11 @@ Package.resolved
 # Local Claude Code config (not for version control)
 .claude/
 
+# Build artifacts produced by scripts/build-dmg.sh — never commit DMGs
+# or the staging directory; only push them via the GitHub Actions release.
+*.dmg
+build/dmg-staging/
+
 # IDE
 .vscode/
 .idea/
