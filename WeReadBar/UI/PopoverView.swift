@@ -17,16 +17,6 @@ struct PopoverView: View {
 
             HeatmapView(days: store.days)
                 .frame(height: 90)
-                .overlay {
-                    if store.isLoading && store.days.isEmpty {
-                        ProgressView().controlSize(.small)
-                    }
-                }
-                .overlay(alignment: .bottomTrailing) {
-                    if store.isLoading && !store.days.isEmpty {
-                        ProgressView().controlSize(.small).scaleEffect(0.6)
-                    }
-                }
 
             HStack(spacing: 8) {
                 StatTile(
@@ -46,20 +36,27 @@ struct PopoverView: View {
             SummaryLine(store: store)
 
             HStack {
+                // Single source of loading state: the Refresh button itself
+                // swaps its icon for a spinner while a refresh is in flight.
                 Button {
                     Task { await store.refresh() }
                 } label: {
-                    Label("Refresh", systemImage: "arrow.clockwise")
-                        .font(.caption)
+                    HStack(spacing: 4) {
+                        if store.isLoading {
+                            ProgressView()
+                                .controlSize(.small)
+                                .scaleEffect(0.7)
+                        } else {
+                            Image(systemName: "arrow.clockwise")
+                        }
+                        Text("Refresh")
+                    }
+                    .font(.caption)
                 }
                 .controlSize(.small)
                 .disabled(store.isLoading)
 
                 Spacer()
-
-                Text(store.isLoading ? "Loading…" : " ")
-                    .font(.caption2)
-                    .foregroundStyle(.tertiary)
             }
         }
         .padding(12)
