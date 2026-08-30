@@ -50,7 +50,7 @@ WeReadBar 住在你的菜单栏里，展示：
 4. 提示时粘贴 **WeRead API bearer token**（在 [weread.qq.com/r/weread-skills](https://weread.qq.com/r/weread-skills) 获取）
 5. 点菜单栏的书本图标 🎉
 
-> **为什么有这一步？** 这个 app 没有 Apple Developer ID 签名（¥99/年的账号费），所以 macOS Gatekeeper 不认识它。点「仍要打开」是 macOS 给非商店 app 留的标准通道。一次之后 macOS 就记住你了。
+> **为什么有这一步？** 任何不在 Mac App Store 里、也不走 macOS 官方认证流程分发的 app，macOS 第一次启动时都会拦一下让你确认。点「仍要打开」是 macOS 给非商店 app 留的标准通道。一次之后 macOS 就记住你了。
 
 ---
 
