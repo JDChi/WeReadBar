@@ -183,9 +183,9 @@ final class StatsStore: ObservableObject {
     private func stitchMonthly(client: WeReadClient) async throws -> [ReadingDay] {
         let now = Date()
         var bag: [String: Int] = [:]
-        let origin = firstOfMonth(now)  // <-- fixed origin, not mutated per iteration
-        // Walk back 6 months, then include the current month → 7 months total.
-        for offset in stride(from: -6, through: 0, by: 1) {
+        let origin = firstOfMonth(now)
+        // 53 weeks ≈ 13 months → walk back 12 prior + current.
+        for offset in stride(from: -12, through: 0, by: 1) {
             try Task.checkCancellation()
             guard let monthDate = calendar.date(byAdding: .month, value: offset, to: origin) else {
                 wrLog.warning("  stitch: could not compute month for offset=\(offset, privacy: .public)")
@@ -210,13 +210,13 @@ final class StatsStore: ObservableObject {
         return calendar.date(from: comps) ?? date
     }
 
-    /// Builds a [ReadingDay] of length 182, oldest first, ending today.
+    /// Builds a [ReadingDay] of length 371 (53 weeks × 7 days), oldest first.
     /// Empty days (no reading) are returned as ReadingDay(seconds: 0).
     private func buildDays(from dict: [String: Int]) -> [ReadingDay] {
         let today = calendar.startOfDay(for: Date())
         var out: [ReadingDay] = []
-        out.reserveCapacity(182)
-        for offset in (0..<182).reversed() {
+        out.reserveCapacity(371)
+        for offset in (0..<371).reversed() {
             guard let d = calendar.date(byAdding: .day, value: -offset, to: today) else {
                 continue
             }

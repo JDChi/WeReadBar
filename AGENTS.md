@@ -1,6 +1,6 @@
 # AGENTS.md — WeReadBar
 
-macOS menu-bar app showing WeRead (微信读书) reading stats: a 26-week GitHub-style heatmap plus today / streak / shelf tiles. Built with native Swift + SwiftUI.
+macOS menu-bar app showing WeRead (微信读书) reading stats: a 53-week GitHub-style heatmap plus today / streak / shelf tiles. Built with native Swift + SwiftUI.
 
 ## Quickstart
 
@@ -81,7 +81,8 @@ These were learned the hard way. Each one is the result of a real bug; if you ch
 5. **Shelf total = `books.length + albums.length + (mp ? 1 : 0)`.** Not just `books.length`. There's an explicit `ShelfResponse.totalCount` for this.
 6. **`stitchMonthly` walks from a fixed `origin`**, not a mutated `cursor`. The original bug was `cursor = date - N months` per iteration, which compounded across loops and fetched the wrong months entirely.
 7. **Onboarding must use AppKit `NSWindow`** (via `OnboardingWindowController`). SwiftUI `Window` scene + `openWindow(id:)` cannot re-show the window after the user dismisses it.
-8. **Popover width is 340pt.** Heatmap math: cell=9pt + spacing=2pt × 25 gaps + 18pt weekday gutter = 302pt inside the 316pt content area. Don't bump the cell size without re-checking the arithmetic.
+8. **Popover width is 380pt.** Heatmap math (53 weeks): cell=5pt + spacing=1pt × 52 gaps + 22pt weekday gutter = 339pt inside the 356pt content area. Don't bump the cell size without re-checking the arithmetic.
+9. **53 weeks ≈ 13 months** of data. `stitchMonthly` walks back 12 prior months + current. Updating the column count requires also updating both the `stitchMonthly` range AND `buildDays` loop count (currently `-12..0` and `0..<371`).
 
 ## Common operations
 

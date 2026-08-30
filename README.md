@@ -1,14 +1,14 @@
 # WeReadBar
 
-macOS menu-bar app that shows your WeRead (微信读书) reading stats — a 26-week GitHub-style heatmap, today's minutes, current streak, shelf count, and the book you're currently reading.
+macOS menu-bar app that shows your WeRead (微信读书) reading stats — a 53-week GitHub-style heatmap, today's minutes, current streak, shelf count, and the book you're currently reading.
 
 > Personal utility. Built on the official [`Tencent/WeChatReading`](https://github.com/Tencent/WeChatReading) agent skill for data access.
 
 ## What it looks like
 
-Click the book icon in the menu bar → a 320×pt popover appears with:
+Click the book icon in the menu bar → a 380×pt popover appears with:
 
-- **Heatmap**: 26 weeks × 7 days of reading intensity (4-bucket green scale).
+- **Heatmap**: 53 weeks × 7 days of reading intensity (4-bucket blue scale, brand color `#1b88ee`). Month labels above, Mon/Wed/Fri gutter on the left.
 - **Today**: minutes read today.
 - **Streak**: consecutive days with ≥ 60 s of reading.
 - **Shelf**: total items in your shelf (`books + albums + mp`).
