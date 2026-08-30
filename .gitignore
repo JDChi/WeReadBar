@@ -43,6 +43,7 @@ Package.resolved
 # or the staging directory; only push them via the GitHub Actions release.
 *.dmg
 build/dmg-staging/
+dist/
 
 # IDE
 .vscode/
