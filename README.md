@@ -35,7 +35,7 @@ Built because opening weweread.qq.com in a browser just to check your streak is 
 - ⏱ **Today's minutes** — how much you've read so far today
 - 📅 **This week** — running Mon–Sun total
 - 🌍 **三语支持 / Multilingual** — English, 简体中文, 繁體中文 (follows your system language)
-- 🔐 **Keychain-stored** — your API token stays in macOS Keychain, never leaves your machine
+- 🔐 **Saved locally** — your API token lives in macOS preferences, no Keychain prompts
 - 🚫 **No Dock icon, no menu bar menu** — truly invisible until you need it
 
 ---
@@ -57,7 +57,7 @@ Requires **macOS 14 (Sonoma)** or later and a WeRead account.
 ## Privacy
 
 - **Network**: WeReadBar only talks to `i.weread.qq.com` (WeRead's official API gateway). No analytics, no telemetry, no third-party services.
-- **Credentials**: Your API token is stored in the macOS Keychain (entry `com.local.wereadbar.apikey`). It's never read by anything except this app.
+- **Credentials**: Your API token is stored in macOS preferences (`~/Library/Preferences/com.local.wereadbar.plist`, key `WeReadBar.apiToken`). It's never read by anything except this app.
 - **Disk cache**: None. Every refresh re-fetches from WeRead.
 - **Source**: Fully open. Read it, audit it, fork it.
 
@@ -84,7 +84,7 @@ No. The app sits idle in your menubar consuming <1% CPU and ~50 MB RAM. It refre
 
 Yes. Drag `WeReadBar.app` from `/Applications` to the Trash. To wipe the stored token too:
 ```bash
-security delete-generic-password -s "com.local.wereadbar.apikey"
+defaults delete com.local.wereadbar WeReadBar.apiToken
 ```
 </details>
 

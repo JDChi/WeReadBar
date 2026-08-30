@@ -49,13 +49,23 @@ final class StatsStore: ObservableObject {
     init() {}
 
     func bootstrap() {
-        if let token = Keychain.load() {
-            wrLog.info("bootstrap: Keychain has token (len=\(token.count))")
+        // One-time migration: if there's a token in the legacy Keychain
+        // location but nothing in UserDefaults yet, copy it over so
+        // existing installs don't have to re-paste after this upgrade.
+        // After this runs once, the Keychain entry is removed.
+        if TokenStore.load() == nil, let legacy = Keychain.load() {
+            wrLog.info("bootstrap: migrating token from Keychain → UserDefaults")
+            TokenStore.save(legacy)
+            Keychain.clear()
+        }
+
+        if let token = TokenStore.load() {
+            wrLog.info("bootstrap: UserDefaults has token (len=\(token.count))")
             client = WeReadClient(apiKey: token)
             needsAPIKey = false
             Task { await refresh() }
         } else {
-            wrLog.notice("bootstrap: no token in Keychain, needsAPIKey=true")
+            wrLog.notice("bootstrap: no token found, needsAPIKey=true")
             needsAPIKey = true
         }
     }
@@ -76,7 +86,7 @@ final class StatsStore: ObservableObject {
                 lastError = shelf.errmsg ?? String(localized: "error.wechatRejected")
                 return false
             }
-            try Keychain.save(token)
+            TokenStore.save(token)
             client = candidate
             needsAPIKey = false
             lastError = nil
