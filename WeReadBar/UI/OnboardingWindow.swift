@@ -17,11 +17,11 @@ struct OnboardingWindow: View {
             HStack(spacing: 8) {
                 Image(systemName: "key.fill")
                     .foregroundStyle(.secondary)
-                Text("WeRead API Token")
+                Text(String(localized: "onboarding.title"))
                     .font(.headline)
             }
 
-            Text("Paste the bearer token from i.weread.qq.com. It's stored in the macOS Keychain and only ever read by this app.")
+            Text(String(localized: "onboarding.description"))
                 .font(.caption)
                 .foregroundStyle(.secondary)
                 .fixedSize(horizontal: false, vertical: true)
@@ -50,8 +50,8 @@ struct OnboardingWindow: View {
                         .frame(width: 22, height: 22)
                 }
                 .buttonStyle(.borderless)
-                .help(isVisible ? "Hide token" : "Show token")
-                .accessibilityLabel(isVisible ? "Hide token" : "Show token")
+                .help(isVisible ? String(localized: "onboarding.hideToken") : String(localized: "onboarding.showToken"))
+                .accessibilityLabel(isVisible ? String(localized: "onboarding.hideToken") : String(localized: "onboarding.showToken"))
             }
 
             if let inlineError {
@@ -62,7 +62,7 @@ struct OnboardingWindow: View {
 
             HStack {
                 Spacer()
-                Button(submitting ? "Saving…" : "Save") {
+                Button(submitting ? String(localized: "onboarding.saving") : String(localized: "onboarding.save")) {
                     Task { await submit() }
                 }
                 .keyboardShortcut(.defaultAction)
@@ -95,7 +95,7 @@ struct OnboardingWindow: View {
         defer { submitting = false }
         let ok = await store.setAPIKey(input)
         if !ok {
-            inlineError = store.lastError ?? "Invalid token"
+            inlineError = store.lastError ?? String(localized: "onboarding.invalidToken")
         }
     }
 }

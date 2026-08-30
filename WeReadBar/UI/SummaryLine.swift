@@ -8,9 +8,12 @@ struct SummaryLine: View {
     var body: some View {
         Group {
             if store.weekTotalSeconds > 0 {
-                Text("This week: \(formatHM(store.weekTotalSeconds))")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                Text(String.localizedStringWithFormat(
+                    NSLocalizedString("summary.thisWeek", comment: ""),
+                    formatHM(store.weekTotalSeconds)
+                ))
+                .font(.caption)
+                .foregroundStyle(.secondary)
             } else if let book = store.currentlyReading {
                 HStack(spacing: 4) {
                     Image(systemName: "book")
@@ -33,7 +36,15 @@ struct SummaryLine: View {
     private func formatHM(_ seconds: Int) -> String {
         let h = seconds / 3600
         let m = (seconds % 3600) / 60
-        if h > 0 { return "\(h)h \(m)m" }
-        return "\(m)m"
+        if h > 0 {
+            return String.localizedStringWithFormat(
+                NSLocalizedString("format.hoursMinutes", comment: ""),
+                h, m
+            )
+        }
+        return String.localizedStringWithFormat(
+            NSLocalizedString("format.minutesShort", comment: ""),
+            m
+        )
     }
 }

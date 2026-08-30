@@ -123,6 +123,7 @@ struct HeatmapView: View {
         let cal = Calendar.current
         let formatter = DateFormatter()
         formatter.dateFormat = "MMM"
+        formatter.locale = Locale.current   // "MMM" → "Jan" / "1月" / "1月"
 
         // Step 1: candidate = first week that contains day-1 of a given month.
         var candidates: [(weekIdx: Int, label: String)] = []

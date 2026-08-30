@@ -21,6 +21,12 @@ settings:
     MARKETING_VERSION: "0.1.0"
     CURRENT_PROJECT_VERSION: "1"
     ENABLE_PREVIEWS: YES
+    # Declared localizations — keeps the Localizable.xcstrings content
+    # visible in Xcode's localization editor and bakes into CFBundleLocalizations.
+    knownRegions:
+      - en
+      - zh-Hans
+      - zh-Hant
 
 targets:
   WeReadBar:

@@ -25,6 +25,7 @@
 		BD2D02D1537971C6524214BF /* WeReadBarApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66BB7A58855D7C0345CDD21A /* WeReadBarApp.swift */; };
 		BE3D3A990AD9BF26EE79203D /* OnboardingWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A28F4321384A614EBC48A76 /* OnboardingWindow.swift */; };
 		C1317A1EDF22894B0920D999 /* ErrorBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D806B24AE6A41359083160B3 /* ErrorBanner.swift */; };
+		D50DB7FAE20D09C5FF9F2A5D /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 28E3A8FE587410A8CC4ED085 /* Localizable.xcstrings */; };
 		F21758FB350C63E75EEF10E9 /* HeatmapLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696898968E4C8BAA3BD95C88 /* HeatmapLayout.swift */; };
 		FBD1987E3C6946C0D08B65EF /* PopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FB302925FC1DFE0787BE61 /* PopoverView.swift */; };
 /* End PBXBuildFile section */
@@ -32,6 +33,7 @@
 /* Begin PBXFileReference section */
 		121BF8E654503E705B548666 /* WeReadClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeReadClient.swift; sourceTree = "<group>"; };
 		12AF0D56B5DDEE431FFF3669 /* ReadingDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingDay.swift; sourceTree = "<group>"; };
+		28E3A8FE587410A8CC4ED085 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		40B410983B50DC0192F46EA8 /* BookSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSummary.swift; sourceTree = "<group>"; };
 		41AC9A727C69D683C7C75FBD /* WeReadBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeReadBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4248E95E60F2FE9047B4E352 /* SummaryLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryLine.swift; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 			children = (
 				09D417F6DD45BACE01922ACC /* App */,
 				AD8C6A60253003D9EBBFC3AF /* Data */,
+				9D7393DF294B46FA68BC6E85 /* Resources */,
 				903BF5AA9BCAEC250DC3D881 /* Security */,
 				0D6B6B8F4703CD084D24D4D7 /* UI */,
 			);
@@ -108,6 +111,14 @@
 			path = Security;
 			sourceTree = "<group>";
 		};
+		9D7393DF294B46FA68BC6E85 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				28E3A8FE587410A8CC4ED085 /* Localizable.xcstrings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		A634DE1AC4BE7AC6B0F7D1FA = {
 			isa = PBXGroup;
 			children = (
@@ -137,6 +148,7 @@
 			buildConfigurationList = B403A591C880200D05735122 /* Build configuration list for PBXNativeTarget "WeReadBar" */;
 			buildPhases = (
 				5648E9F51732961DA2FE8D5C /* Sources */,
+				8B8BFDE36B0B574F1EB23390 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -170,6 +182,8 @@
 			knownRegions = (
 				Base,
 				en,
+				"zh-Hans",
+				"zh-Hant",
 			);
 			mainGroup = A634DE1AC4BE7AC6B0F7D1FA;
 			minimizedProjectReferenceProxies = 1;
@@ -182,6 +196,17 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8B8BFDE36B0B574F1EB23390 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D50DB7FAE20D09C5FF9F2A5D /* Localizable.xcstrings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5648E9F51732961DA2FE8D5C /* Sources */ = {
@@ -286,6 +311,11 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				knownRegions = (
+					en,
+					"zh-Hans",
+					"zh-Hant",
+				);
 			};
 			name = Debug;
 		};
@@ -354,6 +384,11 @@
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
+				knownRegions = (
+					en,
+					"zh-Hans",
+					"zh-Hant",
+				);
 			};
 			name = Release;
 		};

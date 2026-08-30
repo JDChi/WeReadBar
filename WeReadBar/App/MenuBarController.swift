@@ -34,7 +34,7 @@ final class MenuBarController: NSObject {
         guard let button = statusItem.button else { return }
 
         let image = NSImage(systemSymbolName: "book.closed.fill",
-                            accessibilityDescription: "WeRead")
+                            accessibilityDescription: String(localized: "app.name"))
         image?.isTemplate = true   // auto-tints for light/dark menubar
         button.image = image
         button.target = self
@@ -49,7 +49,7 @@ final class MenuBarController: NSObject {
     private func setupRightClickMenu() {
         rightClickMenu = NSMenu()
 
-        let refresh = NSMenuItem(title: "Refresh now",
+        let refresh = NSMenuItem(title: String(localized: "menu.refreshNow"),
                                  action: #selector(menuRefreshNow),
                                  keyEquivalent: "r")
         refresh.target = self
@@ -57,7 +57,7 @@ final class MenuBarController: NSObject {
 
         rightClickMenu.addItem(.separator())
 
-        let changeKey = NSMenuItem(title: "Change API key…",
+        let changeKey = NSMenuItem(title: String(localized: "menu.changeAPIKey"),
                                    action: #selector(menuChangeAPIKey),
                                    keyEquivalent: "")
         changeKey.target = self
@@ -65,7 +65,7 @@ final class MenuBarController: NSObject {
 
         rightClickMenu.addItem(.separator())
 
-        let quit = NSMenuItem(title: "Quit WeReadBar",
+        let quit = NSMenuItem(title: String(localized: "menu.quit"),
                               action: #selector(menuQuit),
                               keyEquivalent: "q")
         quit.target = self

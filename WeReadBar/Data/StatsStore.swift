@@ -66,14 +66,14 @@ final class StatsStore: ObservableObject {
     func setAPIKey(_ raw: String) async -> Bool {
         let token = raw.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !token.isEmpty else {
-            lastError = "Token is empty"
+            lastError = String(localized: "error.tokenEmpty")
             return false
         }
         let candidate = WeReadClient(apiKey: token)
         do {
             let shelf = try await candidate.fetchShelf()
             guard shelf.isOK else {
-                lastError = shelf.errmsg ?? "WeRead rejected token"
+                lastError = shelf.errmsg ?? String(localized: "error.wechatRejected")
                 return false
             }
             try Keychain.save(token)
@@ -83,7 +83,10 @@ final class StatsStore: ObservableObject {
             await refresh()
             return true
         } catch {
-            lastError = "Auth/network error: \(error.localizedDescription)"
+            lastError = String.localizedStringWithFormat(
+                NSLocalizedString("error.authNetwork", comment: ""),
+                error.localizedDescription
+            )
             return false
         }
     }
@@ -136,7 +139,7 @@ final class StatsStore: ObservableObject {
             let shelf = try await shelfAsync
             wrLog.info("performRefresh: shelf isOK=\(shelf.isOK, privacy: .public), books=\(shelf.books?.count ?? 0, privacy: .public), mp=\(shelf.mp != nil, privacy: .public)")
             guard shelf.isOK else {
-                lastError = shelf.errmsg ?? "WeRead rejected token"
+                lastError = shelf.errmsg ?? String(localized: "error.wechatRejected")
                 return
             }
             shelfCount = shelf.totalCount
@@ -145,7 +148,7 @@ final class StatsStore: ObservableObject {
             let annual = try await annualAsync
             wrLog.info("performRefresh: annual isOK=\(annual.isOK, privacy: .public), dailyReadTimes=\(annual.dailyReadTimes?.count ?? -1, privacy: .public), readTimes=\(annual.readTimes?.count ?? -1, privacy: .public)")
             guard annual.isOK else {
-                lastError = annual.errmsg ?? "WeRead error"
+                lastError = annual.errmsg ?? String(localized: "error.wechatGeneric")
                 return
             }
 

@@ -29,7 +29,7 @@ final class OnboardingWindowController {
 
         let hosting = NSHostingController(rootView: content)
         let win = NSWindow(contentViewController: hosting)
-        win.title = "Set up WeReadBar"
+        win.title = String(localized: "window.title.setup")
         win.styleMask = [.titled, .closable]
         win.isReleasedWhenClosed = false        // keep instance alive after close
         win.center()

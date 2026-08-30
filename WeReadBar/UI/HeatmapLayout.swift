@@ -36,10 +36,14 @@ struct WeekdayGutter: View {
     }
 
     private func label(for row: Int) -> String {
+        // shortWeekdaySymbols is locale-aware: en → "Mon", zh-Hans → "周一",
+        // zh-Hant → "週一". Calendar indexes Sunday = 0, so row 0/2/4 map to
+        // Monday / Wednesday / Friday in our grid layout.
+        let symbols = Calendar.current.shortWeekdaySymbols
         switch row {
-        case 0: return "Mon"
-        case 2: return "Wed"
-        case 4: return "Fri"
+        case 0: return symbols[0]
+        case 2: return symbols[2]
+        case 4: return symbols[4]
         default: return ""
         }
     }

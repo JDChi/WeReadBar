@@ -28,15 +28,18 @@ struct PopoverView: View {
 
             HStack(spacing: 8) {
                 StatTile(
-                    title: "Today",
+                    title: String(localized: "tile.today"),
                     value: formatMinutes(store.todaySeconds)
                 )
                 StatTile(
-                    title: "Streak",
-                    value: "\(store.streak) d"
+                    title: String(localized: "tile.streak"),
+                    value: String.localizedStringWithFormat(
+                        NSLocalizedString("format.streakDays", comment: ""),
+                        store.streak
+                    )
                 )
                 StatTile(
-                    title: "Shelf",
+                    title: String(localized: "tile.shelf"),
                     value: "\(store.shelfCount)"
                 )
             }
@@ -64,7 +67,7 @@ struct PopoverView: View {
                                 .opacity(buttonShowsSpinner ? 1 : 0)
                         }
                         .frame(width: 13, height: 13)
-                        Text("Refresh")
+                        Text(String(localized: "popover.refresh"))
                     }
                     .font(.caption)
                 }
@@ -103,7 +106,12 @@ struct PopoverView: View {
 
     private func formatMinutes(_ seconds: Int) -> String {
         let m = seconds / 60
-        if m == 0 { return "0m" }
-        return "\(m)m"
+        if m == 0 {
+            return String(localized: "format.minutesZero")
+        }
+        return String.localizedStringWithFormat(
+            NSLocalizedString("format.minutes", comment: ""),
+            m
+        )
     }
 }
