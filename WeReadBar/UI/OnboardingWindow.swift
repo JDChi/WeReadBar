@@ -71,8 +71,13 @@ struct OnboardingWindow: View {
         }
         .padding(20)
         .frame(minWidth: 380, minHeight: 200)
-        // Auto-focus the input shortly after the window appears.
+        // Pre-fill with the currently stored token (only when the input is
+        // empty — preserves any draft the user may have left from a
+        // previous session). Then auto-focus the field.
         .task {
+            if input.isEmpty {
+                input = Keychain.load() ?? ""
+            }
             try? await Task.sleep(nanoseconds: 150_000_000)
             inputFocused = true
         }
