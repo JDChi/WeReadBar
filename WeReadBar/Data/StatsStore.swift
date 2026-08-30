@@ -220,7 +220,9 @@ final class StatsStore: ObservableObject {
 
     /// Builds a [ReadingDay] of length 371 (53 weeks × 7 days), oldest first.
     /// Empty days (no reading) are returned as ReadingDay(seconds: 0).
-    private func buildDays(from dict: [String: Int]) -> [ReadingDay] {
+    /// `internal` (not private) so WeReadBarTests can call it directly via
+    /// `@testable import WeReadBar`.
+    func buildDays(from dict: [String: Int]) -> [ReadingDay] {
         let today = calendar.startOfDay(for: Date())
         var out: [ReadingDay] = []
         out.reserveCapacity(371)
@@ -237,14 +239,16 @@ final class StatsStore: ObservableObject {
 
     // MARK: - Derived
 
-    private func secondsForToday(_ days: [ReadingDay]) -> Int {
+    /// Internal (not private) for `@testable import` unit tests.
+    func secondsForToday(_ days: [ReadingDay]) -> Int {
         let today = calendar.startOfDay(for: Date())
         return days.first(where: { $0.date == today })?.seconds ?? 0
     }
 
     /// Streak = number of consecutive days ending today with `seconds >= 60`.
     /// If today has no activity yet (not yet tallied by the server), start from yesterday.
-    private func computeStreak(_ days: [ReadingDay]) -> Int {
+    /// Internal (not private) for `@testable import` unit tests.
+    func computeStreak(_ days: [ReadingDay]) -> Int {
         let byDay = Dictionary(uniqueKeysWithValues: days.map { ($0.date, $0.seconds) })
         var cursor = calendar.startOfDay(for: Date())
         var streak = 0
@@ -268,7 +272,8 @@ final class StatsStore: ObservableObject {
     }
 
     /// Sum of `seconds` for the current calendar week (Mon-Sun) containing today.
-    private func computeWeekTotal(_ days: [ReadingDay]) -> Int {
+    /// Internal (not private) for `@testable import` unit tests.
+    func computeWeekTotal(_ days: [ReadingDay]) -> Int {
         let today = calendar.startOfDay(for: Date())
         let weekday = calendar.component(.weekday, from: today)
         let firstWeekday = calendar.firstWeekday
