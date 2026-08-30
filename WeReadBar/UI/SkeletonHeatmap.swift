@@ -2,8 +2,8 @@ import SwiftUI
 
 /// Placeholder heatmap shown while `days` is still loading. Renders the
 /// same 53×7 grid shape as `HeatmapView` but with gray placeholder
-/// rectangles that gently pulse, so the user sees the expected layout
-/// instead of an empty area during the first refresh / cold start.
+/// rectangles that pulse, so the user sees the expected layout instead
+/// of an empty area during the first refresh / cold start.
 struct SkeletonHeatmap: View {
     let cellSize: CGFloat
     let spacing: CGFloat
@@ -31,17 +31,25 @@ struct SkeletonHeatmap: View {
                     alignment: .leading,
                     spacing: spacing
                 ) {
-                    ForEach(0..<gridSize, id: \.self) { _ in
+                    ForEach(0..<gridSize, id: \.self) { idx in
+                        // Wider opacity range (0.08 ↔ 0.55) and a per-cell
+                        // delay produces a left-to-right "wave" instead of
+                        // a uniform blink, which reads as clearly alive.
                         RoundedRectangle(cornerRadius: 1.5, style: .continuous)
-                            .fill(Color.gray.opacity(pulse ? 0.10 : 0.22))
+                            .fill(Color.gray.opacity(pulse ? 0.08 : 0.55))
                             .frame(width: cellSize, height: cellSize)
+                            .animation(
+                                .easeInOut(duration: 0.85)
+                                    .delay(Double(idx % columns) * 0.012),
+                                value: pulse
+                            )
                     }
                 }
             }
         }
         .onAppear {
-            // Gentle ~1.2s ease-in-out pulse, repeating forever.
-            withAnimation(.easeInOut(duration: 1.2).repeatForever(autoreverses: true)) {
+            // 0.85s ease-in-out, ~1.7s full cycle, repeating forever.
+            withAnimation(.easeInOut(duration: 0.85).repeatForever(autoreverses: true)) {
                 pulse.toggle()
             }
         }
