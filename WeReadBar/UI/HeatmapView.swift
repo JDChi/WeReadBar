@@ -3,19 +3,19 @@ import SwiftUI
 /// GitHub-style heatmap: 53 columns (weeks) × 7 rows (days) = 371 cells.
 /// `days` should be length 371, oldest first.
 ///
-/// Layout math for a 480pt popover (content area 456pt):
-///   weekday gutter (22pt) + 53 cells × 7pt + 52 gaps × 1pt
-///   = 22 + 371 + 52 = 445pt   (11pt breathing room)
+/// Layout math for a 600pt popover (content area 576pt):
+///   weekday gutter (26pt) + 53 cells × 9pt + 52 gaps × 1pt
+///   = 26 + 477 + 52 = 555pt   (21pt breathing room)
 struct HeatmapView: View {
     let days: [ReadingDay]
 
-    private let cellSize: CGFloat = 7
+    private let cellSize: CGFloat = 9
     private let spacing: CGFloat = 1
     private let columns = 53
     private let rows = 7
     private let gridSize = 53 * 7  // 371
-    private let gutterWidth: CGFloat = 22
-    private let monthLabelHeight: CGFloat = 12
+    private let gutterWidth: CGFloat = 26
+    private let monthLabelHeight: CGFloat = 14
 
     var body: some View {
         // Pad to exactly 371; missing entries render as empty placeholders.
@@ -36,7 +36,7 @@ struct HeatmapView: View {
                     spacing: spacing
                 ) {
                     ForEach(0..<gridSize, id: \.self) { idx in
-                        RoundedRectangle(cornerRadius: 1, style: .continuous)
+                        RoundedRectangle(cornerRadius: 1.5, style: .continuous)
                             .fill(color(for: padded[idx]))
                             .frame(width: cellSize, height: cellSize)
                     }
@@ -72,7 +72,7 @@ struct HeatmapView: View {
             Color.clear.frame(width: gutterWidth, height: monthLabelHeight)
             ForEach(0..<columns, id: \.self) { weekIdx in
                 Text(monthLabel(for: weeks, weekIdx: weekIdx))
-                    .font(.system(size: 8))
+                    .font(.system(size: 9))
                     .foregroundStyle(.tertiary)
                     .frame(width: cellSize, height: monthLabelHeight, alignment: .leading)
                     .fixedSize()
@@ -105,7 +105,7 @@ struct HeatmapView: View {
         VStack(alignment: .trailing, spacing: spacing) {
             ForEach(0..<rows, id: \.self) { row in
                 Text(weekdayLabel(for: row))
-                    .font(.system(size: 8))
+                    .font(.system(size: 9))
                     .foregroundStyle(.tertiary)
                     .frame(width: gutterWidth, height: cellSize, alignment: .trailing)
             }
