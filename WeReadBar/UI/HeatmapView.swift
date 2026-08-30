@@ -1,5 +1,12 @@
 import SwiftUI
 
+/// (weekIdx, label) tuple for a non-empty month label.
+private struct MonthLabelEntry: Identifiable {
+    let weekIdx: Int
+    let label: String
+    var id: Int { weekIdx }
+}
+
 /// GitHub-style heatmap: 53 columns (weeks) × 7 rows (days) = 371 cells.
 /// `days` should be length 371, oldest first.
 ///
@@ -66,25 +73,47 @@ struct HeatmapView: View {
     }
 
     /// Top row: month name shown only at the leading edge of the first column
-    /// of each new month. Empty columns render as `Color.clear` so they don't
-    /// leave visible artifacts.
+    /// of each new month. Empty columns are not rendered (no placeholders).
+    /// Labels are positioned with absolute `offset()` so they sit precisely at
+    /// the start of their column regardless of label text width.
     private func monthLabelsRow(weeks: [[ReadingDay]]) -> some View {
-        HStack(spacing: spacing) {
-            // Spacer matching the weekday-gutter width.
-            Color.clear.frame(width: gutterWidth, height: monthLabelHeight)
-            ForEach(0..<columns, id: \.self) { weekIdx in
-                let label = monthLabel(for: weeks, weekIdx: weekIdx)
-                if label.isEmpty {
-                    Color.clear.frame(width: cellSize, height: monthLabelHeight)
-                } else {
-                    Text(label)
-                        .font(.system(size: 9))
-                        .foregroundStyle(.tertiary)
-                        .fixedSize()
-                }
+        let entries = collectMonthLabels(weeks: weeks)
+        let totalWidth = monthLabelsRowWidth()
+
+        return ZStack(alignment: .topLeading) {
+            Color.clear.frame(height: monthLabelHeight)
+            ForEach(entries, id: \.weekIdx) { entry in
+                monthLabelView(text: entry.label, weekIdx: entry.weekIdx)
             }
         }
-        .frame(height: monthLabelHeight)
+        .frame(width: totalWidth, height: monthLabelHeight)
+    }
+
+    /// Total width the month-label row should occupy (= heatmap row width).
+    private func monthLabelsRowWidth() -> CGFloat {
+        return gutterWidth + spacing + CGFloat(columns) * cellSize + CGFloat(columns - 1) * spacing
+    }
+
+    /// Pre-computed (weekIdx, label) pairs for non-empty labels.
+    private func collectMonthLabels(weeks: [[ReadingDay]]) -> [MonthLabelEntry] {
+        var result: [MonthLabelEntry] = []
+        for weekIdx in 0..<columns {
+            let label = monthLabel(for: weeks, weekIdx: weekIdx)
+            if !label.isEmpty {
+                result.append(MonthLabelEntry(weekIdx: weekIdx, label: label))
+            }
+        }
+        return result
+    }
+
+    /// A single month-label view, positioned at its column's leading edge.
+    private func monthLabelView(text: String, weekIdx: Int) -> some View {
+        let xOffset = gutterWidth + spacing + CGFloat(weekIdx) * (cellSize + spacing)
+        return Text(text)
+            .font(.system(size: 9))
+            .foregroundStyle(.tertiary)
+            .fixedSize()
+            .offset(x: xOffset)
     }
 
     /// Returns the month abbreviation when this week is the first one in a new
