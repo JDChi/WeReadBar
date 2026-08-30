@@ -23,8 +23,7 @@ struct SkeletonHeatmap: View {
             Color.clear.frame(height: monthLabelHeight)
 
             HStack(alignment: .top, spacing: spacing) {
-                // Reserved weekday gutter
-                Color.clear.frame(width: gutterWidth)
+                weekdayLabels
 
                 LazyVGrid(
                     columns: Array(repeating: GridItem(.fixed(cellSize), spacing: spacing), count: columns),
@@ -54,4 +53,27 @@ struct SkeletonHeatmap: View {
             }
         }
     }
+
+    /// Mon / Wed / Fri gutter — same styling as `HeatmapView.weekdayLabels`
+    /// so the layout and font weight match exactly.
+    private var weekdayLabels: some View {
+        VStack(alignment: .trailing, spacing: spacing) {
+            ForEach(0..<rows, id: \.self) { row in
+                Text(weekdayLabel(for: row))
+                    .font(.system(size: 9))
+                    .foregroundStyle(.tertiary)
+                    .frame(width: gutterWidth, height: cellSize, alignment: .trailing)
+            }
+        }
+    }
+
+    private func weekdayLabel(for row: Int) -> String {
+        switch row {
+        case 0: return "Mon"
+        case 2: return "Wed"
+        case 4: return "Fri"
+        default: return ""
+        }
+    }
 }
+
