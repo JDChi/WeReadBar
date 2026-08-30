@@ -2,117 +2,121 @@
 
 # WeReadBar
 
-**A tiny macOS menubar app that shows your 微信读书 (WeRead) reading stats at a glance.**
+**一个迷你的 macOS 菜单栏 app，把你的微信读书 (WeRead) 阅读数据一眼呈现。**
 
-[📥 **Download**](../../releases/latest) · [⭐ Star](../../stargazers) · [🐛 Report a bug](../../issues)
+[📥 **下载**](../../releases/latest) · [⭐ Star](../../stargazers) · [🐛 反馈问题](../../issues)
 
 </div>
 
 ---
 
-## What is it?
+## 这是什么？
 
-WeReadBar lives in your menubar and shows:
+WeReadBar 住在你的菜单栏里，展示：
 
-- **A year-long heatmap** of when you read — like GitHub's contribution graph, but for books
-- **Today's minutes**, **current streak**, **shelf total** — three numbers, one glance
-- **Weekly total** for the current Mon–Sun week
-- **Currently reading** book when nothing else is happening
+- **一整年的热力图** —— GitHub 风格的贡献图，不过是读书版本
+- **今日时长**、**当前连续天数**、**书架总数** —— 三个数字，一眼看完
+- **本周合计** —— 当前 Mon–Sun 周的累计时长
+- **当前在读** —— 没有别的内容时，显示正在读的书
 
-Click the book icon to see the popover. Right-click for menu (Refresh / Go to Reading / Change API key / Quit). That's the whole app.
+点书本图标看弹窗。右键弹菜单（刷新 / 去阅读 / 更改 API 令牌 / 退出）。就这么多。
 
-Built because opening weweread.qq.com in a browser just to check your streak is too many steps.
+因为打开浏览器看 weread.qq.com 就为了查个连续天数太折腾了，所以做了这个。
 
-![WeReadBar popover preview](docs/screenshot-popover.svg)
-
----
-
-## Features
-
-- 📊 **Year-long heatmap** — every day of the last 53 weeks, color-coded by minutes read
-- 🔥 **Streak counter** — current consecutive-day streak
-- 📚 **Shelf total** — books + albums + 公众号 in your WeRead shelf
-- ⏱ **Today's minutes** — how much you've read so far today
-- 📅 **This week** — running Mon–Sun total
-- 🌍 **三语支持 / Multilingual** — English, 简体中文, 繁體中文 (follows your system language)
-- 🔐 **Saved locally** — your API token lives in macOS preferences
-- 🚫 **No Dock icon, no menu bar menu** — truly invisible until you need it
+![WeReadBar 弹窗预览](docs/display.png)
 
 ---
 
-## Install
+## 功能
 
-Requires **macOS 14 (Sonoma)** or later and a WeRead account.
-
-1. **[Download the latest DMG](../../releases/latest)**
-2. Open the DMG, drag **WeReadBar** to **/Applications**
-3. **Right-click** `WeReadBar.app` in `/Applications` → **Open** → confirm
-4. Paste your **WeRead API bearer token** when prompted (get one at [weread.qq.com/r/weread-skills](https://weread.qq.com/r/weread-skills))
-5. Click the book icon in your menubar 🎉
-
-> **Why the right-click step?** The app is signed without an Apple Developer ID, so macOS Gatekeeper asks you to confirm once. After that it opens normally.
-
----
-
-## Privacy
-
-- **Network**: WeReadBar only talks to `i.weread.qq.com` (WeRead's official API gateway). No analytics, no telemetry, no third-party services.
-- **Credentials**: Your API token is stored in macOS preferences (`~/Library/Preferences/com.local.wereadbar.plist`, key `WeReadBar.apiToken`). It's never read by anything except this app.
-- **Disk cache**: None. Every refresh re-fetches from WeRead.
-- **Source**: Fully open. Read it, audit it, fork it.
+- 📊 **一整年热力图** —— 最近 53 周每天的阅读时长，按强度上色
+- 🔥 **连续天数** —— 当前的连续日（每天 ≥ 60 秒算一天）
+- 📚 **书架总数** —— 书架上的书 + 专辑 + 公众号
+- ⏱ **今日分钟** —— 今天到现在读了多少分钟
+- 📅 **本周合计** —— 当前 Mon–Sun 周累计
+- 🌍 **三语支持** — English / 简体中文 / 繁體中文（跟随系统语言）
+- 🔐 **本地保存** —— API 令牌存在 macOS preferences，不弹任何密码框
+- 🚫 **无 Dock 图标、无系统托盘菜单** —— 不需要时完全隐形
 
 ---
 
-## FAQ
+## 安装
+
+需要 **macOS 14 (Sonoma)** 或更新版本，以及一个微信读书账号。
+
+1. **[下载最新 DMG](../../releases/latest)**
+2. 打开 DMG，把 **WeReadBar** 拖到 **/Applications**
+3. 在 /Applications 里**右键** `WeReadBar.app` → **打开** → 确认
+4. 提示时粘贴 **WeRead API bearer token**（在 [weread.qq.com/r/weread-skills](https://weread.qq.com/r/weread-skills) 获取）
+5. 点菜单栏的书本图标 🎉
+
+> **为什么要右键打开？** 这个 app 没有 Apple Developer ID 签名，macOS Gatekeeper 第一次会拦下来让你确认一次。之后就正常打开了。
+
+---
+
+## 隐私
+
+- **网络**：WeReadBar 只跟 `i.weread.qq.com`（微信读书官方 API 网关）通信。无埋点、无遥测、无第三方服务。
+- **凭据**：API 令牌存在 macOS preferences（`~/Library/Preferences/com.local.wereadbar.plist`，键名 `WeReadBar.apiToken`），只被这个 app 读。
+- **磁盘缓存**：没有。每次刷新都重新从微信读书拉。
+- **源码**：完全开源。随便读、审、fork。
+
+---
+
+## 常见问题
 
 <details>
-<summary><b>Why does the API token matter?</b></summary>
+<summary><b>为什么需要 API 令牌？</b></summary>
 
-WeReadBar talks to WeRead's data gateway the same way the official 微信读书 Claude Skill does — you provide a bearer token (the same format `wrk-xxxxxxxx`) and the app reads your shelf, reading time, and current book. Without a token, the app can't fetch your data.
+WeReadBar 跟微信读书数据网关通信 —— 用的是官方 [微信读书 Claude Skill](https://github.com/Tencent/WeChatReading) 同一套 API。你提供 bearer token（格式 `wrk-xxxxxxxx`），app 就能读你的书架、阅读时长、当前在读。没 token 拉不到数据。
 
-Get one at [weread.qq.com/r/weread-skills](https://weread.qq.com/r/weread-skills).
+在 [weread.qq.com/r/weread-skills](https://weread.qq.com/r/weread-skills) 获取。
 </details>
 
 <details>
-<summary><b>Does this drain my battery or slow my Mac?</b></summary>
+<summary><b>会费电或拖慢 Mac 吗？</b></summary>
 
-No. The app sits idle in your menubar consuming <1% CPU and ~50 MB RAM. It refreshes every 30 minutes only while the popover is open, and stops polling the moment you close it.
+不会。app 静默驻留在菜单栏，CPU <1%、RAM ~50 MB。每 30 分钟只在弹窗打开时刷新一次，关闭就停。
 </details>
 
 <details>
-<summary><b>Can I uninstall it cleanly?</b></summary>
+<summary><b>能干净卸载吗？</b></summary>
 
-Yes. Drag `WeReadBar.app` from `/Applications` to the Trash. To wipe the stored token too:
+能。把 `/Applications` 里的 `WeReadBar.app` 拖到废纸篓。要清掉存的令牌：
 ```bash
 defaults delete com.local.wereadbar WeReadBar.apiToken
 ```
 </details>
 
 <details>
-<summary><b>How does the heatmap data get built?</b></summary>
+<summary><b>热力图数据怎么来的？</b></summary>
 
-The WeRead API only returns per-day data in narrow windows, not a full year. WeReadBar stitches 13 monthly fetches together (~1 second total) to fill the year-long grid. On macOS this all happens in the background — the app shows a skeleton while it loads, then cross-fades into the real heatmap.
-</details>
-
-<details>
-<summary><b>Why is the icon a closed book?</b></summary>
-
-It just felt right. SF Symbol `book.closed.fill`, auto-tinted to match your menubar's light/dark mode.
+微信读书 API 只返回短窗口的每日数据，不是整年。WeReadBar 用 13 次月度请求拼出一整年（~1 秒）。macOS 上完全在后台跑 —— 加载时显示骨架，加载完淡入真实热力图。
 </details>
 
 ---
 
-## Credits
+## 请我喝杯咖啡 ☕
 
-- **Data**: [微信读书 (WeRead)](https://weread.qq.com/) — Tencent's reading app
-- **API gateway**: [Tencent/WeChatReading](https://github.com/Tencent/WeChatReading) — the official Claude Skill this app is built on top of
-- **Built with**: Swift + SwiftUI, native AppKit menubar integration
-- **License**: MIT
+如果 WeReadBar 帮到你了，欢迎请我喝杯咖啡：
+
+| 支付宝 | 微信支付 |
+|:---:|:---:|
+| ![Alipay](docs/alipay.jpg) | ![WeChat Pay](docs/wechatpay.jpg) |
+
+---
+
+## 致谢
+
+- **数据源**：[微信读书 (WeRead)](https://weread.qq.com/) —— 腾讯的读书 app
+- **API 网关**：[Tencent/WeChatReading](https://github.com/Tencent/WeChatReading) —— 官方 Claude Skill，本 app 构建于其上
+- **技术栈**：Swift + SwiftUI，原生 AppKit 菜单栏集成
+- **License**：MIT
 
 ---
 
 <div align="center">
 
-If you find WeReadBar useful, a ⭐ on GitHub helps others discover it.
+觉得有用的话，给个 ⭐ 帮别人发现它。
 
 </div>
