@@ -26,6 +26,16 @@ struct OnboardingWindow: View {
                 .foregroundStyle(.secondary)
                 .fixedSize(horizontal: false, vertical: true)
 
+            // "Get one from WeRead →" — opens the weread-skills page in the
+            // user's browser so first-time users know how to obtain a token.
+            Button {
+                NSWorkspace.shared.open(WeReadURL.tokenHelp)
+            } label: {
+                Text(String(localized: "onboarding.getToken"))
+                    .font(.caption)
+            }
+            .buttonStyle(.link)
+
             // Toggle between SecureField (default, hidden) and TextField (plain).
             // The eye button on the right flips `isVisible`.
             HStack(spacing: 6) {

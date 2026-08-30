@@ -332,19 +332,42 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Paste the bearer token from i.weread.qq.com. It’s stored in macOS preferences and only ever read by this app."
+            "value" : "Paste your WeRead API token below."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "请粘贴 i.weread.qq.com 上的 bearer token。它存储在 macOS 钥匙串中，仅本应用可读取。"
+            "value" : "粘贴你的微信读书 API 令牌。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "請貼上 i.weread.qq.com 上的 bearer token。它儲存在 macOS 鑰匙圈中，僅本應用可讀取。"
+            "value" : "貼上你的微信讀書 API 權杖。"
+          }
+        }
+      }
+    },
+    "onboarding.getToken" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get one from WeRead →"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "从微信读书获取 →"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "從微信讀書獲取 →"
           }
         }
       }

@@ -122,4 +122,8 @@ enum WeReadURL {
     /// Web homepage. Falls back gracefully if the user has the WeRead
     /// macOS app — the OS will offer to open it natively.
     static let homepage = URL(string: "https://weread.qq.com/")!
+
+    /// Where users go to obtain a WeRead API bearer token. Linked from
+    /// the onboarding window so first-time users know how to get one.
+    static let tokenHelp = URL(string: "https://weread.qq.com/r/weread-skills")!
 }
