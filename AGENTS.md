@@ -113,6 +113,20 @@ README.md                           # 面向使用者的说明
 - **命名**：Swift 文件使用与主类型一致的 PascalCase。`Data/` 下的网络模型只需 `Decodable`。
 - **依赖**：不引入第三方依赖；仅使用 SwiftUI、AppKit、Security、Foundation 与 os。
 
+## 打包与发布
+
+- **本地预览包**：运行 `./scripts/build-dmg.sh <版本号>`，会在 `dist/` 生成 ad-hoc 签名的 `WeReadBar-<版本号>.dmg`。它用于本地安装、图标和 Gatekeeper 流程检查，不是正式发布的必经步骤。
+- **版本号**：发布前将 `project.yml` 中的 `MARKETING_VERSION` 更新为不带 `v` 的版本号（例如 `0.3.0`），随后执行 `xcodegen generate`，并提交 `project.yml` 与生成的 `WeReadBar.xcodeproj/project.pbxproj`。
+- **正式发布**：确认 `main` 已推送后，创建并推送新标签：
+
+  ```bash
+  git tag -a v0.3.0 -m "v0.3.0"
+  git push origin v0.3.0
+  ```
+
+  `.github/workflows/release.yml` 仅在推送 `v*` 标签时运行。它会从标签名取出版本号，调用 `scripts/build-dmg.sh`，上传 `dist/WeReadBar-<版本号>.dmg`，并自动创建正式 GitHub Release。
+- **标签安全**：发布前先检查 `git tag --list 'v<版本号>'`。不要强制移动已发布标签；需要修订时递增版本号并创建新标签。
+
 ## 冒烟验证
 
 ```bash
