@@ -26,6 +26,12 @@ actor WeReadClient {
         return try decoder.decode(ShelfResponse.self, from: data)
     }
 
+    /// Per-book reading progress. Shelf entries do not reliably include progress.
+    func fetchBookProgress(bookId: String) async throws -> BookProgressResponse {
+        let data = try await post(apiName: "/book/getprogress", params: ["bookId": bookId])
+        return try decoder.decode(BookProgressResponse.self, from: data)
+    }
+
     /// Calendar week (Mon–Sun) containing today.
     func fetchWeekly() async throws -> ReadDataResponse {
         let data = try await post(apiName: "/readdata/detail", params: ["mode": "weekly"])

@@ -145,6 +145,24 @@ final class StatsStore: ObservableObject {
             }
             shelfCount = shelf.totalCount
             currentlyReading = shelf.firstReading
+            if let reading = currentlyReading, !reading.bookId.isEmpty {
+                do {
+                    let progress = try await client.fetchBookProgress(bookId: reading.bookId)
+                    try Task.checkCancellation()
+                    if progress.isOK, let percent = progress.book?.progress {
+                        currentlyReading = reading.replacingProgress(with: percent)
+                    } else {
+                        wrLog.warning("performRefresh: current-book progress unavailable")
+                    }
+                } catch is CancellationError {
+                    throw CancellationError()
+                } catch let error as URLError where error.code == .cancelled {
+                    throw error
+                } catch {
+                    // Keep the current book visible when its optional progress lookup fails.
+                    wrLog.warning("performRefresh: current-book progress failed: \(error.localizedDescription, privacy: .public)")
+                }
+            }
 
             let annual = try await annualAsync
             wrLog.info("performRefresh: annual isOK=\(annual.isOK, privacy: .public), dailyReadTimes=\(annual.dailyReadTimes?.count ?? -1, privacy: .public), readTimes=\(annual.readTimes?.count ?? -1, privacy: .public)")

@@ -12,6 +12,7 @@
 		36B227D1503B8963BB20B107 /* ReadingDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AF0D56B5DDEE431FFF3669 /* ReadingDay.swift */; };
 		4ED261612F7DCF5ED089FAA3 /* MenuBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B813B213BCF2FA03A9A0829 /* MenuBarController.swift */; };
 		588A35B7F08A5F826BB305A2 /* OnboardingWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEEC9F87035452CF7F0FF00 /* OnboardingWindowController.swift */; };
+		5AEEBFF65721E51A5BAD2CF0 /* BookProgressResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9EBA611437C7C1E97CFA02 /* BookProgressResponse.swift */; };
 		5ED97DF3DF787EF17ED1B230 /* WeReadClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121BF8E654503E705B548666 /* WeReadClient.swift */; };
 		5F6FB19B8E5B783FB96D3DCF /* BookSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B410983B50DC0192F46EA8 /* BookSummary.swift */; };
 		640E1D9F827B971BAFE6B0E3 /* PopoverPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99F1D2A1E1B112A143598D3 /* PopoverPresenter.swift */; };
@@ -57,6 +58,7 @@
 		EC2F99CC9E253B8FF301EC5F /* SkeletonHeatmap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonHeatmap.swift; sourceTree = "<group>"; };
 		ED1C31784A5BCE4159646AEB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F7C686A4E9C240E1ECCE39DA /* StatTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatTile.swift; sourceTree = "<group>"; };
+		FB9EBA611437C7C1E97CFA02 /* BookProgressResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookProgressResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -136,6 +138,7 @@
 		AD8C6A60253003D9EBBFC3AF /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				FB9EBA611437C7C1E97CFA02 /* BookProgressResponse.swift */,
 				40B410983B50DC0192F46EA8 /* BookSummary.swift */,
 				9B87C41A8168619121C5CBFA /* ReadDataResponse.swift */,
 				12AF0D56B5DDEE431FFF3669 /* ReadingDay.swift */,
@@ -221,6 +224,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				681FC05B66E2A6A2C21BD94E /* AppDelegate.swift in Sources */,
+				5AEEBFF65721E51A5BAD2CF0 /* BookProgressResponse.swift in Sources */,
 				5F6FB19B8E5B783FB96D3DCF /* BookSummary.swift in Sources */,
 				C1317A1EDF22894B0920D999 /* ErrorBanner.swift in Sources */,
 				F21758FB350C63E75EEF10E9 /* HeatmapLayout.swift in Sources */,
@@ -309,7 +313,7 @@
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = WeReadBar/Resources/Info.plist;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 0.3.0;
+				MARKETING_VERSION = 0.4.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -383,7 +387,7 @@
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = WeReadBar/Resources/Info.plist;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 0.3.0;
+				MARKETING_VERSION = 0.4.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.local.wereadbar;

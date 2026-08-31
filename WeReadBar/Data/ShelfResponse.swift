@@ -31,7 +31,8 @@ struct ShelfResponse: Decodable {
             title: top.title ?? "(untitled)",
             author: top.author,
             cover: top.cover,
-            progressPercent: pct
+            progressPercent: pct,
+            deepLink: top.deepLink.flatMap { URL(string: $0) }.flatMap { $0.scheme == nil ? nil : $0 }
         )
     }
 
@@ -44,6 +45,7 @@ struct ShelfBook: Decodable {
     let title: String?
     let author: String?
     let cover: String?
+    let deepLink: String?
     let readUpdateTime: Int?
     let readProgress: Int?
 }
