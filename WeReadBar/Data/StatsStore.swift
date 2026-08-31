@@ -175,10 +175,10 @@ final class StatsStore: ObservableObject {
         }
     }
 
-    /// Resolves a [ReadingDay] of length 182.
+    /// Resolves a 53-week [ReadingDay] grid of length 371.
     /// Strategy:
     /// 1. If annual `dailyReadTimes` is present and non-empty, use it.
-    /// 2. Otherwise, stitch 7 monthly calls (last 7 months' worth of per-day `readTimes`).
+    /// 2. Otherwise, stitch 13 monthly calls (last 13 months' worth of per-day `readTimes`).
     private func resolveHeatmap(
         annual: ReadDataResponse,
         client: WeReadClient

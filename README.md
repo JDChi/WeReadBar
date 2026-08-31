@@ -2,7 +2,7 @@
 
 # WeReadBar
 
-**一个迷你的 macOS 菜单栏 app，把你的微信读书 (WeRead) 阅读数据一眼呈现。**
+**一个轻量的 macOS 菜单栏应用，把微信读书（WeRead）的阅读数据一眼呈现。**
 
 [📥 **下载**](../../releases/latest) · [⭐ Star](../../stargazers) · [🐛 反馈问题](../../issues)
 
@@ -14,10 +14,10 @@
 
 WeReadBar 住在你的菜单栏里，展示：
 
-- **一整年的热力图** —— GitHub 风格的贡献图，不过是读书版本
-- **今日时长**、**当前连续天数**、**书架总数** —— 三个数字，一眼看完
-- **本周合计** —— 当前 Mon–Sun 周的累计时长
-- **当前在读** —— 没有别的内容时，显示正在读的书
+- **全年热力图** —— GitHub 风格的贡献图，不过记录的是阅读
+- **今日时长**、**连续阅读**、**书架总数** —— 三个关键数字一眼看完
+- **本周合计** —— 当前周一至周日的累计阅读时长
+- **当前在读** —— 显示正在阅读的书籍
 
 ![WeReadBar 弹窗预览](docs/display.png)
 
@@ -25,14 +25,14 @@ WeReadBar 住在你的菜单栏里，展示：
 
 ## 功能
 
-- 📊 **一整年热力图** —— 最近 53 周每天的阅读时长，按强度上色
-- 🔥 **最近连续阅读** —— 已经连续多少天每天都在读（每天 ≥ 1 分钟）
+- 📊 **全年热力图** —— 最近 53 周、共 371 天的阅读时长，按强度上色
+- 🔥 **连续阅读** —— 已连续多少天每天阅读（每天 ≥ 1 分钟）
 - 📚 **书架总数** —— 书架上的书 + 专辑 + 公众号
 - ⏱ **今日分钟** —— 今天到现在读了多少分钟
-- 📅 **本周合计** —— 当前 Mon–Sun 周累计
+- 📅 **本周合计** —— 当前周一至周日累计
 - 🌍 **三语支持** — English / 简体中文 / 繁體中文（跟随系统语言）
-- 🔐 **本地保存** —— API 令牌存在 macOS preferences，不弹任何密码框
-- 🚫 **无 Dock 图标、无系统托盘菜单** —— 不需要时完全隐形
+- 🔐 **本地保存** —— API 令牌仅保存在本机的应用偏好设置中
+- 🚫 **纯菜单栏体验** —— 没有 Dock 图标；左键查看数据，右键可刷新或更换令牌
 
 ---
 
@@ -57,7 +57,7 @@ WeReadBar 住在你的菜单栏里，展示：
 ## 隐私
 
 - **网络**：WeReadBar 只跟 `i.weread.qq.com`（微信读书官方 API 网关）通信。无埋点、无遥测、无第三方服务。
-- **凭据**：API 令牌存在 macOS preferences（`~/Library/Preferences/com.local.wereadbar.plist`，键名 `WeReadBar.apiToken`），只被这个 app 读。
+- **凭据**：API 令牌保存在 macOS 的应用偏好设置中（键名 `WeReadBar.apiToken`），仅供本应用使用。
 - **磁盘缓存**：没有。每次刷新都重新从微信读书拉。
 - **源码**：完全开源。随便读、审、fork。
 
@@ -68,7 +68,7 @@ WeReadBar 住在你的菜单栏里，展示：
 <details>
 <summary><b>为什么需要 API 令牌？</b></summary>
 
-WeReadBar 跟微信读书数据网关通信 —— 用的是官方 [微信读书 Claude Skill](https://github.com/Tencent/WeChatReading) 同一套 API。你提供 bearer token（格式 `wrk-xxxxxxxx`），app 就能读你的书架、阅读时长、当前在读。没 token 拉不到数据。
+WeReadBar 通过微信读书数据网关读取数据，使用与官方 [微信读书 Claude Skill](https://github.com/Tencent/WeChatReading) 相同的 API。提供 bearer token（格式 `wrk-xxxxxxxx`）后，应用才能读取书架、阅读时长和当前在读；没有令牌就无法拉取这些数据。
 
 在 [weread.qq.com/r/weread-skills](https://weread.qq.com/r/weread-skills) 获取。
 </details>
@@ -76,7 +76,7 @@ WeReadBar 跟微信读书数据网关通信 —— 用的是官方 [微信读书
 <details>
 <summary><b>会费电或拖慢 Mac 吗？</b></summary>
 
-不会。app 静默驻留在菜单栏，CPU <1%、RAM ~50 MB。每 30 分钟只在弹窗打开时刷新一次，关闭就停。
+应用只驻留在菜单栏，并仅在弹窗打开期间每 30 分钟轮询一次；关闭弹窗后会停止该轮询。实际资源占用会因设备和网络状态而异。
 </details>
 
 <details>
@@ -91,7 +91,7 @@ defaults delete com.local.wereadbar WeReadBar.apiToken
 <details>
 <summary><b>热力图数据怎么来的？</b></summary>
 
-微信读书 API 只返回短窗口的每日数据，不是整年。WeReadBar 用 13 次月度请求拼出一整年（~1 秒）。macOS 上完全在后台跑 —— 加载时显示骨架，加载完淡入真实热力图。
+优先使用年度接口返回的每日阅读数据；当该字段缺失时，WeReadBar 会连续请求约 13 个月的月度数据并拼接为全年视图。加载期间会显示骨架热力图，完成后再展示真实数据。
 </details>
 
 ---

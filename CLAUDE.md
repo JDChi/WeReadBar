@@ -1,20 +1,34 @@
 # CLAUDE.md
 
-For full project guidance — architecture, key gotchas, file layout, smoke tests — see [AGENTS.md](./AGENTS.md). This file is just the Claude Code-specific pointer plus a few reminders.
+本文件是供 Claude Code 使用的项目速查；完整的架构、目录、数据约束与验证方式以 [AGENTS.md](./AGENTS.md) 为准。
 
-**Current scale**: year-long GitHub-style heatmap, ~13-month data fetch, 600pt popover. Numeric constants live in `UI/HeatmapView.swift` and `Data/StatsStore.swift`; treat them as load-bearing for layout.
+## 项目概览
 
-## Quick reminders for Claude
+WeReadBar 是原生 Swift + SwiftUI 编写的 macOS 菜单栏应用：用 53 周（371 天）的 GitHub 风格热力图展示微信读书阅读数据，并呈现今日阅读、连续阅读、书架数量和当前在读。热力图和弹窗尺寸由 `UI/HeatmapLayout.swift`、`UI/Theme.swift` 统一定义；调整数值前请先确认布局。
 
-- **Use `os.Logger`** (subsystem `com.local.wereadbar`), not `print`. This is an `LSUIElement` app; `stdout` doesn't show up in the console.
-- **Concurrency model**: `actor` for `WeReadClient`, `@MainActor` for `StatsStore`. Don't break isolation. Long loops should `Task.checkCancellation()`.
-- **Headless compile check**: `xcodebuild -project WeReadBar.xcodeproj -scheme WeReadBar -configuration Debug -destination 'platform=macOS' CODE_SIGN_IDENTITY=- CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO build`
-- **After editing `project.yml`**: re-run `xcodegen generate`.
-- **API contract** (read [`AGENTS.md` §Key gotchas](./AGENTS.md#key-gotchas--do-not-fix-these) before changing the data layer): single gateway endpoint, Bearer auth, **all params flat in the JSON body**, every request must include `skill_version: "1.0.4"`.
-- **Bearer token storage**: macOS preferences (UserDefaults key `WeReadBar.apiToken`, plist at `~/Library/Preferences/com.local.wereadbar.plist`). Never read from env vars — accessory apps have no shell environment.
+## 开发提醒
 
-## When stuck
+- 使用 `os.Logger`（subsystem：`com.local.wereadbar`），不要使用 `print`。本应用是 `LSUIElement`，标准输出不会出现在常规控制台中。
+- 并发边界不可混用：`WeReadClient` 是 `actor`，`StatsStore` 是 `@MainActor`。长循环中保留 `Task.checkCancellation()`。
+- 修改 `project.yml` 后，执行 `xcodegen generate` 重新生成 Xcode 项目。
+- 数据层变更前先阅读 [AGENTS.md 的关键约束](./AGENTS.md#关键约束请勿随意修改)：所有参数都放在网关 JSON 请求体顶层；每个请求均需携带 `skill_version: "1.0.4"`。
+- API 令牌仅存于 macOS 偏好设置（`WeReadBar.apiToken`），不可从环境变量读取；菜单栏应用不保证拥有 shell 环境。
 
-- The plan file at `~/.claude/plans/noble-beaming-locket.md` has the original design notes.
-- The installed skill at `~/.agents/skills/weread-skills/` documents the upstream WeRead API contract.
-- Capture runtime logs with: `log stream --predicate 'subsystem == "com.local.wereadbar"' --info --debug`.
+## 验证
+
+```bash
+xcodebuild -project WeReadBar.xcodeproj -scheme WeReadBar \
+  -configuration Debug -destination 'platform=macOS' \
+  CODE_SIGN_IDENTITY=- CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO build
+```
+
+需要排查运行时问题时，可使用：
+
+```bash
+log stream --predicate 'subsystem == "com.local.wereadbar"' --info --debug
+```
+
+## 参考资料
+
+- 原始设计记录：`~/.claude/plans/noble-beaming-locket.md`
+- 上游 API 约定：`~/.agents/skills/weread-skills/`
