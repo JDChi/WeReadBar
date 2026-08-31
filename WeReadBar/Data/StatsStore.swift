@@ -43,8 +43,8 @@ final class StatsStore: ObservableObject {
     // MARK: - Lifecycle
 
     /// Bootstrap is invoked explicitly by
-    /// `AppDelegate.applicationDidFinishLaunching` so the data pipeline
-    /// starts exactly once on launch. No-op init keeps the @MainActor
+    /// `AppDelegate.applicationDidFinishLaunching` so credentials are loaded
+    /// before the reminder coordinator starts the data pipeline. No-op init keeps the @MainActor
     /// default-initialiser compatible with the `@StateObject` callers
     /// elsewhere (defensive — currently only AppDelegate owns the store).
     init() {}
@@ -54,7 +54,6 @@ final class StatsStore: ObservableObject {
             wrLog.info("bootstrap: UserDefaults has token (len=\(token.count))")
             client = WeReadClient(apiKey: token)
             needsAPIKey = false
-            Task { await refresh() }
         } else {
             wrLog.notice("bootstrap: no token found, needsAPIKey=true")
             needsAPIKey = true

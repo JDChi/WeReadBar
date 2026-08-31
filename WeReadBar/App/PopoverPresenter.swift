@@ -13,12 +13,14 @@ final class PopoverPresenter: NSObject {
     // MARK: - Owned
 
     private let store: StatsStore
+    private let reminderCoordinator: ReminderCoordinator
     private var popover: NSPopover!
 
     // MARK: - Init
 
-    init(store: StatsStore) {
+    init(store: StatsStore, reminderCoordinator: ReminderCoordinator) {
         self.store = store
+        self.reminderCoordinator = reminderCoordinator
         super.init()
         setupPopover()
     }
@@ -30,7 +32,9 @@ final class PopoverPresenter: NSObject {
         popover.behavior = .transient
         popover.contentSize = NSSize(width: 600, height: 280)
         let host = NSHostingController(
-            rootView: PopoverView().environmentObject(store)
+            rootView: PopoverView(onOpenSettings: { [weak self] in
+                self?.showSettings()
+            }).environmentObject(store)
         )
         popover.contentViewController = host
     }
@@ -56,11 +60,8 @@ final class PopoverPresenter: NSObject {
         Task { await store.refresh() }
     }
 
-    /// "Change API key…" menu item — opens the onboarding window and
-    /// forces `needsAPIKey = true` so the popover's `.onChange` also
-    /// reacts when it's open.
-    func requestAPIKeyChange() {
-        store.needsAPIKey = true
-        OnboardingWindowController.shared.show(store: store)
+    /// Opens the shared window that owns account and reminder preferences.
+    func showSettings() {
+        SettingsWindowController.shared.show(store: store, reminderCoordinator: reminderCoordinator)
     }
 }

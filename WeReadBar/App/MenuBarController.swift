@@ -69,11 +69,11 @@ final class MenuBarController: NSObject {
         goToRead.target = self
         rightClickMenu.addItem(goToRead)
 
-        let changeKey = NSMenuItem(title: String(localized: "menu.changeAPIKey"),
-                                   action: #selector(menuChangeAPIKey),
-                                   keyEquivalent: "")
-        changeKey.target = self
-        rightClickMenu.addItem(changeKey)
+        let settings = NSMenuItem(title: String(localized: "menu.settings"),
+                                  action: #selector(menuSettings),
+                                  keyEquivalent: ",")
+        settings.target = self
+        rightClickMenu.addItem(settings)
 
         rightClickMenu.addItem(.separator())
 
@@ -100,8 +100,8 @@ final class MenuBarController: NSObject {
 
     // MARK: - Menu actions
     //
-    // These forward to the shared `OnboardingWindowController` and
-    // `NSApp.terminate`. They intentionally don't reach into the
+    // These forward to the shared settings window and `NSApp.terminate`.
+    // They intentionally don't reach into the
     // `StatsStore` directly — the menu is the "user wants to do X"
     // channel, not a data-pipeline driver.
 
@@ -124,8 +124,8 @@ final class MenuBarController: NSObject {
         NSWorkspace.shared.open(WeReadURL.homepage)
     }
 
-    @objc private func menuChangeAPIKey() {
-        popoverPresenter?.requestAPIKeyChange()
+    @objc private func menuSettings() {
+        popoverPresenter?.showSettings()
     }
 
     @objc private func menuQuit() {

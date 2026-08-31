@@ -13,6 +13,7 @@ WeReadBar 是原生 Swift + SwiftUI 编写的 macOS 菜单栏应用：用 53 周
 - 修改 `project.yml` 后，执行 `xcodegen generate` 重新生成 Xcode 项目。
 - 数据层变更前先阅读 [AGENTS.md 的关键约束](./AGENTS.md#关键约束请勿随意修改)：所有参数都放在网关 JSON 请求体顶层；每个请求均需携带 `skill_version: "1.0.4"`。
 - API 令牌仅存于 macOS 偏好设置（`WeReadBar.apiToken`），不可从环境变量读取；菜单栏应用不保证拥有 shell 环境。
+- 未阅读提醒仅在应用进程运行时检查：启动后及每 6 小时刷新一次，按 UTC+8 的完整自然日判断；不要加入未声明的登录项或后台 helper。
 
 ## 验证
 

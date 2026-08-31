@@ -33,7 +33,8 @@ WeReadBar/
     AppDelegate.swift               # 生命周期装配：状态、弹窗和菜单栏控制器
     MenuBarController.swift         # 状态栏图标、左右键交互和右键菜单
     PopoverPresenter.swift          # NSPopover 的显示、关闭和刷新协调
-    OnboardingWindowController.swift # 首次录入或更换令牌的 AppKit 窗口
+    ReminderCoordinator.swift         # 运行期间的提醒检查与本地通知
+    SettingsWindowController.swift    # 可重复打开的 AppKit 设置窗口
   UI/
     PopoverView.swift               # 弹窗根视图与可见时轮询
     HeatmapView.swift               # 53 周阅读热力图
@@ -43,7 +44,7 @@ WeReadBar/
     StatTile.swift                  # 摘要数字卡片
     SummaryLine.swift               # 本周合计与当前在读
     ErrorBanner.swift               # 请求失败提示
-    OnboardingWindow.swift          # 录入令牌的 SwiftUI 视图
+    SettingsWindow.swift            # 账号与阅读提醒设置视图
   Data/
     StatsStore.swift                # @MainActor 状态、数据编排和统计派生
     WeReadClient.swift              # actor 化的微信读书网关请求
@@ -53,6 +54,7 @@ WeReadBar/
     ReadDataResponse.swift          # /readdata/detail 解码模型
   Security/
     TokenStore.swift                # UserDefaults 令牌存取
+    ReminderSettings.swift          # UserDefaults 提醒偏好与去重日期
   Resources/
     Info.plist                      # LSUIElement、Bundle ID 等配置
 README.md                           # 面向使用者的说明
@@ -60,11 +62,12 @@ README.md                           # 面向使用者的说明
 
 ## 架构
 
-- **应用入口**：`WeReadBarApp.swift` 用 `@NSApplicationDelegateAdaptor` 挂接 `AppDelegate`；后者创建 `MenuBarController` 与 `PopoverPresenter`。左键开关弹窗，右键显示刷新、更换 API key、打开微信读书和退出菜单。
+- **应用入口**：`WeReadBarApp.swift` 用 `@NSApplicationDelegateAdaptor` 挂接 `AppDelegate`；后者创建菜单栏、弹窗和提醒协调器。左键开关弹窗，右键可刷新、打开设置、前往微信读书或退出。
 - **状态**：`StatsStore.swift` 是 `@MainActor ObservableObject`，持有 `WeReadClient` 并负责刷新管线。所有 `@Published` 属性均为 `private(set)`，视图只观察，不直接写入。
 - **网络**：`WeReadClient.swift` 是 `actor`，通过 `URLSession` 访问唯一网关 `https://i.weread.qq.com/api/agent/gateway`。请求参数必须平铺在 JSON 顶层。
-- **引导**：`OnboardingWindowController` 持有真正的 AppKit `NSWindow`。不要改为 SwiftUI `Window` scene；用户关闭后它无法稳定地再次显示。
+- **设置**：`SettingsWindowController` 持有真正的 AppKit `NSWindow`。不要改为 SwiftUI `Window` scene；用户关闭后它无法稳定地再次显示。
 - **令牌**：`TokenStore.swift` 将 bearer token 存在 macOS 偏好设置（`WeReadBar.apiToken`，位于 `com.local.wereadbar.plist`）。不要依赖环境变量或 `.zshrc`。
+- **提醒**：应用运行时启动即检查、随后每 6 小时刷新一次；没有 API key、刷新失败或无有效阅读记录时不通知。按 UTC+8 的完整自然日计算，且每天最多通知一次。
 
 ## 数据刷新流程
 
@@ -152,7 +155,7 @@ sleep 6 && killall WeReadBar
 
 ## v1 范围外
 
-- 自动更新、通知与全局快捷键
+- 自动更新与全局快捷键
 - 多账号或 API key 切换
 - Sandbox、签名、公证与 App Store 上架
 - 本地数据缓存（每次刷新重新请求微信读书）

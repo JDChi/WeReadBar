@@ -5,6 +5,7 @@ import os
 /// window (a separate NSWindow) when the API key is missing.
 struct PopoverView: View {
     @EnvironmentObject var store: StatsStore
+    let onOpenSettings: () -> Void
 
     private let diagLog = Logger(subsystem: "com.local.wereadbar", category: "popover-diag")
 
@@ -59,6 +60,13 @@ struct PopoverView: View {
                 }
                 .controlSize(.regular)
 
+                Button(action: onOpenSettings) {
+                    Image(systemName: "gearshape")
+                }
+                .help(String(localized: "menu.settings"))
+                .accessibilityLabel(String(localized: "menu.settings"))
+                .controlSize(.regular)
+
                 Spacer()
 
                 // Refresh button. Spinner during load.
@@ -99,15 +107,10 @@ struct PopoverView: View {
             Task {
                 await store.refresh()
                 logLast14Days(label: "AFTER_REFRESH")
-                if store.needsAPIKey {
-                    OnboardingWindowController.shared.show(store: store)
-                }
+                // Missing credentials are handled by the app's settings window.
             }
         }
         .onDisappear { pollTimerOn = false }
-        .onChange(of: store.needsAPIKey) { _, needs in
-            if needs { OnboardingWindowController.shared.show(store: store) }
-        }
     }
 
     private func formatMinutes(_ seconds: Int) -> String {
