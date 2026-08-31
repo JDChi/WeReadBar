@@ -1,10 +1,82 @@
 import SwiftUI
+import AppKit
 
 /// (weekIdx, label) tuple for a non-empty month label.
 private struct MonthLabelEntry: Identifiable {
     let weekIdx: Int
     let label: String
     var id: Int { weekIdx }
+}
+
+/// A hovered cell's position in the heatmap grid.
+private struct CellPosition: Equatable {
+    let weekIdx: Int
+    let dayIdx: Int  // 0 = Monday, 6 = Sunday
+    let origin: CGPoint  // top-left corner of the cell in view coordinates
+}
+
+/// Tooltip view for a heatmap cell - single line: date · duration
+private struct HeatmapTooltip: View {
+    let day: ReadingDay
+
+    private static let dateFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateFormat = "yyyy年M月d日 EEE"
+        f.locale = Locale.current
+        return f
+    }()
+
+    private var formattedDate: String {
+        Self.dateFormatter.string(from: day.date)
+    }
+
+    private var formattedDuration: String {
+        if day.seconds == 0 {
+            return String(localized: "heatmap.noReading")
+        } else {
+            let minutes = day.minutes
+            return String(localized: "heatmap.readingMinutes", defaultValue: "\(minutes) 分钟")
+        }
+    }
+
+    var body: some View {
+        HStack(spacing: 4) {
+            Text(formattedDate)
+            Text("·")
+            Text(formattedDuration)
+                .fontWeight(.medium)
+        }
+        .font(.system(size: 11))
+        .foregroundStyle(day.seconds > 0 ? .primary : .secondary)
+        .padding(.horizontal, 8)
+        .padding(.vertical, 4)
+        .background(
+            RoundedRectangle(cornerRadius: 4)
+                .fill(Color(nsColor: .windowBackgroundColor))
+                .shadow(color: .black.opacity(0.15), radius: 4, x: 0, y: 2)
+        )
+    }
+}
+
+/// A single heatmap cell with hover handling
+private struct CellView: View {
+    let day: ReadingDay
+    let color: Color
+    let isHovered: Bool
+    let onHover: (Bool) -> Void
+
+    var body: some View {
+        RoundedRectangle(cornerRadius: 1.5, style: .continuous)
+            .fill(color)
+            .frame(width: HeatmapLayout.cellSize, height: HeatmapLayout.cellSize)
+            .overlay(
+                RoundedRectangle(cornerRadius: 1.5, style: .continuous)
+                    .stroke(isHovered ? Color.primary.opacity(0.3) : .clear, lineWidth: 1)
+            )
+            .onHover { isHovering in
+                onHover(isHovering)
+            }
+    }
 }
 
 /// Maps a user's own reading-duration distribution into four visual steps.
@@ -102,6 +174,8 @@ struct HeatmapHeader: View {
 struct HeatmapView: View {
     let days: [ReadingDay]
     @Environment(\.colorScheme) private var colorScheme
+    @State private var hoveredCell: CellPosition?
+    @State private var hoveredDay: ReadingDay?
 
     /// True iff we have at least one real (non-placeholder) day to render.
     /// Used to switch between skeleton and real-heatmap modes.
@@ -134,31 +208,70 @@ struct HeatmapView: View {
             return days + Array(repeating: .empty, count: HeatmapLayout.gridSize - days.count)
         }()
 
-        return VStack(alignment: .leading, spacing: HeatmapLayout.sectionSpacing) {
-            let weekColumns = weeks(padded)
-            let colorScale = HeatmapColorScale(days: padded)
-            HeatmapHeader()
-            monthLabelsRow(weeks: weekColumns)
-            HStack(alignment: .top, spacing: HeatmapLayout.weekdayToGridSpacing) {
-                WeekdayGutter()
-                HStack(alignment: .top, spacing: HeatmapLayout.spacing) {
-                    // A column is one calendar week, ordered Monday → Sunday.
-                    // `LazyVGrid` fills row-first, which made adjacent dates
-                    // land 53 cells apart. Rendering explicit week columns
-                    // preserves the chronological 7-day grouping above.
-                    ForEach(Array(weekColumns.enumerated()), id: \.offset) { _, week in
-                        VStack(spacing: HeatmapLayout.spacing) {
-                            ForEach(Array(week.enumerated()), id: \.offset) { _, day in
-                                RoundedRectangle(cornerRadius: 1.5, style: .continuous)
-                                    .fill(color(for: day, scale: colorScale))
-                                    .frame(width: HeatmapLayout.cellSize, height: HeatmapLayout.cellSize)
+        return ZStack(alignment: .topLeading) {
+            VStack(alignment: .leading, spacing: HeatmapLayout.sectionSpacing) {
+                let weekColumns = weeks(padded)
+                let colorScale = HeatmapColorScale(days: padded)
+                HeatmapHeader()
+                monthLabelsRow(weeks: weekColumns)
+                HStack(alignment: .top, spacing: HeatmapLayout.weekdayToGridSpacing) {
+                    WeekdayGutter()
+                    HStack(alignment: .top, spacing: HeatmapLayout.spacing) {
+                        // A column is one calendar week, ordered Monday → Sunday.
+                        ForEach(Array(weekColumns.enumerated()), id: \.offset) { weekIdx, week in
+                            VStack(spacing: HeatmapLayout.spacing) {
+                                ForEach(Array(week.enumerated()), id: \.offset) { dayIdx, day in
+                                    CellView(
+                                        day: day,
+                                        color: self.color(for: day, scale: colorScale),
+                                        isHovered: isCellHovered(weekIdx: weekIdx, dayIdx: dayIdx),
+                                        onHover: { isHovering in
+                                            if isHovering && day.date != .distantPast {
+                                                hoveredCell = CellPosition(
+                                                    weekIdx: weekIdx,
+                                                    dayIdx: dayIdx,
+                                                    origin: .zero  // Will be set by GeometryReader
+                                                )
+                                                hoveredDay = day
+                                            } else {
+                                                hoveredCell = nil
+                                                hoveredDay = nil
+                                            }
+                                        }
+                                    )
+                                }
                             }
                         }
                     }
                 }
             }
+            .frame(width: HeatmapLayout.contentWidth, alignment: .leading)
+
+            // Tooltip positioned above the hovered cell
+            if let cell = hoveredCell, let day = hoveredDay {
+                HeatmapTooltip(day: day)
+                    .position(cellTooltipPosition(cell: cell))
+            }
         }
-        .frame(width: HeatmapLayout.contentWidth, alignment: .leading)
+    }
+
+    /// Calculate tooltip position centered above the hovered cell
+    private func cellTooltipPosition(cell: CellPosition) -> CGPoint {
+        let cellX = HeatmapLayout.gutterWidth
+            + HeatmapLayout.weekdayToGridSpacing
+            + CGFloat(cell.weekIdx) * (HeatmapLayout.cellSize + HeatmapLayout.spacing)
+            + HeatmapLayout.cellSize / 2  // center of cell
+
+        let headerHeight = HeatmapLayout.headerHeight
+        let monthLabelHeight = HeatmapLayout.monthLabelHeight
+        let tooltipY = headerHeight + monthLabelHeight
+            - HeatmapLayout.spacing  // gap between tooltip and cells
+
+        return CGPoint(x: cellX, y: tooltipY)
+    }
+
+    private func isCellHovered(weekIdx: Int, dayIdx: Int) -> Bool {
+        hoveredCell?.weekIdx == weekIdx && hoveredCell?.dayIdx == dayIdx
     }
 
     /// Groups the 371 flat entries into 53 weeks (each = 7 days, oldest first).

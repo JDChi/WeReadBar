@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "·" : {
+
+    },
     "app.name" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -300,6 +303,52 @@
         }
       }
     },
+    "heatmap.noReading" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No reading"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无阅读"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無閱讀"
+          }
+        }
+      }
+    },
+    "heatmap.readingMinutes" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d min"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d 分钟"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d 分鐘"
+          }
+        }
+      }
+    },
     "heatmap.title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -411,6 +460,29 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "立即重新整理"
+          }
+        }
+      }
+    },
+    "menu.settings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings…"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "设置…"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "設定…"
           }
         }
       }
@@ -622,6 +694,443 @@
         }
       }
     },
+    "reminder.notification.body" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You haven't read for %d days."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你已经连续 %d 天没有阅读了喔"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你已經連續 %d 天沒有閱讀了喔"
+          }
+        }
+      }
+    },
+    "settings.account" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Account"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "账号"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "帳號"
+          }
+        }
+      }
+    },
+    "settings.notificationsAllowed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifications are allowed."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "系统通知已允许。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "系統通知已允許。"
+          }
+        }
+      }
+    },
+    "settings.notificationsDenied" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifications are disabled in System Settings."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "系统通知已被关闭，请在系统设置中允许。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "系統通知已被關閉，請在系統設定中允許。"
+          }
+        }
+      }
+    },
+    "settings.notificationsEphemeral" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ephemeral notifications are enabled."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已启用临时通知。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已啟用臨時通知。"
+          }
+        }
+      }
+    },
+    "settings.notificationsNotDetermined" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notification permission has not been requested. Please open System Settings to enable."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "尚未请求通知权限，请前往系统设置开启。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "尚未請求通知權限，請前往系統設定開啟。"
+          }
+        }
+      }
+    },
+    "settings.notificationsPending" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notification permission has not been granted. Click below to open System Settings → Notifications."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "尚未允许系统通知。请点击下方前往系统设置 → 通知开启。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "尚未允許系統通知。請點擊下方前往系統設定 → 通知開啟。"
+          }
+        }
+      }
+    },
+    "settings.notificationsProvisional" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Provisional notifications are enabled."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已启用临时通知。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已啟用臨時通知。"
+          }
+        }
+      }
+    },
+    "settings.notificationsUnknown" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notification status is unknown."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通知状态未知。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通知狀態未知。"
+          }
+        }
+      }
+    },
+    "settings.openNotificationSettings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open System Settings → Notifications"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "前往系统设置 → 通知"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "前往系統設定 → 通知"
+          }
+        }
+      }
+    },
+    "settings.reminder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reading reminder"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "阅读提醒"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "閱讀提醒"
+          }
+        }
+      }
+    },
+    "settings.reminderDays" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remind me after %d days without reading"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "连续 %d 天未阅读时提醒我"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "連續 %d 天未閱讀時提醒我"
+          }
+        }
+      }
+    },
+    "settings.reminderDaysDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remind me after not reading for"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "连续未阅读时提醒"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "連續未閱讀時提醒"
+          }
+        }
+      }
+    },
+    "settings.reminderDaysUnit" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "day(s)"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "天"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "天"
+          }
+        }
+      }
+    },
+    "settings.reminderDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Checks when WeReadBar starts and every 6 hours while it is running."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "WeReadBar 启动时及运行期间每 6 小时检查一次。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "WeReadBar 啟動時及執行期間每 6 小時檢查一次。"
+          }
+        }
+      }
+    },
+    "settings.reminderEnabled" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inactivity reminder"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未阅读提醒"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未閱讀提醒"
+          }
+        }
+      }
+    },
+    "settings.requestNotifications" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allow notifications"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "允许通知"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "允許通知"
+          }
+        }
+      }
+    },
+    "settings.tokenDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paste your WeRead API token to refresh your reading data."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "粘贴微信读书 API 令牌以同步阅读数据。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "貼上微信讀書 API 權杖以同步閱讀資料。"
+          }
+        }
+      }
+    },
+    "settings.windowTitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "WeReadBar Settings"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "WeReadBar 设置"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "WeReadBar 設定"
+          }
+        }
+      }
+    },
     "summary.continueReading" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -735,166 +1244,6 @@
             "value" : "今日"
           }
         }
-      }
-    },
-    "menu.settings" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Settings…" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "设置…" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "設定…" } }
-      }
-    },
-    "reminder.notification.body" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "You haven't read for %d days." } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "你已经连续 %d 天没有阅读了喔" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "你已經連續 %d 天沒有閱讀了喔" } }
-      }
-    },
-    "settings.account" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Account" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "账号" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "帳號" } }
-      }
-    },
-    "settings.notificationsAllowed" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Notifications are allowed." } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "系统通知已允许。" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "系統通知已允許。" } }
-      }
-    },
-    "settings.notificationsDenied" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Notifications are disabled in System Settings." } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "系统通知已被关闭，请在系统设置中允许。" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "系統通知已被關閉，請在系統設定中允許。" } }
-      }
-    },
-    "settings.notificationsPending" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Notification permission has not been granted. Click below to open System Settings → Notifications." } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "尚未允许系统通知。请点击下方前往系统设置 → 通知开启。" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "尚未允許系統通知。請點擊下方前往系統設定 → 通知開啟。" } }
-      }
-    },
-    "settings.notificationsNotDetermined" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Notification permission has not been requested. Please open System Settings to enable." } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "尚未请求通知权限，请前往系统设置开启。" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "尚未請求通知權限，請前往系統設定開啟。" } }
-      }
-    },
-    "settings.notificationsProvisional" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Provisional notifications are enabled." } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "已启用临时通知。" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "已啟用臨時通知。" } }
-      }
-    },
-    "settings.notificationsEphemeral" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Ephemeral notifications are enabled." } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "已启用临时通知。" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "已啟用臨時通知。" } }
-      }
-    },
-    "settings.notificationsUnknown" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Notification status is unknown." } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "通知状态未知。" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "通知狀態未知。" } }
-      }
-    },
-    "settings.openNotificationSettings" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Open System Settings → Notifications" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "前往系统设置 → 通知" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "前往系統設定 → 通知" } }
-      }
-    },
-    "settings.requestNotifications" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Allow notifications" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "允许通知" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "允許通知" } }
-      }
-    },
-    "settings.reminder" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Reading reminder" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "阅读提醒" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "閱讀提醒" } }
-      }
-    },
-    "settings.reminderDays" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Remind me after %d days without reading" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "连续 %d 天未阅读时提醒我" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "連續 %d 天未閱讀時提醒我" } }
-      }
-    },
-    "settings.reminderDaysDescription" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Remind me after not reading for" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "连续未阅读时提醒" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "連續未閱讀時提醒" } }
-      }
-    },
-    "settings.reminderDaysUnit" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "day(s)" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "天" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "天" } }
-      }
-    },
-    "settings.reminderDescription" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Checks when WeReadBar starts and every 6 hours while it is running." } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "WeReadBar 启动时及运行期间每 6 小时检查一次。" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "WeReadBar 啟動時及執行期間每 6 小時檢查一次。" } }
-      }
-    },
-    "settings.reminderEnabled" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Inactivity reminder" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "未阅读提醒" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "未閱讀提醒" } }
-      }
-    },
-    "settings.tokenDescription" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Paste your WeRead API token to refresh your reading data." } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "粘贴微信读书 API 令牌以同步阅读数据。" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "貼上微信讀書 API 權杖以同步閱讀資料。" } }
-      }
-    },
-    "settings.windowTitle" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "WeReadBar Settings" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "WeReadBar 设置" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "WeReadBar 設定" } }
       }
     },
     "window.title.setup" : {
