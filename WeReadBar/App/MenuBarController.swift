@@ -89,9 +89,9 @@ final class MenuBarController: NSObject {
     @objc private func handleStatusClick(_ sender: NSStatusBarButton) {
         let eventType = NSApp.currentEvent?.type
         if eventType == .rightMouseUp {
-            // Right-click: show menu just below the status icon.
-            let position = NSPoint(x: 0, y: sender.bounds.height)
-            rightClickMenu.popUp(positioning: nil, at: position, in: sender)
+            // Right-click: show menu below the status icon using context menu.
+            // Using popUpContextMenu lets macOS handle edge detection properly.
+            NSMenu.popUpContextMenu(rightClickMenu, with: NSApp.currentEvent!, for: sender)
         } else {
             // Left-click: toggle popover, anchored to the clicked button.
             popoverPresenter?.toggle(anchoredTo: sender)
