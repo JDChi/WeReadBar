@@ -849,6 +849,22 @@
         "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "連續 %d 天未閱讀時提醒我" } }
       }
     },
+    "settings.reminderDaysDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Remind me after not reading for" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "连续未阅读时提醒" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "連續未閱讀時提醒" } }
+      }
+    },
+    "settings.reminderDaysUnit" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "day(s)" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "天" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "天" } }
+      }
+    },
     "settings.reminderDescription" : {
       "extractionState" : "manual",
       "localizations" : {

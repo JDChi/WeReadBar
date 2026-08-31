@@ -78,17 +78,29 @@ struct SettingsWindow: View {
                             if enabled { Task { await requestNotificationPermission() } }
                         }
 
-                    HStack {
-                        Stepper(value: $thresholdDays, in: 1...30) {
-                            Text(String.localizedStringWithFormat(
-                                NSLocalizedString("settings.reminderDays", comment: ""),
-                                thresholdDays
-                            ))
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text(String(localized: "settings.reminderDaysDescription"))
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+
+                        HStack(spacing: 8) {
+                            TextField("", value: $thresholdDays, format: .number)
+                                .textFieldStyle(.roundedBorder)
+                                .frame(width: 44)
+                                .multilineTextAlignment(.center)
+                                .disabled(!reminderEnabled)
+                                .onChange(of: thresholdDays) { _, newValue in
+                                    thresholdDays = max(1, min(30, newValue))
+                                    ReminderSettings.thresholdDays = thresholdDays
+                                }
+
+                            Stepper("", value: $thresholdDays, in: 1...30)
+                                .disabled(!reminderEnabled)
+
+                            Text(String(localized: "settings.reminderDaysUnit"))
+                                .foregroundStyle(.secondary)
                         }
-                        .disabled(!reminderEnabled)
-                        Spacer()
                     }
-                    .onChange(of: thresholdDays) { _, days in ReminderSettings.thresholdDays = days }
 
                     Text(String(localized: "settings.reminderDescription"))
                         .font(.footnote)
@@ -159,26 +171,7 @@ struct SettingsWindow: View {
     }
 
     private func openNotificationSettings() {
-        // Use AppleScript to navigate to the Notifications pane via the search field.
-        // This is the most reliable method across macOS versions including Sequoia.
-        let script = """
-        tell application "System Settings"
-            activate
-        end tell
-        delay 0.2
-        tell application "System Events"
-            tell process "System Settings"
-                set focused of text field 1 of group 1 of toolbar 1 of window 1 to true
-                delay 0.1
-                keystroke "Notifications"
-                delay 0.4
-                keystroke return
-            end tell
-        end tell
-        """
-        var error: NSDictionary?
-        if let scriptObject = NSAppleScript(source: script) {
-            scriptObject.executeAndReturnError(&error)
-        }
+        // Opens System Settings. User can click "Notifications" in the sidebar.
+        NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:Notifications")!)
     }
 }
