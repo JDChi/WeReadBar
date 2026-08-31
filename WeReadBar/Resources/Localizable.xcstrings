@@ -780,9 +780,9 @@
     "settings.notificationsPending" : {
       "extractionState" : "manual",
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Notification permission has not been granted." } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "尚未允许系统通知。" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "尚未允許系統通知。" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Notification permission has not been granted. Click below to open System Settings → Notifications." } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "尚未允许系统通知。请点击下方前往系统设置 → 通知开启。" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "尚未允許系統通知。請點擊下方前往系統設定 → 通知開啟。" } }
       }
     },
     "settings.notificationsNotDetermined" : {
@@ -820,9 +820,9 @@
     "settings.openNotificationSettings" : {
       "extractionState" : "manual",
       "localizations" : {
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Open System Settings" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "前往系统设置" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "前往系統設定" } }
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Open System Settings → Notifications" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "前往系统设置 → 通知" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "前往系統設定 → 通知" } }
       }
     },
     "settings.requestNotifications" : {
