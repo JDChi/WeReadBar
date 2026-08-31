@@ -116,7 +116,8 @@ README.md                           # 面向使用者的说明
 ## 打包与发布
 
 - **本地预览包**：运行 `./scripts/build-dmg.sh <版本号>`，会在 `dist/` 生成 ad-hoc 签名的 `WeReadBar-<版本号>.dmg`。它用于本地安装、图标和 Gatekeeper 流程检查，不是正式发布的必经步骤。
-- **版本号**：发布前将 `project.yml` 中的 `MARKETING_VERSION` 更新为不带 `v` 的版本号（例如 `0.3.0`），随后执行 `xcodegen generate`，并提交 `project.yml` 与生成的 `WeReadBar.xcodeproj/project.pbxproj`。
+- **版本号**：发布前将 `project.yml` 中的 `MARKETING_VERSION` 更新为不带 `v` 的版本号（例如 `0.4.0`），随后执行 `xcodegen generate`，并提交 `project.yml` 与生成的 `WeReadBar.xcodeproj/project.pbxproj`。
+- **发布文档检查**：创建标签前必须审阅 `README.md`、`AGENTS.md` 与 `CLAUDE.md`：核对功能、配置、构建和发布说明是否仍准确；删除已无效内容，并更新因本次版本变化而过时的描述。需要修改的文档必须与发布代码一并提交后再打标签；即使无需修改，也要完成这项检查。
 - **正式发布**：确认 `main` 已推送后，创建并推送新标签：
 
   ```bash
