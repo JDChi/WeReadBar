@@ -57,6 +57,12 @@ final class MenuBarController: NSObject {
 
         rightClickMenu.addItem(.separator())
 
+        let about = NSMenuItem(title: String(localized: "menu.about"),
+                               action: #selector(menuAbout),
+                               keyEquivalent: "")
+        about.target = self
+        rightClickMenu.addItem(about)
+
         let goToRead = NSMenuItem(title: String(localized: "goToRead"),
                                   action: #selector(menuGoToRead),
                                   keyEquivalent: "")
@@ -101,6 +107,17 @@ final class MenuBarController: NSObject {
 
     @objc private func menuRefreshNow() {
         popoverPresenter?.refreshFromMenu()
+    }
+
+    @objc private func menuAbout() {
+        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "—"
+        let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "—"
+        NSApp.activate(ignoringOtherApps: true)
+        NSApp.orderFrontStandardAboutPanel(options: [
+            .applicationName: "WeReadBar",
+            .applicationVersion: version,
+            .version: "Build \(build)"
+        ])
     }
 
     @objc private func menuGoToRead() {

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		097545ECE6A666391F689E11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E8B2B0AC428A5DC80A34779F /* Assets.xcassets */; };
 		24BAF2B629D65572BC3AAD30 /* StatTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C686A4E9C240E1ECCE39DA /* StatTile.swift */; };
 		36B227D1503B8963BB20B107 /* ReadingDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AF0D56B5DDEE431FFF3669 /* ReadingDay.swift */; };
 		4ED261612F7DCF5ED089FAA3 /* MenuBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B813B213BCF2FA03A9A0829 /* MenuBarController.swift */; };
@@ -51,6 +52,7 @@
 		D5817D91D67CE6981217785C /* StatsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsStore.swift; sourceTree = "<group>"; };
 		D806B24AE6A41359083160B3 /* ErrorBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorBanner.swift; sourceTree = "<group>"; };
 		DEFD685227CD76FEA8C6A381 /* ShelfResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelfResponse.swift; sourceTree = "<group>"; };
+		E8B2B0AC428A5DC80A34779F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E94EAFE043FCF32E3CBEFC19 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		EC2F99CC9E253B8FF301EC5F /* SkeletonHeatmap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonHeatmap.swift; sourceTree = "<group>"; };
 		ED1C31784A5BCE4159646AEB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 		9D7393DF294B46FA68BC6E85 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E8B2B0AC428A5DC80A34779F /* Assets.xcassets */,
 				28E3A8FE587410A8CC4ED085 /* Localizable.xcstrings */,
 			);
 			path = Resources;
@@ -205,6 +208,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				097545ECE6A666391F689E11 /* Assets.xcassets in Resources */,
 				D50DB7FAE20D09C5FF9F2A5D /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -399,7 +403,7 @@
 		C692BC25B4BCB6B5183B0F33 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = WeReadBar/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -413,7 +417,7 @@
 		FE7A49577F406FC522485044 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = WeReadBar/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
