@@ -9,10 +9,9 @@ private struct MonthLabelEntry: Identifiable {
 }
 
 /// A hovered cell's position in the heatmap grid.
-private struct CellPosition: Equatable {
+private struct CellPosition: Equatable, Hashable {
     let weekIdx: Int
     let dayIdx: Int  // 0 = Monday, 6 = Sunday
-    let origin: CGPoint  // top-left corner of the cell in view coordinates
 }
 
 /// Tooltip view for a heatmap cell - single line: date · duration
@@ -227,12 +226,11 @@ struct HeatmapView: View {
                                         isHovered: isCellHovered(weekIdx: weekIdx, dayIdx: dayIdx),
                                         onHover: { isHovering in
                                             if isHovering && day.date != .distantPast {
-                                                hoveredCell = CellPosition(
-                                                    weekIdx: weekIdx,
-                                                    dayIdx: dayIdx,
-                                                    origin: .zero  // Will be set by GeometryReader
-                                                )
-                                                hoveredDay = day
+                                                let newCell = CellPosition(weekIdx: weekIdx, dayIdx: dayIdx)
+                                                if hoveredCell != newCell {
+                                                    hoveredCell = newCell
+                                                    hoveredDay = day
+                                                }
                                             } else {
                                                 hoveredCell = nil
                                                 hoveredDay = nil
@@ -255,19 +253,42 @@ struct HeatmapView: View {
         }
     }
 
-    /// Calculate tooltip position centered above the hovered cell
+    /// Calculate tooltip position centered above the hovered cell, with edge detection
     private func cellTooltipPosition(cell: CellPosition) -> CGPoint {
+        // Estimated tooltip size
+        let tooltipWidth: CGFloat = 200
+
+        // X position: center of the hovered cell column
         let cellX = HeatmapLayout.gutterWidth
             + HeatmapLayout.weekdayToGridSpacing
             + CGFloat(cell.weekIdx) * (HeatmapLayout.cellSize + HeatmapLayout.spacing)
             + HeatmapLayout.cellSize / 2  // center of cell
 
+        // Y position: above the specific row (dayIdx 0-6, 0=Monday at top)
         let headerHeight = HeatmapLayout.headerHeight
         let monthLabelHeight = HeatmapLayout.monthLabelHeight
-        let tooltipY = headerHeight + monthLabelHeight
-            - HeatmapLayout.spacing  // gap between tooltip and cells
+        let gridTop = headerHeight + monthLabelHeight + HeatmapLayout.sectionSpacing
+        let tooltipY = gridTop
+            + CGFloat(cell.dayIdx) * (HeatmapLayout.cellSize + HeatmapLayout.spacing)
+            - HeatmapLayout.spacing  // position above the cell
 
-        return CGPoint(x: cellX, y: tooltipY)
+        // Horizontal edge detection
+        var adjustedX = cellX
+        let contentWidth = HeatmapLayout.contentWidth
+
+        // Center of tooltip would be at cellX, so left edge at cellX - tooltipWidth/2
+        let leftEdge = adjustedX - tooltipWidth / 2
+        let rightEdge = adjustedX + tooltipWidth / 2
+
+        if leftEdge < 0 {
+            // Shift right to stay within bounds
+            adjustedX = tooltipWidth / 2
+        } else if rightEdge > contentWidth {
+            // Shift left to stay within bounds
+            adjustedX = contentWidth - tooltipWidth / 2
+        }
+
+        return CGPoint(x: adjustedX, y: tooltipY)
     }
 
     private func isCellHovered(weekIdx: Int, dayIdx: Int) -> Bool {
