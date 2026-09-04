@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
+import { siteUrl } from './site.config.mjs';
 
 export default defineConfig({
-  site: 'https://wereadbar.pages.dev',
+  site: siteUrl,
   output: 'static',
 });

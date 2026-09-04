@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { siteUrl } from '../../site.config.mjs';
 
 const releaseUrl = 'https://github.com/JDChi/WeReadBar/releases/latest/download/WeReadBar.dmg';
 const repoUrl = 'https://github.com/JDChi/WeReadBar';
@@ -14,7 +15,7 @@ const tokenGuideUrl = 'https://weread.qq.com/r/weread-skills';
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#ffffff" />
     <meta name="description" content="WeReadBar 是一个轻量的 macOS 菜单栏应用，用年度热力图呈现微信读书的阅读数据。" />
-    <link rel="canonical" href="https://wereadbar.pages.dev/" />
+    <link rel="canonical" href={`${siteUrl}/`} />
     <link rel="icon" type="image/png" href="/app-icon.png" />
     <title>WeReadBar · 把一年读过的日子，留在眼前</title>
   </head>
