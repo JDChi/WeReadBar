@@ -58,6 +58,9 @@ WeReadBar/
   Resources/
     Info.plist                      # LSUIElement、Bundle ID 等配置
 README.md                           # 面向使用者的说明
+site/                               # Astro 静态官网
+  site.config.mjs                   # SITE_URL 的唯一来源
+  src/pages/                        # 首页及构建时生成的 sitemap.xml、robots.txt
 ```
 
 ## 架构
@@ -107,6 +110,13 @@ README.md                           # 面向使用者的说明
 | 新增 API 端点 | `Data/WeReadClient.swift` 和 `Data/` 中相应 `Decodable` 模型 |
 | 更换菜单栏图标 | `App/MenuBarController.swift` |
 | 清除已保存的令牌 | `defaults delete com.local.wereadbar WeReadBar.apiToken` |
+
+## 官网
+
+- 官网位于 `site/`，使用 Astro 静态构建；在该目录执行 `npm run build` 验证。
+- `site/site.config.mjs` 是官网正式域名的唯一来源：Cloudflare Pages 构建变量 `SITE_URL` 优先，本地默认值仅用于未配置变量时的构建。
+- `canonical`、`/sitemap.xml` 与 `/robots.txt` 都从该配置在构建时生成。不要在页面或 `public/` 中重复写入域名。
+- 更换域名时，除了更新 Cloudflare 自定义域名与 `SITE_URL`，还需让旧域名跳转到新域名，并在 Google Search Console 为新资源提交新的 sitemap。
 
 ## 开发约定
 

@@ -14,6 +14,7 @@ WeReadBar 是原生 Swift + SwiftUI 编写的 macOS 菜单栏应用：用 53 周
 - 数据层变更前先阅读 [AGENTS.md 的关键约束](./AGENTS.md#关键约束请勿随意修改)：所有参数都放在网关 JSON 请求体顶层；每个请求均需携带 `skill_version: "1.0.4"`。
 - API 令牌仅存于 macOS 偏好设置（`WeReadBar.apiToken`），不可从环境变量读取；菜单栏应用不保证拥有 shell 环境。
 - 未阅读提醒仅在应用进程运行时检查：启动后及每 6 小时刷新一次，按 UTC+8 的完整自然日判断；不要加入未声明的登录项或后台 helper。
+- 官网在 `site/`，用 `cd site && npm run build` 验证。官网域名只从 `site/site.config.mjs` 获取，Cloudflare Pages 的 `SITE_URL` 在构建时覆盖默认值，并生成 canonical、sitemap 与 robots；不要在其他文件重复写入域名。
 
 ## 验证
 
