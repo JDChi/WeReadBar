@@ -128,7 +128,7 @@ README.md                           # 面向使用者的说明
   git push origin v0.3.0
   ```
 
-  `.github/workflows/release.yml` 仅在推送 `v*` 标签时运行。它会从标签名取出版本号，调用 `scripts/build-dmg.sh`，上传 `dist/WeReadBar-<版本号>.dmg`，并自动创建正式 GitHub Release。
+  `.github/workflows/release.yml` 仅在推送 `v*` 标签时运行。它会从标签名取出版本号，调用 `scripts/build-dmg.sh`，再以固定文件名 `WeReadBar.dmg` 上传，并自动创建正式 GitHub Release。因此官网可稳定使用 `/releases/latest/download/WeReadBar.dmg` 直接下载最新正式版。
 - **标签安全**：发布前先检查 `git tag --list 'v<版本号>'`。不要强制移动已发布标签；需要修订时递增版本号并创建新标签。
 
 ## 冒烟验证

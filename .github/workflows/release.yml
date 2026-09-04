@@ -30,13 +30,17 @@ jobs:
           VERSION: ${{ github.ref_name }}
         run: ./scripts/build-dmg.sh "${VERSION#v}"
 
+      - name: Prepare direct-download asset
+        # Keep the versioned DMG produced by the build for traceability, but
+        # upload a stable filename so the website can always use one URL.
+        run: cp "dist/WeReadBar-${GITHUB_REF_NAME#v}.dmg" dist/WeReadBar.dmg
+
       - name: Upload DMG to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          # DMGs are produced under dist/ by scripts/build-dmg.sh — the
-          # script's gitignored output directory. Glob includes the
-          # subdir so the artifact is found at the expected path.
-          files: dist/WeReadBar-*.dmg
+          # This fixed filename makes /releases/latest/download/WeReadBar.dmg
+          # a permanent direct-download URL for the latest stable release.
+          files: dist/WeReadBar.dmg
           fail_on_unmatched_files: true
           generate_release_notes: true
           prerelease: false
