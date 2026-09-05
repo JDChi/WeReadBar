@@ -5,6 +5,11 @@ options:
     macOS: "14.0"
   createIntermediateGroups: true
 
+packages:
+  Sparkle:
+    url: https://github.com/sparkle-project/Sparkle
+    from: 2.9.6
+
 settings:
   base:
     SWIFT_VERSION: "5.0"
@@ -18,7 +23,7 @@ settings:
     ENABLE_HARDENED_RUNTIME: YES
     GENERATE_INFOPLIST_FILE: NO
     INFOPLIST_FILE: WeReadBar/Resources/Info.plist
-    MARKETING_VERSION: "0.5.0"
+    MARKETING_VERSION: "0.5.1"
     CURRENT_PROJECT_VERSION: "1"
     ENABLE_PREVIEWS: YES
     # Declared localizations — keeps the Localizable.xcstrings content
@@ -36,6 +41,9 @@ targets:
       - path: WeReadBar
         excludes:
           - "Resources/Info.plist"
+    dependencies:
+      - package: Sparkle
+        product: Sparkle
     settings:
       base:
         INFOPLIST_FILE: WeReadBar/Resources/Info.plist

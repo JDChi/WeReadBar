@@ -35,12 +35,32 @@ jobs:
         # upload a stable filename so the website can always use one URL.
         run: cp "dist/WeReadBar-${GITHUB_REF_NAME#v}.dmg" dist/WeReadBar.dmg
 
+      - name: Generate signed appcast
+        env:
+          SPARKLE_PRIVATE_KEY: ${{ secrets.SPARKLE_PRIVATE_KEY }}
+        run: |
+          mkdir appcast
+          cp dist/WeReadBar.dmg appcast/WeReadBar.dmg
+          GENERATE_APPCAST="$(find build/SourcePackages/artifacts -type f -path '*/Sparkle/bin/generate_appcast' -print -quit)"
+          test -n "${GENERATE_APPCAST}"
+          printf '%s' "${SPARKLE_PRIVATE_KEY}" | "${GENERATE_APPCAST}" \
+            --ed-key-file - \
+            --download-url-prefix "https://github.com/JDChi/WeReadBar/releases/download/${GITHUB_REF_NAME}/" \
+            --full-release-notes-url "https://github.com/JDChi/WeReadBar/releases/tag/${GITHUB_REF_NAME}" \
+            --link "https://github.com/JDChi/WeReadBar" \
+            appcast
+          cp appcast/appcast.xml dist/appcast.xml
+          xmllint --noout dist/appcast.xml
+          grep -q 'sparkle:edSignature=' dist/appcast.xml
+
       - name: Upload DMG to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           # This fixed filename makes /releases/latest/download/WeReadBar.dmg
           # a permanent direct-download URL for the latest stable release.
-          files: dist/WeReadBar.dmg
+          files: |
+            dist/WeReadBar.dmg
+            dist/appcast.xml
           fail_on_unmatched_files: true
           generate_release_notes: true
           prerelease: false

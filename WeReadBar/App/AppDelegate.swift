@@ -17,6 +17,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     private var popoverPresenter: PopoverPresenter!
     private var menuBarController: MenuBarController!
     private var reminderCoordinator: ReminderCoordinator!
+    private var updateController: UpdateController!
 
     // MARK: - NSApplicationDelegate
 
@@ -26,9 +27,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         store.bootstrap()
         reminderCoordinator = ReminderCoordinator(store: store)
         reminderCoordinator.start()
+        updateController = UpdateController()
 
         popoverPresenter = PopoverPresenter(store: store, reminderCoordinator: reminderCoordinator)
-        menuBarController = MenuBarController(popoverPresenter: popoverPresenter)
+        menuBarController = MenuBarController(
+            popoverPresenter: popoverPresenter,
+            updateController: updateController
+        )
 
         // First run (no token yet): open settings directly so the user sees
         // the account setup before they ever click the menu-bar icon.

@@ -33,5 +33,11 @@
     <string>© 2026 Local Dev</string>
     <key>NSPrincipalClass</key>
     <string>NSApplication</string>
+    <key>SUFeedURL</key>
+    <string>https://github.com/JDChi/WeReadBar/releases/latest/download/appcast.xml</string>
+    <key>SUPublicEDKey</key>
+    <string>g2z6de9KtqDw0bFuKg7vi4iQKow/Fr4e6ArQW8v1ly8=</string>
+    <key>SUScheduledCheckInterval</key>
+    <real>86400</real>
 </dict>
 </plist>

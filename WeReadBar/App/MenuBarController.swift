@@ -12,6 +12,7 @@ final class MenuBarController: NSObject {
     // MARK: - Dependencies (injected)
 
     private weak var popoverPresenter: PopoverPresenter?
+    private let updateController: UpdateController
 
     // MARK: - Owned
 
@@ -20,8 +21,9 @@ final class MenuBarController: NSObject {
 
     // MARK: - Init
 
-    init(popoverPresenter: PopoverPresenter) {
+    init(popoverPresenter: PopoverPresenter, updateController: UpdateController) {
         self.popoverPresenter = popoverPresenter
+        self.updateController = updateController
         super.init()
         setupStatusItem()
         setupRightClickMenu()
@@ -56,6 +58,12 @@ final class MenuBarController: NSObject {
         rightClickMenu.addItem(refresh)
 
         rightClickMenu.addItem(.separator())
+
+        let checkForUpdates = NSMenuItem(title: String(localized: "menu.checkForUpdates"),
+                                         action: #selector(menuCheckForUpdates),
+                                         keyEquivalent: "")
+        checkForUpdates.target = self
+        rightClickMenu.addItem(checkForUpdates)
 
         let about = NSMenuItem(title: String(localized: "menu.about"),
                                action: #selector(menuAbout),
@@ -118,6 +126,11 @@ final class MenuBarController: NSObject {
             .applicationVersion: version,
             .version: "Build \(build)"
         ])
+    }
+
+    @objc private func menuCheckForUpdates() {
+        NSApp.activate(ignoringOtherApps: true)
+        updateController.checkForUpdates()
     }
 
     @objc private func menuGoToRead() {

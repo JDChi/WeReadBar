@@ -124,7 +124,7 @@ site/                               # Astro 静态官网
 - **日志**：使用 subsystem 为 `com.local.wereadbar` 的 `os.Logger`（见 `StatsStore.swift` 中的 `wrLog`）；不要使用 `print`。
 - **错误**：写入 `StatsStore.lastError`，由弹窗的 `ErrorBanner` 呈现。
 - **命名**：Swift 文件使用与主类型一致的 PascalCase。`Data/` 下的网络模型只需 `Decodable`。
-- **依赖**：不引入第三方依赖；仅使用 SwiftUI、AppKit、Security、Foundation 与 os。
+- **依赖**：界面和数据层仅使用 SwiftUI、AppKit、Security、Foundation 与 os；应用内更新使用 Sparkle 2，通过 XcodeGen 的 Swift Package 配置引入。
 
 ## 打包与发布
 
@@ -138,7 +138,7 @@ site/                               # Astro 静态官网
   git push origin v0.3.0
   ```
 
-  `.github/workflows/release.yml` 仅在推送 `v*` 标签时运行。它会从标签名取出版本号，调用 `scripts/build-dmg.sh`，再以固定文件名 `WeReadBar.dmg` 上传，并自动创建正式 GitHub Release。因此官网可稳定使用 `/releases/latest/download/WeReadBar.dmg` 直接下载最新正式版。
+  `.github/workflows/release.yml` 仅在推送 `v*` 标签时运行。它会从标签名取出版本号，调用 `scripts/build-dmg.sh`，再以固定文件名 `WeReadBar.dmg` 上传，并自动创建正式 GitHub Release。工作流还会使用仓库级 `SPARKLE_PRIVATE_KEY` Secret 为 DMG 生成 `appcast.xml`；不要在仓库或日志中保存私钥。因此官网可稳定使用 `/releases/latest/download/WeReadBar.dmg` 直接下载最新正式版，App 使用 `/releases/latest/download/appcast.xml` 检查更新。
 - **标签安全**：发布前先检查 `git tag --list 'v<版本号>'`。不要强制移动已发布标签；需要修订时递增版本号并创建新标签。
 
 ## 冒烟验证
@@ -165,7 +165,7 @@ sleep 6 && killall WeReadBar
 
 ## v1 范围外
 
-- 自动更新与全局快捷键
+- 全局快捷键
 - 多账号或 API key 切换
 - Sandbox、签名、公证与 App Store 上架
 - 本地数据缓存（每次刷新重新请求微信读书）

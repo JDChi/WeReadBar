@@ -26,6 +26,8 @@
 		910D0B8F21D3E870638F8895 /* HeatmapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD50F36288FB84F9CA18412E /* HeatmapView.swift */; };
 		972B86BADA8A93F546130F52 /* StatsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5817D91D67CE6981217785C /* StatsStore.swift */; };
 		9DFF2FA3589B28AC9BE91137 /* SummaryLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4248E95E60F2FE9047B4E352 /* SummaryLine.swift */; };
+		ACEB27F203DB4D99AB4C9E8D /* UpdateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FC41A6F002B596A23D7C30B /* UpdateController.swift */; };
+		B185A040914A6BAFBF9B87B0 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 71474AF1D3FC81F39660F49B /* Sparkle */; };
 		BD2D02D1537971C6524214BF /* WeReadBarApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66BB7A58855D7C0345CDD21A /* WeReadBarApp.swift */; };
 		C1317A1EDF22894B0920D999 /* ErrorBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D806B24AE6A41359083160B3 /* ErrorBanner.swift */; };
 		D50DB7FAE20D09C5FF9F2A5D /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 28E3A8FE587410A8CC4ED085 /* Localizable.xcstrings */; };
@@ -46,6 +48,7 @@
 		696898968E4C8BAA3BD95C88 /* HeatmapLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeatmapLayout.swift; sourceTree = "<group>"; };
 		76FB302925FC1DFE0787BE61 /* PopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverView.swift; sourceTree = "<group>"; };
 		7B813B213BCF2FA03A9A0829 /* MenuBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarController.swift; sourceTree = "<group>"; };
+		7FC41A6F002B596A23D7C30B /* UpdateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateController.swift; sourceTree = "<group>"; };
 		9B87C41A8168619121C5CBFA /* ReadDataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadDataResponse.swift; sourceTree = "<group>"; };
 		A798AABCBF961129E2C69CF5 /* ReminderCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderCoordinator.swift; sourceTree = "<group>"; };
 		A99F1D2A1E1B112A143598D3 /* PopoverPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverPresenter.swift; sourceTree = "<group>"; };
@@ -65,6 +68,17 @@
 		FB9EBA611437C7C1E97CFA02 /* BookProgressResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookProgressResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFrameworksBuildPhase section */
+		6553167A2B861C59A63EBD92 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B185A040914A6BAFBF9B87B0 /* Sparkle in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
 /* Begin PBXGroup section */
 		09D417F6DD45BACE01922ACC /* App */ = {
 			isa = PBXGroup;
@@ -74,6 +88,7 @@
 				A99F1D2A1E1B112A143598D3 /* PopoverPresenter.swift */,
 				A798AABCBF961129E2C69CF5 /* ReminderCoordinator.swift */,
 				F7218051DC32FE45A1160D7F /* SettingsWindowController.swift */,
+				7FC41A6F002B596A23D7C30B /* UpdateController.swift */,
 				66BB7A58855D7C0345CDD21A /* WeReadBarApp.swift */,
 			);
 			path = App;
@@ -164,6 +179,7 @@
 			buildPhases = (
 				5648E9F51732961DA2FE8D5C /* Sources */,
 				8B8BFDE36B0B574F1EB23390 /* Resources */,
+				6553167A2B861C59A63EBD92 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -171,6 +187,7 @@
 			);
 			name = WeReadBar;
 			packageProductDependencies = (
+				71474AF1D3FC81F39660F49B /* Sparkle */,
 			);
 			productName = WeReadBar;
 			productReference = 41AC9A727C69D683C7C75FBD /* WeReadBar.app */;
@@ -202,6 +219,9 @@
 			);
 			mainGroup = A634DE1AC4BE7AC6B0F7D1FA;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				F6E4DED3038699C6F9024EC8 /* XCRemoteSwiftPackageReference "Sparkle" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 4BAE2A7110682D5BE09590F8 /* Products */;
 			projectDirPath = "";
@@ -251,6 +271,7 @@
 				9DFF2FA3589B28AC9BE91137 /* SummaryLine.swift in Sources */,
 				F46DEA73AA856D67B8667C01 /* Theme.swift in Sources */,
 				737BF8516D3A2D72BC861276 /* TokenStore.swift in Sources */,
+				ACEB27F203DB4D99AB4C9E8D /* UpdateController.swift in Sources */,
 				BD2D02D1537971C6524214BF /* WeReadBarApp.swift in Sources */,
 				5ED97DF3DF787EF17ED1B230 /* WeReadClient.swift in Sources */,
 			);
@@ -321,7 +342,7 @@
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = WeReadBar/Resources/Info.plist;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 0.5.0;
+				MARKETING_VERSION = 0.5.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -395,7 +416,7 @@
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = WeReadBar/Resources/Info.plist;
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 0.5.0;
+				MARKETING_VERSION = 0.5.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.local.wereadbar;
@@ -462,6 +483,25 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F6E4DED3038699C6F9024EC8 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.9.6;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		71474AF1D3FC81F39660F49B /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F6E4DED3038699C6F9024EC8 /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7B314ED0787ECDAB599874D3 /* Project object */;
 }

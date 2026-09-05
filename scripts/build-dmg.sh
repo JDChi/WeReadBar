@@ -58,7 +58,7 @@ xcodebuild \
   CODE_SIGNING_REQUIRED=NO \
   CODE_SIGNING_ALLOWED=NO \
   MARKETING_VERSION="${VERSION}" \
-  CURRENT_PROJECT_VERSION="1" \
+  CURRENT_PROJECT_VERSION="${VERSION}" \
   build | tail -40
 
 APP_PATH="build/Build/Products/Release/WeReadBar.app"
